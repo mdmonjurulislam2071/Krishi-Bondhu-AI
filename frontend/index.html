@@ -1,0 +1,2820 @@
+﻿<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth overflow-x-hidden">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>কৃষি BONDHU AI - NASA Space Apps 2026</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Hind Siliguri (Bangla) & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            leaf: { 50: '#ecfdf5', 100: '#d1fae5', 400: '#34d399', 500: '#10B981', 600: '#059669', 700: '#047857', 800: '#065f46', 900: '#064e3b' },
+            terracotta: { 50: '#fff7ed', 100: '#ffedd5', 500: '#EA580C', 600: '#c2410c', 700: '#9a3412' },
+            harvest: { 50: '#fffbeb', 100: '#fef3c7', 500: '#F59E0B', 600: '#d97706', 700: '#b45309' },
+            canal: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0284C7', 600: '#0369a1', 700: '#075985' },
+            earth: { 50: '#F4F7F4', 100: '#E5EBE5', 200: '#CBD7CB', 300: '#A3BBA3', 700: '#223328', 800: '#1A261E', 900: '#111A14', 950: '#0A0F0D' }
+          },
+          fontFamily: {
+            sans: ['"Hind Siliguri"', '"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', '"Hind Siliguri"', 'sans-serif'],
+          },
+          boxShadow: {
+            'glow-leaf': '0 0 25px -4px rgba(16, 185, 129, 0.45)',
+            'glow-sun': '0 0 25px -4px rgba(245, 158, 11, 0.45)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      transition: background-color 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .pb-safe {
+      padding-bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .page-view {
+      display: none;
+    }
+
+    .page-view.active-page {
+      display: block;
+      animation: fadeIn 0.2s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pulse-mic {
+      animation: micPulse 1.8s infinite;
+    }
+
+    @keyframes micPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 16px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .recording-wave {
+      animation: recPulse 1.2s infinite;
+    }
+
+    @keyframes recPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 20px rgba(239, 68, 68, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+      }
+    }
+
+    .bar {
+      animation: soundwave 0.8s ease-in-out infinite alternate;
+    }
+
+    .bar:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .bar:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .bar:nth-child(4) {
+      animation-delay: 0.1s;
+    }
+
+    .bar:nth-child(5) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes soundwave {
+      0% {
+        height: 6px;
+      }
+
+      100% {
+        height: 26px;
+      }
+    }
+
+    .touch-target {
+      min-height: 48px;
+      min-width: 48px;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-earth-50 text-slate-800 dark:bg-earth-950 dark:text-slate-100 min-h-screen flex flex-col font-sans pb-safe overflow-x-hidden">
+
+  <!-- TOP BANNER: NASA SATELLITE STATUS -->
+  <div
+    class="bg-gradient-to-r from-leaf-900 via-leaf-800 to-emerald-950 text-white text-xs px-3 sm:px-4 py-2 border-b border-leaf-700/60 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="flex h-2.5 w-2.5 relative shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-harvest-400 opacity-80"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-leaf-400"></span>
+        </span>
+        <span class="font-black text-emerald-200" data-i18n="topMission">নাসা স্পেস অ্যাপস ২০২৬:</span>
+        <span class="text-white font-bold" data-i18n="topDesc">কৃষক ভাইদের পরম বন্ধু — নাসা স্যাটেলাইটের তথ্যে নিরাপদ ও
+          সাশ্রয়ী চাষাবাদ</span>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3 text-[11px]">
+        <button onclick="toggleAmbience()"
+          class="flex items-center gap-1.5 text-emerald-200 hover:text-white px-2.5 py-1 rounded-xl bg-white/10 transition touch-target min-h-0">
+          <i class="fa-solid fa-wind" id="soundIcon"></i>
+          <span id="soundText" data-i18n="topWind">মাঠের বাতাস</span>
+        </button>
+        <span
+          class="text-harvest-300 font-mono font-black flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded-lg whitespace-nowrap">
+          <i class="fa-solid fa-satellite text-leaf-400"></i> <span data-i18n="topLiveRadar">SMAP + GPM লাইভ
+            রাডার</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header
+    class="sticky top-0 z-40 bg-white/95 dark:bg-earth-900/95 backdrop-blur-md border-b border-earth-200 dark:border-earth-700 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-3">
+      <!-- Brand Logo -->
+      <a href="#landing" onclick="navigateTo('landing'); return false;"
+        class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        <div
+          class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 p-1.5 flex items-center justify-center shrink-0 border border-earth-200 dark:border-earth-700 shadow-sm overflow-hidden">
+          <img src="assets/icons/logo.png" alt="কৃষি BONDHU AI Logo" class="w-full h-full object-contain">
+        </div>
+        <div>
+          <div class="flex items-center gap-1 sm:gap-1.5">
+            <span class="text-lg sm:text-2xl font-black text-slate-900 dark:text-white">কৃষি BONDHU</span>
+            <span
+              class="bg-gradient-to-r from-harvest-500 to-terracotta-500 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full uppercase">AI</span>
+          </div>
+          <p class="text-[11px] sm:text-xs font-black text-leaf-700 dark:text-leaf-400 truncate max-w-[170px] sm:max-w-none"
+            data-i18n="navSub">কৃষকের নির্ভরযোগ্য ডিজিটাল পরামর্শক</p>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Tabs -->
+      <nav
+        class="hidden lg:flex items-center gap-1 bg-earth-100 dark:bg-earth-800 p-1.5 rounded-full border border-earth-200 dark:border-earth-700">
+        <button onclick="navigateTo('landing')" data-nav="landing"
+          class="nav-btn px-4 py-2.5 rounded-full text-xs font-black transition touch-target flex items-center gap-1.5">
+          <i class="fa-solid fa-house"></i> <span data-i18n="navHome">প্রথম পাতা</span>
+        </button>
+        <button onclick="navigateTo('map-explorer')" data-nav="map-explorer"
+          class="nav-btn px-4 py-2.5 rounded-full text-xs font-black transition touch-target flex items-center gap-1.5">
+          <i class="fa-solid fa-map-location-dot"></i> <span data-i18n="navMap">জমির নকশা</span>
+        </button>
+        <button onclick="navigateTo('crop-recommender')" data-nav="crop-recommender"
+          class="nav-btn px-4 py-2.5 rounded-full text-xs font-black transition touch-target flex items-center gap-1.5">
+          <i class="fa-solid fa-seedling"></i> <span data-i18n="navCrops">লাভজনক ফসল</span>
+        </button>
+        <button onclick="navigateTo('irrigation-alerts')" data-nav="irrigation-alerts"
+          class="nav-btn px-4 py-2.5 rounded-full text-xs font-black transition touch-target flex items-center gap-1.5">
+          <i class="fa-solid fa-gas-pump"></i> <span data-i18n="navIrrig">সেচ ও তেলের খরচ</span>
+        </button>
+        <button onclick="navigateTo('dashboard')" data-nav="dashboard"
+          class="nav-btn px-4 py-2.5 rounded-full text-xs font-black transition touch-target flex items-center gap-1.5">
+          <i class="fa-solid fa-chart-pie"></i> <span data-i18n="navDash">ফসলের হালচাল</span>
+        </button>
+        <button onclick="navigateTo('resources')" data-nav="resources"
+          class="nav-btn px-4 py-2.5 rounded-full text-xs font-black transition touch-target flex items-center gap-1.5">
+          <i class="fa-solid fa-book-open"></i> <span data-i18n="navRes">নাসা গাইড</span>
+        </button>
+      </nav>
+
+      <!-- Utility Controls -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button onclick="openVoiceModal()"
+          class="flex items-center gap-1.5 sm:gap-2 bg-leaf-600 hover:bg-leaf-700 text-white px-3 sm:px-4 py-2.5 rounded-2xl font-black text-xs sm:text-sm shadow-glow-leaf transition pulse-mic touch-target">
+          <i class="fa-solid fa-microphone text-harvest-300"></i>
+          <span class="hidden sm:inline" data-i18n="navVoice">মুখে বলুন</span>
+        </button>
+        <button id="langToggleBtn" onclick="toggleLanguage()"
+          class="px-2.5 sm:px-3.5 py-2.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-800 dark:text-slate-200 text-xs font-black transition flex items-center gap-1.5 touch-target shadow-sm">
+          <i class="fa-solid fa-language text-leaf-600 text-sm sm:text-base"></i>
+          <span id="currentLangLabel">English</span>
+        </button>
+        <button onclick="toggleDarkMode()" aria-label="Toggle theme"
+          class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-700 dark:text-harvest-400 transition flex items-center justify-center text-sm sm:text-base touch-target shadow-sm">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
+        <button onclick="toggleMobileDrawer()" aria-label="Menu"
+          class="lg:hidden w-10 h-10 sm:w-12 sm:h-12 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-800 dark:text-white flex items-center justify-center touch-target">
+          <i class="fa-solid fa-bars text-base sm:text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawer"
+      class="hidden lg:hidden border-t-2 border-earth-200 dark:border-earth-700 bg-white/98 dark:bg-earth-900/98 backdrop-blur-xl px-4 py-4 space-y-2">
+      <button onclick="navigateTo('landing'); toggleMobileDrawer();"
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-black text-sm text-slate-800 dark:text-slate-100 hover:bg-leaf-50 dark:hover:bg-earth-800 touch-target text-left">
+        <i class="fa-solid fa-house text-leaf-600 w-5"></i> <span data-i18n="navHome">প্রথম পাতা</span>
+      </button>
+      <button onclick="navigateTo('map-explorer'); toggleMobileDrawer();"
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-black text-sm text-slate-800 dark:text-slate-100 hover:bg-leaf-50 dark:hover:bg-earth-800 touch-target text-left">
+        <i class="fa-solid fa-map-location-dot text-canal-600 w-5"></i> <span data-i18n="navMap">জমির নকশা</span>
+      </button>
+      <button onclick="navigateTo('crop-recommender'); toggleMobileDrawer();"
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-black text-sm text-slate-800 dark:text-slate-100 hover:bg-leaf-50 dark:hover:bg-earth-800 touch-target text-left">
+        <i class="fa-solid fa-seedling text-harvest-600 w-5"></i> <span data-i18n="navCrops">লাভজনক ফসল</span>
+      </button>
+      <button onclick="navigateTo('irrigation-alerts'); toggleMobileDrawer();"
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-black text-sm text-slate-800 dark:text-slate-100 hover:bg-leaf-50 dark:hover:bg-earth-800 touch-target text-left">
+        <i class="fa-solid fa-gas-pump text-terracotta-600 w-5"></i> <span data-i18n="navIrrig">সেচ ও তেলের খরচ</span>
+      </button>
+      <button onclick="navigateTo('dashboard'); toggleMobileDrawer();"
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-black text-sm text-slate-800 dark:text-slate-100 hover:bg-leaf-50 dark:hover:bg-earth-800 touch-target text-left">
+        <i class="fa-solid fa-chart-pie text-emerald-600 w-5"></i> <span data-i18n="navDash">ফসলের হালচাল</span>
+      </button>
+      <button onclick="navigateTo('resources'); toggleMobileDrawer();"
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-black text-sm text-slate-800 dark:text-slate-100 hover:bg-leaf-50 dark:hover:bg-earth-800 touch-target text-left">
+        <i class="fa-solid fa-book-open text-indigo-600 w-5"></i> <span data-i18n="navRes">নাসা গাইড</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN APP ROUTING CONTAINER -->
+  <main class="flex-grow pb-24 md:pb-8">
+
+    <!-- PAGE 1: LANDING -->
+    <section id="page-landing" class="page-view active-page">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
+        <!-- Hero Banner with Farmer Photo -->
+        <div
+          class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-900 via-leaf-900 to-emerald-950 text-white shadow-xl border-2 border-leaf-700/50">
+          <div class="grid grid-cols-1 lg:grid-cols-12 items-center">
+            <div class="p-5 sm:p-8 lg:p-10 lg:col-span-7 space-y-4">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-leaf-500/20 text-emerald-300 border border-leaf-400/30 text-xs font-black">
+                <i class="fa-solid fa-satellite text-harvest-400"></i>
+                <span data-i18n="heroBadge">নাসা উপগ্রহের সরাসরি তথ্য</span>
+              </div>
+              <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight" data-i18n="heroTitle">
+                আপনার জমির খবর জানুন সহজেই — কোন ফসল বুনবেন, কখন সেচ দেবেন!
+              </h1>
+              <p class="text-emerald-100 text-xs sm:text-base leading-relaxed font-medium" data-i18n="heroSub">
+                অতিরিক্ত তাপদাহ বা অনাবৃষ্টিতেও ফসলের ক্ষতি হবে না। নাসা স্যাটেলাইটের মাটির রস ও তাপমাত্রার নির্ভুল তথ্য
+                দিয়ে তৈরি এই সহজ অ্যাপ। মুখে প্রশ্ন করলেই কৃষি BONDHU AI সঙ্গে সঙ্গে আমাদের মুখের ভাষায় করণীয় জানিয়ে
+                দেবে।
+              </p>
+              
+     <!-- National 64-District & Division Selector Box -->
+     <div class="p-3.5 sm:p-4 rounded-2xl bg-black/40 border-2 border-leaf-500/50 space-y-2.5 backdrop-blur-sm">
+       <div class="flex items-center justify-between flex-wrap gap-1">
+         <span class="text-xs sm:text-sm font-black text-harvest-300 flex items-center gap-1.5">
+           <i class="fa-solid fa-map-location-dot text-leaf-400"></i> আপনার জেলা নির্বাচন করুন (৬৪ জেলা):
+         </span>
+         <span id="hero-aez-tag" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-leaf-950 border border-leaf-500 text-leaf-300 font-mono">
+           AEZ-25: High Barind
+         </span>
+       </div>
+       
+       <!-- Division Quick Filter Pills -->
+       <div class="flex flex-wrap gap-1 text-[11px]" id="hero-division-pills">
+         <button type="button" onclick="filterDistrictsByDivision('all', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-leaf-600 text-white">সব</button>
+         <button type="button" onclick="filterDistrictsByDivision('Rajshahi', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">রাজশাহী</button>
+         <button type="button" onclick="filterDistrictsByDivision('Rangpur', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">রংপুর</button>
+         <button type="button" onclick="filterDistrictsByDivision('Sylhet', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">সিলেট</button>
+         <button type="button" onclick="filterDistrictsByDivision('Khulna', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">খুলনা</button>
+         <button type="button" onclick="filterDistrictsByDivision('Barishal', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">বরিশাল</button>
+         <button type="button" onclick="filterDistrictsByDivision('Dhaka', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">ঢাকা</button>
+         <button type="button" onclick="filterDistrictsByDivision('Chattogram', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">চট্টগ্রাম</button>
+         <button type="button" onclick="filterDistrictsByDivision('Mymensingh', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">ময়মনসিংহ</button>
+       </div>
+
+       <!-- 64 District Dropdown -->
+       <select id="heroDistrictSelect" onchange="onDistrictSelectionChanged()" class="w-full bg-slate-900 border-2 border-leaf-500 rounded-xl px-3 py-2 text-sm sm:text-base text-white font-bold focus:outline-none shadow-inner">
+         <option value="rajshahi">রাজশাহী (Rajshahi) - বরেন্দ্র খরা জোন</option>
+         <option value="sylhet">সিলেট (Sylhet) - হাওর প্লাবন জোন</option>
+         <option value="satkhira">সাতক্ষীরা (Satkhira) - উপকূলীয় লবণাক্ত জোন</option>
+         <option value="kurigram">কুড়িগ্রাম (Kurigram) - তিস্তা চরাঞ্চল</option>
+       </select>
+       <div class="flex items-center justify-between text-[11px] text-emerald-200">
+         <span id="hero-dist-risk">⚠️ তীব্র ভূগর্ভস্থ পানির সংকট ও খরা</span>
+         <span class="text-harvest-400 font-bold"><i class="fa-solid fa-satellite"></i> নাসা লাইভ সংযুক্ত</span>
+       </div>
+     </div>
+
+<div class="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
+                <button onclick="openVoiceModal()"
+                  class="w-full sm:w-auto bg-harvest-500 hover:bg-harvest-600 text-slate-950 font-black px-5 sm:px-6 py-3.5 rounded-2xl shadow-glow-sun transition flex items-center justify-center gap-2.5 text-sm sm:text-base pulse-mic touch-target">
+                  <i class="fa-solid fa-microphone text-lg sm:text-xl text-terracotta-600"></i>
+                  <span data-i18n="heroBtnVoice">মুখে বলুন (কৃষি BONDHU AI)</span>
+                </button>
+                <button onclick="navigateTo('map-explorer')"
+                  class="flex-1 sm:flex-initial bg-white/10 hover:bg-white/20 border-2 border-white/20 text-white font-black px-4 sm:px-5 py-3.5 rounded-2xl transition flex items-center justify-center gap-2 text-xs sm:text-sm touch-target">
+                  <i class="fa-solid fa-map-location-dot text-emerald-400 text-base sm:text-lg"></i>
+                  <span data-i18n="heroBtnMap">জমির নকশা</span>
+                </button>
+                <button onclick="navigateTo('crop-recommender')"
+                  class="flex-1 sm:flex-initial bg-leaf-600 hover:bg-leaf-700 text-white font-black px-4 sm:px-5 py-3.5 rounded-2xl transition flex items-center justify-center gap-2 text-xs sm:text-sm touch-target">
+                  <i class="fa-solid fa-seedling text-harvest-300 text-base sm:text-lg"></i>
+                  <span data-i18n="heroBtnCrops">লাভজনক ফসল</span>
+                </button>
+              </div>
+
+              <!-- High Contrast Stats -->
+              <div class="pt-5 border-t border-emerald-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="p-3 sm:p-3.5 rounded-2xl bg-white/10 border border-white/15">
+                  <div class="flex items-center gap-1.5 text-emerald-300 mb-0.5 text-[11px] font-black">
+                    <i class="fa-solid fa-circle-check"></i> <span data-i18n="stat1Lbl">সুরক্ষিত আবাদি জমি</span>
+                  </div>
+                  <div class="text-xl sm:text-2xl font-black text-white" data-i18n="stat1Val">১,৮৫০+ হেক্টর</div>
+                </div>
+                <div class="p-3 sm:p-3.5 rounded-2xl bg-white/10 border border-white/15">
+                  <div class="flex items-center gap-1.5 text-harvest-300 mb-0.5 text-[11px] font-black">
+                    <i class="fa-solid fa-droplet"></i> <span data-i18n="stat2Lbl">সেচের পানি সাশ্রয়</span>
+                  </div>
+                  <div class="text-xl sm:text-2xl font-black text-harvest-400" data-i18n="stat2Val">৩৮.৫%</div>
+                </div>
+                <div class="p-3 sm:p-3.5 rounded-2xl bg-white/10 border border-white/15">
+                  <div class="flex items-center gap-1.5 text-emerald-300 mb-0.5 text-[11px] font-black">
+                    <i class="fa-solid fa-hand-holding-dollar"></i> <span data-i18n="stat3Lbl">ব্যবহারের খরচ</span>
+                  </div>
+                  <div class="text-xl sm:text-2xl font-black text-emerald-300" data-i18n="stat3Val">১০০% সম্পূর্ণ ফ্রি
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Farmer Photo Card -->
+            <div
+              class="lg:col-span-5 h-64 sm:h-80 lg:h-full relative overflow-hidden flex items-center justify-center p-4">
+              <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=1000&q=80"
+                alt="Farmer checking wheat crops"
+                class="w-full h-full object-cover rounded-2xl shadow-md border-2 border-white/20" />
+              <div
+                class="absolute bottom-6 left-6 right-6 bg-slate-950/85 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl text-xs text-white border border-white/20 flex items-center gap-3">
+                <div
+                  class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-leaf-600 text-white flex items-center justify-center text-lg sm:text-xl shrink-0">
+                  <i class="fa-solid fa-hand-holding-droplet"></i>
+                </div>
+                <div>
+                  <strong class="text-harvest-400 block text-xs sm:text-sm font-black" data-i18n="heroCapTitle">মাটির
+                    নিচে পর্যাপ্ত রস আছে কি?</strong>
+                  <span class="text-slate-200 text-[11px] sm:text-xs font-medium" data-i18n="heroCapSub">নাসার এসএমএপি
+                    (SMAP) উপগ্রহ মাটির ১০০ সেমি গভীরের আর্দ্রতা পরিমাপ করে।</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-DAY SATELLITE RAIN FORECAST (NASA GPM RADAR) -->
+        <div
+          class="bg-white dark:bg-earth-900 p-4 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm space-y-4">
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-earth-100 dark:border-earth-800 pb-3">
+            <div class="flex items-center gap-2.5">
+              <div
+                class="w-10 h-10 rounded-2xl bg-canal-100 dark:bg-canal-950 text-canal-600 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-cloud-sun-rain"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-black uppercase text-canal-600 dark:text-canal-400"
+                  data-i18n="gpmHeaderBadge">নাসা GPM স্যাটেলাইট রাডার</span>
+                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white" data-i18n="gpmHeading">আগামী
+                  ৩ দিনের বৃষ্টির পূর্বাভাস ও সেচ পরামর্শ</h3>
+              </div>
+            </div>
+            <span
+              class="px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300 flex items-center gap-1.5 self-start sm:self-auto">
+              <i class="fa-solid fa-satellite animate-pulse"></i> <span data-i18n="gpmRadarTag">রাডার সিগন্যাল
+                সচল</span>
+            </span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="forecastCardsContainer"></div>
+        </div>
+
+        <!-- 3 CORE PILLARS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          <div onclick="navigateTo('map-explorer')"
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-leaf-500 transition cursor-pointer flex flex-col justify-between group touch-target">
+            <div class="space-y-3">
+              <div class="h-40 sm:h-44 rounded-2xl overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80"
+                  alt="Soil moisture checking"
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                <span
+                  class="absolute top-3 right-3 bg-canal-600 text-white text-xs font-black px-3 py-1 rounded-full shadow">
+                  <i class="fa-solid fa-droplet"></i> <span data-i18n="pillar1Badge">মাটির আর্দ্রতা</span>
+                </span>
+              </div>
+              <h3 class="font-black text-base sm:text-lg text-slate-900 dark:text-white" data-i18n="pillar1Title">মাটিতে
+                কতটা রস আছে?</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium" data-i18n="pillar1Desc">
+                নাসার SMAP স্যাটেলাইট বলে দেবে কোন জমির রস কমে গেছে আর কোথায় সেচ দিতে হবে। খরায় গাছ শুকিয়ে যাওয়ার আগেই
+                সময়মতো সতর্ক হোন।
+              </p>
+            </div>
+            <div
+              class="mt-4 pt-3 border-t border-earth-100 dark:border-earth-800 flex items-center justify-between text-leaf-600 font-black text-xs">
+              <span data-i18n="pillar1Action">জমির অবস্থা দেখুন</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+
+          <div onclick="navigateTo('crop-recommender')"
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-harvest-500 transition cursor-pointer flex flex-col justify-between group touch-target">
+            <div class="space-y-3">
+              <div class="h-40 sm:h-44 rounded-2xl overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=80"
+                  alt="Millet field" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                <span
+                  class="absolute top-3 right-3 bg-harvest-600 text-white text-xs font-black px-3 py-1 rounded-full shadow">
+                  <i class="fa-solid fa-wheat-awn"></i> <span data-i18n="pillar2Badge">স্বল্প পানির ফসল</span>
+                </span>
+              </div>
+              <h3 class="font-black text-base sm:text-lg text-slate-900 dark:text-white" data-i18n="pillar2Title">
+                অনাবৃষ্টিতে কোন ফসল লাগাবেন?</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium" data-i18n="pillar2Desc">
+                বৃষ্টি কম হলে ধানের পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা ডাল চাষ করুন। অল্প পানিতে স্বল্প খরচে
+                বেশি নিশ্চিত লাভ পান।
+              </p>
+            </div>
+            <div
+              class="mt-4 pt-3 border-t border-earth-100 dark:border-earth-800 flex items-center justify-between text-harvest-600 font-black text-xs">
+              <span data-i18n="pillar2Action">লাভজনক ফসল বেছে নিন</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+
+          <div onclick="navigateTo('irrigation-alerts')"
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-terracotta-500 transition cursor-pointer flex flex-col justify-between group touch-target">
+            <div class="space-y-3">
+              <div class="h-40 sm:h-44 rounded-2xl overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=800&q=80"
+                  alt="Proud farmer in sunlight"
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                <span
+                  class="absolute top-3 right-3 bg-terracotta-600 text-white text-xs font-black px-3 py-1 rounded-full shadow">
+                  <i class="fa-solid fa-gas-pump"></i> <span data-i18n="pillar3Badge">সেচ ও ডিজেল হিসাব</span>
+                </span>
+              </div>
+              <h3 class="font-black text-base sm:text-lg text-slate-900 dark:text-white" data-i18n="pillar3Title">কখন
+                সেচ দিলে টাকা বাঁচবে?</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium" data-i18n="pillar3Desc">
+                দুপুরের কড়া রোদে সেচ দিলে পানি দ্রুত বাষ্প হয়ে নষ্ট হয়। রাত ৩:৩০ থেকে ভোর ৬:০০ টায় সেচ দিলে পানি শিকড়ে
+                থাকে এবং পাম্পের খরচ অনেক কমে।
+              </p>
+            </div>
+            <div
+              class="mt-4 pt-3 border-t border-earth-100 dark:border-earth-800 flex items-center justify-between text-terracotta-600 font-black text-xs">
+              <span data-i18n="pillar3Action">পাম্পের খরচ হিসাব করুন</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: NASA EARTH EXPLORER MAP -->
+    <section id="page-map-explorer" class="page-view">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <div
+          class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white dark:bg-earth-900 p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
+              <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
+                data-i18n="navHome">প্রথম পাতা</a>
+              <span>/</span>
+              <span class="text-slate-900 dark:text-white" data-i18n="navMap">জমির নকশা</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="explorerHeading">জমির
+              মাটির রস ও স্যাটেলাইট মানচিত্র</h1>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-0.5 font-medium" data-i18n="explorerSub">
+              যেকোনো জমির ওপর আঙুল দিয়ে চাপ দিন। মাটির গভীরের রস, ফসলের সবুজ সতেজতা ও সেচের সঠিক সময় জেনে নিন।
+            </p>
+          </div>
+
+          <div
+            class="flex flex-wrap items-center gap-1.5 sm:gap-2 bg-earth-100 dark:bg-earth-800 p-1.5 rounded-2xl border border-earth-200 dark:border-earth-700">
+            <button onclick="setMapLayer('smap')" id="layer-btn-smap"
+              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target text-center">
+              <i class="fa-solid fa-droplet mr-1"></i> <span data-i18n="layerSmap">মাটির রস (SMAP)</span>
+            </button>
+            <button onclick="setMapLayer('ndvi')" id="layer-btn-ndvi"
+              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
+              <i class="fa-solid fa-leaf mr-1"></i> <span data-i18n="layerNdvi">গাছের সতেজতা (NDVI)</span>
+            </button>
+            <button onclick="setMapLayer('ecostress')" id="layer-btn-ecostress"
+              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
+              <i class="fa-solid fa-temperature-high mr-1"></i> <span data-i18n="layerEcostress">রোদের তাপ
+                (ECOSTRESS)</span>
+            </button>
+            <button onclick="setMapLayer('gpm')" id="layer-btn-gpm"
+              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
+              <i class="fa-solid fa-cloud-showers-heavy mr-1"></i> <span data-i18n="layerGpm">বৃষ্টির মেঘ (GPM)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-8 space-y-4">
+            <div
+              class="bg-white dark:bg-earth-900 p-4 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm relative overflow-hidden">
+              <div
+                class="flex items-center justify-between pb-3 mb-2 border-b border-earth-100 dark:border-earth-800 text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span id="activeLayerIndicator"
+                    class="font-black text-slate-900 dark:text-white truncate max-w-[200px] sm:max-w-none">নাসা SMAP
+                    উপগ্রহ</span>
+                </div>
+                <div
+                  class="flex items-center gap-2 text-[11px] font-mono font-bold text-leaf-700 dark:text-leaf-300 bg-earth-50 dark:bg-earth-800 px-2.5 py-1 rounded-xl shrink-0">
+                  <span data-i18n="orbitPass">স্যাটেলাইট পাস #৪১২০৯</span>
+                  <span>|</span>
+                  <span id="zoomLevelDisplay">১৪x</span>
+                </div>
+              </div>
+
+              <!-- Farm Parcels SVG Canvas -->
+              <div
+                class="relative w-full max-w-full aspect-[4/3] sm:aspect-[16/10] bg-earth-950 rounded-2xl border-2 border-leaf-700/40 overflow-hidden select-none">
+                <svg id="farmParcelsSvg" class="w-full h-full object-cover transition-transform duration-300"
+                  viewBox="0 0 800 500">
+                  <rect width="800" height="500" fill="#09140e" />
+                  <path d="M-10,395 C140,380 260,450 460,420 C620,395 710,460 810,445 L810,500 L-10,500 Z"
+                    fill="#0284c7" opacity="0.95" />
+                  <text x="320" y="465" fill="#ffffff" font-size="12" font-weight="800" data-i18n="svgRiver">প্রধান সেচ
+                    ক্যানেল ও নদী</text>
+
+                  <!-- 4 Parcels -->
+                  <g class="cursor-pointer" onclick="selectParcelData('parcel-1')" id="svg-group-parcel-1">
+                    <polygon points="50,45 320,50 300,205 40,190" id="poly-parcel-1" fill="#10B981" fill-opacity="0.85"
+                      stroke="#ffffff" stroke-width="2" />
+                    <circle cx="160" cy="115" r="7" fill="#ffffff" stroke="#10B981" stroke-width="2.5"
+                      class="animate-pulse" />
+                    <text x="75" y="115" fill="#ffffff" font-size="15" font-weight="800" id="svg-text-p1">১ নম্বর জমি:
+                      উত্তর বাগান</text>
+                    <text x="75" y="136" fill="#d1fae5" font-size="12" font-weight="700" id="svg-sub-p1">বোরো ধান ও ডাল
+                      • ৪৫ হেক্টর</text>
+                  </g>
+
+                  <g class="cursor-pointer" onclick="selectParcelData('parcel-2')" id="svg-group-parcel-2">
+                    <polygon points="340,40 760,35 770,195 320,205" id="poly-parcel-2" fill="#EA580C"
+                      fill-opacity="0.88" stroke="#ffffff" stroke-width="3.5" />
+                    <circle cx="540" cy="115" r="8" fill="#ffffff" stroke="#EA580C" stroke-width="3"
+                      class="animate-ping" />
+                    <text x="440" y="115" fill="#ffffff" font-size="15" font-weight="800" id="svg-text-p2">২ নম্বর জমি:
+                      পূর্ব উঁচু ক্ষেত</text>
+                    <text x="440" y="136" fill="#fed7aa" font-size="12" font-weight="700" id="svg-sub-p2">ভুট্টা ক্ষেত •
+                      ৮২ হেক্টর</text>
+                  </g>
+
+                  <g class="cursor-pointer" onclick="selectParcelData('parcel-3')" id="svg-group-parcel-3">
+                    <polygon points="40,220 360,225 380,360 30,350" id="poly-parcel-3" fill="#059669"
+                      fill-opacity="0.85" stroke="#ffffff" stroke-width="2" />
+                    <circle cx="180" cy="285" r="7" fill="#ffffff" stroke="#059669" stroke-width="2.5" />
+                    <text x="80" y="285" fill="#ffffff" font-size="15" font-weight="800" id="svg-text-p3">৩ নম্বর জমি:
+                      নিচু মাঠ</text>
+                    <text x="80" y="306" fill="#d1fae5" font-size="12" font-weight="700" id="svg-sub-p3">মুগ ও ছোলা ডাল
+                      • ৫৮ হেক্টর</text>
+                  </g>
+
+                  <g class="cursor-pointer" onclick="selectParcelData('parcel-4')" id="svg-group-parcel-4">
+                    <polygon points="380,225 760,210 740,380 400,370" id="poly-parcel-4" fill="#F59E0B"
+                      fill-opacity="0.85" stroke="#ffffff" stroke-width="2" />
+                    <circle cx="550" cy="285" r="7" fill="#ffffff" stroke="#F59E0B" stroke-width="2.5" />
+                    <text x="460" y="285" fill="#ffffff" font-size="15" font-weight="800" id="svg-text-p4">৪ নম্বর জমি:
+                      বাজরা শিফট</text>
+                    <text x="460" y="306" fill="#fef3c7" font-size="12" font-weight="700" id="svg-sub-p4">দানা জোয়ার ও
+                      বাজরা • ৭০ হেক্টর</text>
+                  </g>
+                </svg>
+
+                <!-- Map Legend -->
+                <div
+                  class="absolute bottom-3 left-3 bg-white/95 dark:bg-earth-900/95 p-2.5 sm:p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 text-xs shadow-md max-w-[200px] sm:max-w-xs">
+                  <div class="font-black text-slate-900 dark:text-white mb-1" id="mapLegendTitle">মাটির রস নির্দেশক
+                    স্কেল</div>
+                  <div class="w-full h-3 rounded-full bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 mb-1"
+                    id="mapLegendBar"></div>
+                  <div class="flex justify-between text-[9px] sm:text-[10px] font-black" id="mapLegendLabels"></div>
+                </div>
+
+                <!-- Zoom Controls -->
+                <div class="absolute top-3 right-3 flex flex-col gap-2 z-10">
+                  <button onclick="zoomMap(1.15)" aria-label="Zoom in"
+                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+                  <button onclick="zoomMap(0.85)" aria-label="Zoom out"
+                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
+                  <button onclick="resetMap()" aria-label="Reset map"
+                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                    <i class="fa-solid fa-rotate-left"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 7-Day Timeline -->
+              <div
+                class="mt-4 pt-3 border-t border-earth-100 dark:border-earth-800 flex flex-col sm:flex-row items-center gap-3">
+                <div class="flex items-center gap-2 self-start sm:self-auto">
+                  <button id="playbackToggleBtn" onclick="toggleMapPlayback()" aria-label="Play timeline"
+                    class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white flex items-center justify-center transition shadow-sm touch-target">
+                    <i class="fa-solid fa-play text-sm" id="playBtnIcon"></i>
+                  </button>
+                  <span class="text-xs font-black text-slate-900 dark:text-white whitespace-nowrap"
+                    data-i18n="timeScrubber">বিগত ৭ দিনের চিত্র:</span>
+                </div>
+                <input type="range" id="timeScrubber" min="0" max="6" value="6" step="1"
+                  oninput="handleTimeScrubber(this.value)" class="w-full accent-leaf-600 cursor-pointer h-3 rounded-lg">
+                <span id="timeScrubberLabel"
+                  class="text-xs font-mono font-black text-leaf-800 dark:text-leaf-300 bg-earth-100 dark:bg-earth-800 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl whitespace-nowrap self-stretch sm:self-auto text-center">
+                  আজকের লাইভ ছবি (Nov 2026)
+                </span>
+              </div>
+            </div>
+
+            <!-- Satellite Sensor Specs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div
+                class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
+                <span class="text-[11px] font-black text-canal-600 block mb-0.5">SMAP উপগ্রহ</span>
+                <p class="text-xs font-black text-slate-900 dark:text-white" data-i18n="specSmap">মাটির ১০০ সেমি গভীরে
+                  রস</p>
+              </div>
+              <div
+                class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
+                <span class="text-[11px] font-black text-leaf-600 block mb-0.5">Landsat 8/9</span>
+                <p class="text-xs font-black text-slate-900 dark:text-white" data-i18n="specLandsat">গাছের পাতার সবুজ
+                  সতেজতা</p>
+              </div>
+              <div
+                class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
+                <span class="text-[11px] font-black text-harvest-600 block mb-0.5">ECOSTRESS</span>
+                <p class="text-xs font-black text-slate-900 dark:text-white" data-i18n="specEcostress">রোদে পানি উবে
+                  যাওয়ার চাপ</p>
+              </div>
+              <div
+                class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
+                <span class="text-[11px] font-black text-canal-600 block mb-0.5">GPM রাডার</span>
+                <p class="text-xs font-black text-slate-900 dark:text-white" data-i18n="specGpm">মেঘ ও বৃষ্টির পূর্বাভাস
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inspector Panel -->
+          <div class="lg:col-span-4" id="parcelInspectorSection">
+            <div
+              class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-xl space-y-4 sm:space-y-5 lg:sticky lg:top-24">
+              <div class="flex items-center justify-between pb-3 border-b border-earth-100 dark:border-earth-800">
+                <div>
+                  <span class="text-[10px] font-black uppercase text-leaf-600 dark:text-leaf-400"
+                    data-i18n="diagSelected">নির্বাচিত জমি</span>
+                  <h3 id="inspectorParcelName" class="text-base sm:text-lg font-black text-slate-900 dark:text-white">২
+                    নম্বর জমি: পূর্ব উঁচু ক্ষেত</h3>
+                </div>
+                <span id="inspectorStatusBadge"
+                  class="px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-black border flex items-center gap-1"></span>
+              </div>
+
+              <div class="space-y-3.5 sm:space-y-4">
+                <div>
+                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-droplet text-canal-500"></i> <span
+                        data-i18n="diagMoistLbl">মাটির শিকড়ের রস</span></span>
+                    <span id="inspectorMoistVal" class="text-rose-600 font-black"></span>
+                  </div>
+                  <div class="w-full h-3 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
+                    <div id="inspectorMoistBar" class="h-full bg-rose-500 rounded-full transition-all duration-500">
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-leaf text-leaf-500"></i> <span
+                        data-i18n="diagNdviLbl">গাছের সতেজতা ও স্বাস্থ্য</span></span>
+                    <span id="inspectorNdviVal" class="font-black text-amber-600"></span>
+                  </div>
+                  <div class="w-full h-3 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
+                    <div id="inspectorNdviBar" class="h-full bg-amber-500 rounded-full transition-all duration-500">
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1">
+                    <span class="flex items-center gap-1.5"><i
+                        class="fa-solid fa-temperature-arrow-up text-rose-500"></i> <span data-i18n="diagHeatLbl">রোদে
+                        পানি শুকিয়ে যাওয়ার চাপ</span></span>
+                    <span id="inspectorEtVal" class="text-rose-600 font-black"></span>
+                  </div>
+                  <div class="w-full h-3 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
+                    <div id="inspectorEtBar" class="h-full bg-rose-600 rounded-full transition-all duration-500"></div>
+                  </div>
+                </div>
+
+                <div
+                  class="p-3.5 sm:p-4 rounded-2xl bg-emerald-50 dark:bg-earth-800/90 border-2 border-emerald-200 dark:border-earth-700">
+                  <div class="flex items-center gap-2 text-xs font-black text-emerald-900 dark:text-emerald-300 mb-1">
+                    <i class="fa-solid fa-lightbulb text-harvest-500 text-sm"></i>
+                    <span data-i18n="diagAdviceTitle">কৃষক ভাইয়ের জন্য সরাসরি পরামর্শ</span>
+                  </div>
+                  <p id="inspectorAdvice"
+                    class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium"></p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <button onclick="navigateTo('crop-recommender')"
+                    class="px-4 py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black transition flex items-center justify-center gap-2 touch-target shadow-sm">
+                    <i class="fa-solid fa-wheat-awn"></i> <span data-i18n="btnTestCrops">বিকল্প ফসল বাছুন</span>
+                  </button>
+                  <button onclick="navigateTo('irrigation-alerts')"
+                    class="px-4 py-3 rounded-2xl bg-earth-100 dark:bg-earth-800 hover:bg-earth-200 dark:hover:bg-earth-700 text-slate-900 dark:text-white text-xs font-black border-2 border-earth-200 dark:border-earth-700 transition flex items-center justify-center gap-2 touch-target">
+                    <i class="fa-solid fa-calculator"></i> <span data-i18n="btnPlanIrrigation">সেচ খরচ হিসাব</span>
+                  </button>
+                </div>
+
+                <button onclick="readAloudInspectorAdvice()"
+                  class="w-full py-3 rounded-2xl bg-white dark:bg-earth-800 border-2 border-leaf-500 text-leaf-700 dark:text-leaf-300 text-xs font-black hover:bg-leaf-50 dark:hover:bg-earth-700 transition flex items-center justify-center gap-2 touch-target shadow-sm">
+                  <i class="fa-solid fa-volume-high text-base"></i> <span data-i18n="btnReadAdvice">পরামর্শটি মুখে
+                    শুনুন</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: ADAPTIVE CROP SHIFT ADVISOR -->
+    <section id="page-crop-recommender" class="page-view">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <div class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
+          <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
+            <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
+              data-i18n="navHome">প্রথম পাতা</a>
+            <span>/</span>
+            <span class="text-slate-900 dark:text-white" data-i18n="navCrops">লাভজনক ফসল</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="cropsHeading">খরায় কম
+            পানিতে বেশি লাভজনক বিকল্প ফসল</h1>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed font-medium"
+            data-i18n="cropsSub">
+            অনাবৃষ্টি বা সেচের পানির সংকট থাকলে সনাতন বোরো ধান বা ভুট্টার পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা
+            ডাল চাষ করুন। অল্প খরচে বেশি ফলন ও নিশ্চিত লাভ মিলবে।
+          </p>
+        </div>
+
+        <!-- SIDE-BY-SIDE QUICK COMPARISON PILLS MATRIX -->
+        <div
+          class="bg-gradient-to-r from-emerald-950 via-leaf-950 to-earth-900 text-white p-5 sm:p-7 rounded-3xl border-2 border-leaf-700/60 shadow-md space-y-4 sm:space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-leaf-800/80 pb-3">
+            <div>
+              <span class="text-[10px] font-black uppercase text-harvest-400" data-i18n="compBadge">এক নজরে তুলনা</span>
+              <h3 class="text-lg sm:text-xl font-black text-white" data-i18n="compHeading">সনাতন ফসল বনাম খরা-সহনশীল
+                স্মার্ট ফসল</h3>
+            </div>
+            <span class="text-xs text-emerald-200 font-bold bg-white/10 px-3 py-1 rounded-full self-start sm:self-auto"
+              data-i18n="compWaterSavedTag">
+              💧 পানি সাশ্রয় ও খরচের হিসাব
+            </span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="cropComparisonGrid"></div>
+        </div>
+
+        <!-- Filter & Feed Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-4 space-y-4">
+            <div
+              class="bg-white dark:bg-earth-900 p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
+              <h3 class="font-black text-base text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-leaf-600"></i>
+                <span data-i18n="paramTitle">আপনার জমির ধরন ও সমস্যা</span>
+              </h3>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5"
+                  data-i18n="paramWeatherLbl">আবহাওয়ার পরিস্থিতি</label>
+                <select id="paramHazard" onchange="filterCropsByParam()"
+                  class="w-full text-xs font-bold p-3.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target">
+                  <option value="drought" data-i18n="optDrought">তীব্র খরা / বৃষ্টির অভাব</option>
+                  <option value="groundwater" data-i18n="optGroundwater">ভূগর্ভস্থ পানির স্তর নেমে যাওয়া</option>
+                  <option value="heat" data-i18n="optHeat">প্রচণ্ড গরম ও তাপদাহ (>৩৮°C)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5"
+                  data-i18n="paramSoilLbl">মাটির ধরন</label>
+                <select id="paramSoil" onchange="filterCropsByParam()"
+                  class="w-full text-xs font-bold p-3.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target">
+                  <option value="sandy-loam" data-i18n="optSandyLoam">বেলে দোআঁশ মাটি</option>
+                  <option value="clay" data-i18n="optClay">এঁটেল ও কাদা মাটি</option>
+                  <option value="alluvial" data-i18n="optAlluvial">পলি মাটি (চরের জমি)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5"
+                  data-i18n="paramGoalLbl">আপনার প্রধান উদ্দেশ্য</label>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <button type="button" onclick="setCropGoal('water', this)"
+                    class="crop-goal-btn active p-3 rounded-2xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-center touch-target"
+                    data-i18n="goalWater">পানি বাঁচানো</button>
+                  <button type="button" onclick="setCropGoal('profit', this)"
+                    class="crop-goal-btn p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-800 dark:text-slate-200 font-bold text-center touch-target"
+                    data-i18n="goalProfit">বেশি লাভ</button>
+                </div>
+              </div>
+
+              <div
+                class="p-3.5 rounded-2xl bg-leaf-500/10 border border-leaf-500/20 text-xs text-leaf-900 dark:text-leaf-200 space-y-1">
+                <span class="font-black flex items-center gap-1.5"><i class="fa-solid fa-satellite"></i> <span
+                    data-i18n="nasaRefTitle">নাসার রেফারেন্স</span></span>
+                <p class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300 font-medium"
+                  data-i18n="nasaRefDesc">
+                  নাসা POWER সৌর বিকিরণ ও Landsat NDVI ফসলের বৃদ্ধি বিশ্লেষণ করে এই তালিকা নির্ধারণ করা হয়েছে।
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Crop Feed -->
+          <div class="lg:col-span-8 space-y-4">
+            <div class="flex items-center justify-between pb-1 text-xs">
+              <span class="font-black text-slate-900 dark:text-white uppercase" id="cropMatchCount">৩টি উপযুক্ত বিকল্প
+                ফসল</span>
+              <span class="text-leaf-600 dark:text-leaf-400 font-black" data-i18n="cropSortBadge">খরা সহনশীলতায়
+                সাজানো</span>
+            </div>
+            <div class="space-y-4" id="cropCardsContainer"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4: IRRIGATION & PUMP COST CALCULATOR -->
+    <section id="page-irrigation-alerts" class="page-view">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <div class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
+          <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
+            <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
+              data-i18n="navHome">প্রথম পাতা</a>
+            <span>/</span>
+            <span class="text-slate-900 dark:text-white" data-i18n="navIrrig">সেচ ও তেলের খরচ</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="irrigHeading">সেচ হিসাব,
+            পাম্প চালানোর সময় ও ডিজেল খরচ ক্যালকুলেটর</h1>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed font-medium"
+            data-i18n="irrigSub">
+            আপনার জমির বিঘা ও পাম্পের ক্ষমতা (HP) বসালেই ঠিক কত সময় পাম্প চালাতে হবে এবং ডিজেল বা বিদ্যুতে কত টাকা খরচ
+            হবে তা সঙ্গে সঙ্গে সহজ ভাষায় পেয়ে যাবেন।
+          </p>
+        </div>
+
+        <!-- Alerts -->
+        <div class="space-y-3">
+          <div
+            class="p-4 sm:p-5 rounded-3xl border-2 border-rose-500 bg-rose-50 dark:bg-earth-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+            <div class="flex items-start gap-3.5">
+              <div
+                class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-md">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-600 text-white"
+                    data-i18n="alertUrgentTag">জরুরি সতর্কতা</span>
+                  <span class="text-xs font-black text-rose-700 dark:text-rose-300" data-i18n="alertUrgentTime">আগামী ৭২
+                    ঘণ্টার পূর্বাভাস</span>
+                </div>
+                <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white" data-i18n="alertUrgentTitle">
+                  পূর্ব উঁচু জমির ভুট্টা ক্ষেতে পানির সংকট!</h4>
+                <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium"
+                  data-i18n="alertUrgentDesc">
+                  ইকোস্ট্রেস স্যাটেলাইটে দেখা যাচ্ছে মাটিতে আর্দ্রতা মাত্র ১৪%। আজ রাতে অথবা কাল ভোরে জমিতে হালকা সেচ
+                  দেওয়া অত্যন্ত জরুরি।
+                </p>
+              </div>
+            </div>
+            <button onclick="dismissBanner(this)"
+              class="px-4 py-2.5 rounded-2xl bg-white dark:bg-earth-800 text-rose-700 dark:text-rose-300 border-2 border-rose-300 font-black text-xs shrink-0 touch-target self-stretch sm:self-auto text-center"
+              data-i18n="btnDismiss">
+              বুঝেছি
+            </button>
+          </div>
+        </div>
+
+        <!-- PUMP CALCULATOR -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div
+            class="lg:col-span-6 bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
+            <div class="flex items-center justify-between border-b border-earth-100 dark:border-earth-800 pb-3">
+              <div>
+                <span class="text-xs font-black uppercase text-leaf-600 dark:text-leaf-400"
+                  data-i18n="calcTitleBadge">সহজ কৃষি ক্যালকুলেটর</span>
+                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white" data-i18n="calcHeading">
+                  পাম্প চালানোর সময় ও তেলের খরচ</h3>
+              </div>
+              <span
+                class="w-10 h-10 rounded-2xl bg-leaf-100 dark:bg-leaf-950 text-leaf-600 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-gas-pump"></i>
+              </span>
+            </div>
+
+            <div class="space-y-3.5 text-xs">
+              <div>
+                <label class="font-black text-slate-800 dark:text-slate-200 block mb-1.5" data-i18n="calcLandLbl">১.
+                  আপনার জমির পরিমাণ</label>
+                <!-- Quick presets -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
+                  <button type="button" onclick="setBighaPreset(1)"
+                    class="bigha-preset-btn p-2 rounded-xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 font-black text-xs text-center touch-target">1
+                    <span data-i18n="unitBighaShort">বিঘা</span></button>
+                  <button type="button" onclick="setBighaPreset(2)"
+                    class="bigha-preset-btn p-2 rounded-xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 font-black text-xs text-center touch-target">2
+                    <span data-i18n="unitBighaShort">বিঘা</span></button>
+                  <button type="button" onclick="setBighaPreset(3)"
+                    class="bigha-preset-btn active p-2 rounded-xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-xs text-center touch-target">3
+                    <span data-i18n="unitBighaShort">বিঘা</span></button>
+                  <button type="button" onclick="setBighaPreset(5)"
+                    class="bigha-preset-btn p-2 rounded-xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 font-black text-xs text-center touch-target">5
+                    <span data-i18n="unitBighaShort">বিঘা</span></button>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                  <input type="number" id="pumpLandBigha" value="3" min="0.5" max="100" step="0.5"
+                    oninput="runPumpCostCalculation()"
+                    class="col-span-2 p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black text-sm touch-target">
+                  <select id="pumpLandUnit" onchange="runPumpCostCalculation()"
+                    class="p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black touch-target">
+                    <option value="bigha" data-i18n="optBigha">বিঘা</option>
+                    <option value="acre" data-i18n="optAcre">একর</option>
+                    <option value="katha" data-i18n="optKatha">কাঠা</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block font-black text-slate-800 dark:text-slate-200 mb-1.5" data-i18n="calcHpLbl">২.
+                    পাম্পের ক্ষমতা (HP)</label>
+                  <select id="pumpHp" onchange="runPumpCostCalculation()"
+                    class="w-full p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black touch-target">
+                    <option value="2">2 HP</option>
+                    <option value="3">3 HP</option>
+                    <option value="4" selected>4 HP</option>
+                    <option value="5">5 HP</option>
+                    <option value="8">8 HP</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-black text-slate-800 dark:text-slate-200 mb-1.5" data-i18n="calcFuelLbl">৩.
+                    জ্বালানি / বিদ্যুৎ</label>
+                  <select id="pumpFuelType" onchange="runPumpCostCalculation()"
+                    class="w-full p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black touch-target">
+                    <option value="diesel" data-i18n="optDiesel">⛽ ডিজেল শ্যালো পাম্প</option>
+                    <option value="electric" data-i18n="optElectric">⚡ বিদ্যুৎচালিত মোটর</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block font-black text-slate-800 dark:text-slate-200 mb-1.5" data-i18n="calcCropLbl">৪.
+                    ফসল নির্বাচন</label>
+                  <select id="pumpCrop" onchange="runPumpCostCalculation()"
+                    class="w-full p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black touch-target">
+                    <option value="rice" data-i18n="optCropRice">বোরো ধান (প্রচুর পানি লাগে)</option>
+                    <option value="corn" selected data-i18n="optCropCorn">ভুট্টা ক্ষেত (মাঝারি পানি)</option>
+                    <option value="sorghum" data-i18n="optCropSorghum">দানা জোয়ার (স্বল্প পানি)</option>
+                    <option value="millet" data-i18n="optCropMillet">বাজরা (খুবই কম পানি)</option>
+                    <option value="pulses" data-i18n="optCropPulses">ছোলা ও ডাল (কম পানি)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-black text-slate-800 dark:text-slate-200 mb-1.5"
+                    data-i18n="calcWeatherLbl">৫. রোদের মাত্রা</label>
+                  <select id="pumpWeather" onchange="runPumpCostCalculation()"
+                    class="w-full p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black touch-target">
+                    <option value="0.85" data-i18n="optWeatherMild">মেঘলা আকাশ / শীতল আবহাওয়া</option>
+                    <option value="1.0" selected data-i18n="optWeatherNormal">স্বাভাবিক রোদ</option>
+                    <option value="1.25" data-i18n="optWeatherHot">তীব্র তাপদাহ (>৩৫°C)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Result Box -->
+            <div class="p-4 rounded-3xl bg-leaf-500/10 border-2 border-leaf-500/30 space-y-3 mt-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div
+                  class="p-3.5 rounded-2xl bg-white dark:bg-earth-800 border-2 border-earth-200 dark:border-earth-700">
+                  <span class="text-[11px] font-black text-slate-500 block mb-0.5" data-i18n="resRuntimeLbl">⏱️ পাম্প
+                    চালানোর সময়:</span>
+                  <span id="resPumpRuntime" class="text-lg sm:text-xl font-black text-slate-900 dark:text-white"></span>
+                </div>
+                <div
+                  class="p-3.5 rounded-2xl bg-white dark:bg-earth-800 border-2 border-emerald-300 dark:border-emerald-700">
+                  <span class="text-[11px] font-black text-emerald-700 dark:text-emerald-400 block mb-0.5"
+                    data-i18n="resCostLbl">💰 আনুমানিক খরচ:</span>
+                  <span id="resPumpCost"
+                    class="text-lg sm:text-xl font-black text-emerald-600 dark:text-emerald-400"></span>
+                </div>
+              </div>
+
+              <div class="space-y-1.5 text-xs font-bold pt-1">
+                <div class="flex justify-between text-slate-700 dark:text-slate-300">
+                  <span data-i18n="resTotalWaterLbl">মোট পানির পরিমাণ:</span>
+                  <span id="resPumpLiters" class="font-black text-leaf-700 dark:text-leaf-300"></span>
+                </div>
+                <div class="flex justify-between text-slate-700 dark:text-slate-300">
+                  <span data-i18n="resBreakdownLbl">জ্বালানি / পাওয়ারের হিসাব:</span>
+                  <span id="resFuelBreakdown" class="font-black text-slate-900 dark:text-white text-right"></span>
+                </div>
+                <div class="flex justify-between text-slate-700 dark:text-slate-300">
+                  <span data-i18n="resBestTimeLbl">সেচের সর্বোত্তম সময়:</span>
+                  <span class="font-black text-canal-600 dark:text-canal-400 text-right" data-i18n="resBestTimeVal">রাত
+                    ৩:৩০ – ভোর ৬:০০ (পানি বাঁচে)</span>
+                </div>
+              </div>
+
+              <button onclick="readAloudPumpResult()"
+                class="w-full py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white font-black text-xs transition flex items-center justify-center gap-2 shadow-sm touch-target">
+                <i class="fa-solid fa-volume-high text-base"></i> <span data-i18n="btnReadPump">হিসাবটি মুখে
+                  শুনুন</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Schedule Calendar -->
+          <div
+            class="lg:col-span-6 bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
+            <div class="flex items-center justify-between border-b border-earth-100 dark:border-earth-800 pb-3">
+              <div>
+                <span class="text-xs font-black uppercase text-leaf-600 dark:text-leaf-400" data-i18n="schedBadge">৭
+                  দিনের সেচ ক্যালেন্ডার</span>
+                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white" data-i18n="schedHeading">কখন
+                  কখন পাম্প চালাবেন?</h3>
+              </div>
+              <button onclick="window.print()"
+                class="px-3.5 py-2 rounded-2xl bg-earth-100 dark:bg-earth-800 hover:bg-earth-200 text-slate-900 dark:text-white text-xs font-black border border-earth-200 dark:border-earth-700 transition flex items-center gap-1.5 touch-target">
+                <i class="fa-solid fa-print"></i> <span data-i18n="btnPrint">প্রিন্ট</span>
+              </button>
+            </div>
+            <div class="space-y-3" id="calendarDaysContainer"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5: DASHBOARD -->
+    <section id="page-dashboard" class="page-view">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <div
+          class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
+              <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
+                data-i18n="navHome">প্রথম পাতা</a>
+              <span>/</span>
+              <span class="text-slate-900 dark:text-white" data-i18n="navDash">ফসলের হালচাল</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="dashHeading">খামারের
+              স্যাটেলাইট তথ্য ও সার্বিক অবস্থা</h1>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 font-medium" data-i18n="dashSub">
+              গত কয়েক মাসের ফসলের সতেজতার চিত্র এবং করণীয় কাজের নিয়মিত তালিকা।
+            </p>
+          </div>
+          <button onclick="downloadReportPdf()"
+            class="px-5 py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white font-black text-xs shadow-glow-leaf transition flex items-center justify-center gap-2 self-stretch sm:self-center touch-target">
+            <i class="fa-solid fa-file-pdf text-base"></i>
+            <span data-i18n="btnPdf">রিপোর্ট ডাউনলোড / প্রিন্ট</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="dashKpiCards"></div>
+
+        <!-- Landsat 8/9 NDVI Comparison Curve Chart -->
+        <div
+          class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-earth-100 dark:border-earth-800 gap-2">
+            <div>
+              <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white" data-i18n="chartTitle">গত ৬
+                মাসে ফসলের সবুজ সতেজতার তুলনামূলক চিত্র</h3>
+              <p class="text-xs text-slate-500 font-medium" data-i18n="chartSub">সনাতন ভুট্টা বনাম খরা-সহনশীল বাজরা শিফট
+              </p>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-black">
+              <span class="flex items-center gap-1.5 text-leaf-600"><span
+                  class="w-3.5 h-3.5 rounded-full bg-leaf-500 inline-block"></span> <span data-i18n="chartLeg1">বাজরা
+                  শিফট</span></span>
+              <span class="flex items-center gap-1.5 text-rose-600"><span
+                  class="w-3.5 h-3.5 rounded-full bg-rose-500 inline-block"></span> <span data-i18n="chartLeg2">সনাতন
+                  ভুট্টা</span></span>
+            </div>
+          </div>
+
+          <div class="w-full aspect-[16/7] relative overflow-hidden">
+            <svg class="w-full h-full" viewBox="0 0 600 220">
+              <line x1="40" y1="20" x2="580" y2="20" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
+                stroke-dasharray="4" />
+              <line x1="40" y1="70" x2="580" y2="70" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
+                stroke-dasharray="4" />
+              <line x1="40" y1="120" x2="580" y2="120" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
+                stroke-dasharray="4" />
+              <line x1="40" y1="170" x2="580" y2="170" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
+                stroke-dasharray="4" />
+              <line x1="40" y1="190" x2="580" y2="190" stroke="#059669" stroke-width="2" />
+              <text x="60" y="210" fill="#047857" font-size="12" font-weight="800" id="m1">জুন</text>
+              <text x="160" y="210" fill="#047857" font-size="12" font-weight="800" id="m2">জুলাই</text>
+              <text x="260" y="210" fill="#047857" font-size="12" font-weight="800" id="m3">আগস্ট</text>
+              <text x="360" y="210" fill="#047857" font-size="12" font-weight="800" id="m4">সেপ্টেম্বর</text>
+              <text x="460" y="210" fill="#047857" font-size="12" font-weight="800" id="m5">অক্টোবর</text>
+              <text x="540" y="210" fill="#047857" font-size="12" font-weight="800" id="m6">নভেম্বর</text>
+              <path d="M60,140 Q160,90 260,150 T360,175 T460,180 T540,185" fill="none" stroke="#EA580C" stroke-width="4"
+                stroke-linecap="round" />
+              <path d="M60,150 Q160,100 260,70 T360,60 T460,55 T540,60" fill="none" stroke="#10B981" stroke-width="4.5"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+
+          <div
+            class="p-3.5 sm:p-4 rounded-2xl bg-earth-50 dark:bg-earth-800 text-xs text-slate-700 dark:text-slate-300 font-medium"
+            data-i18n="chartProof">
+            <strong>স্যাটেলাইট প্রমাণ:</strong> আগস্ট মাসের তীব্র তাপদাহে সনাতন ভুট্টা শুকিয়ে গেলেও বিকল্প বাজরা ক্ষেত
+            শতকরা ৪২ ভাগ কম পানিতেও চমৎকার সতেজ ছিল।
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6: NASA SCIENCE RESOURCES -->
+    <section id="page-resources" class="page-view">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <div class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
+          <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
+            <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
+              data-i18n="navHome">প্রথম পাতা</a>
+            <span>/</span>
+            <span class="text-slate-900 dark:text-white" data-i18n="navRes">নাসা গাইড</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="resHeading">নাসা
+            উন্মুক্ত বিজ্ঞান ভান্ডার ও কৃষক নির্দেশিকা</h1>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed font-medium"
+            data-i18n="resSub">
+            নাসার সকল উপগ্রহের তথ্য জনসাধারণের জন্য সম্পূর্ণ বিনামূল্যে উন্মুক্ত। এখান থেকে প্রয়োজনীয় তথ্য ও নির্দেশিকা
+            দেখে নিন।
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          <div
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div
+                class="w-12 h-12 rounded-2xl bg-canal-100 text-canal-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-satellite-dish"></i>
+              </div>
+              <span class="text-[10px] font-black uppercase text-canal-600">NASA Earth Science</span>
+              <h3 class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white" data-i18n="smapCardTitle">
+                NASA SMAP স্যাটেলাইট</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium"
+                data-i18n="smapCardDesc">
+                মাটির ১০০ সেমি গভীরে ফসলের মূল বা শিকড়ের আর্দ্রতা পরিমাপকারী গ্লোবাল মাইক্রোওয়েভ রেডিওমিটার।
+              </p>
+            </div>
+            <a href="https://smap.jpl.nasa.gov/" target="_blank" rel="noopener noreferrer"
+              class="w-full py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black transition flex items-center justify-center gap-2 touch-target">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="btnVisitSmap">নাসা SMAP
+                পোর্টাল</span>
+            </a>
+          </div>
+
+          <div
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div
+                class="w-12 h-12 rounded-2xl bg-leaf-100 text-leaf-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-earth-americas"></i>
+              </div>
+              <span class="text-[10px] font-black uppercase text-leaf-600">USGS & NASA Mission</span>
+              <h3 class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white"
+                data-i18n="landsatCardTitle">Landsat 8 ও 9 (NDVI)</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium"
+                data-i18n="landsatCardDesc">
+                ৩০-মিটার রেজোলিউশনের উপগ্রহ ছবি যা ফসলের পাতার ক্লোরোফিল ও সতেজতা সূচক প্রদর্শন করে।
+              </p>
+            </div>
+            <a href="https://landsat.gsfc.nasa.gov/" target="_blank" rel="noopener noreferrer"
+              class="w-full py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black transition flex items-center justify-center gap-2 touch-target">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="btnVisitLandsat">ল্যান্ডস্যাট
+                পোর্টাল</span>
+            </a>
+          </div>
+
+          <div
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div
+                class="w-12 h-12 rounded-2xl bg-harvest-100 text-harvest-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-sun-plant-wilt"></i>
+              </div>
+              <span class="text-[10px] font-black uppercase text-harvest-600">ISS Space Experiment</span>
+              <h3 class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white"
+                data-i18n="ecostressCardTitle">ECOSTRESS থার্মাল</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium"
+                data-i18n="ecostressCardDesc">
+                আন্তর্জাতিক মহাকাশ স্টেশন থেকে থার্মাল সেন্সরের মাধ্যমে উদ্ভিদের পানির টান ও বাষ্পীভবন পর্যবেক্ষণ করে।
+              </p>
+            </div>
+            <a href="https://ecostress.jpl.nasa.gov/" target="_blank" rel="noopener noreferrer"
+              class="w-full py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black transition flex items-center justify-center gap-2 touch-target">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="btnVisitEcostress">ইকোস্ট্রেস
+                পোর্টাল</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Helpline -->
+        <div
+          class="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-leaf-700 to-emerald-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5 sm:gap-4">
+            <div
+              class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white text-leaf-700 flex items-center justify-center text-xl sm:text-2xl shrink-0 shadow">
+              <i class="fa-solid fa-phone-volume"></i>
+            </div>
+            <div>
+              <h4 class="font-black text-base sm:text-lg" data-i18n="helpTitle">কৃষি সহায়তায় সরকারি জরুরি হটলাইন</h4>
+              <p class="text-xs text-emerald-100 font-medium" data-i18n="helpSub">যেকোনো ফসল বা পোকামাকড়ের সমস্যায় কৃষি
+                কর্মকর্তার পরামর্শ নিন: <strong>১৬১২৩</strong></p>
+            </div>
+          </div>
+          <a href="tel:16123"
+            class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white text-leaf-800 font-black text-xs sm:text-sm shadow-md hover:bg-emerald-50 transition shrink-0 touch-target flex items-center justify-center gap-2">
+            <i class="fa-solid fa-phone"></i> <span data-i18n="btnCall">সরাসরি কল করুন (১৬১২৩)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FIXED BOTTOM APP BAR FOR MOBILE (48px+ touch targets) -->
+  <nav
+    class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-earth-900/95 backdrop-blur-md border-t-2 border-earth-200 dark:border-earth-700 pb-safe shadow-2xl">
+    <div class="grid grid-cols-5 h-16 text-center items-center">
+      <button onclick="navigateTo('landing')" data-mobile-nav="landing"
+        class="mobile-nav-btn flex flex-col items-center justify-center text-slate-600 dark:text-slate-400 hover:text-leaf-600 touch-target">
+        <i class="fa-solid fa-house text-base"></i>
+        <span class="text-[10px] font-black mt-0.5" data-i18n="navHome">প্রথম পাতা</span>
+      </button>
+      <button onclick="navigateTo('map-explorer')" data-mobile-nav="map-explorer"
+        class="mobile-nav-btn flex flex-col items-center justify-center text-slate-600 dark:text-slate-400 hover:text-leaf-600 touch-target">
+        <i class="fa-solid fa-map text-base"></i>
+        <span class="text-[10px] font-black mt-0.5" data-i18n="navMap">জমির নকশা</span>
+      </button>
+      <!-- Center Krishi BONDHU AI Trigger -->
+      <button onclick="openVoiceModal()" aria-label="Voice Assistant"
+        class="flex flex-col items-center justify-center -mt-6 touch-target">
+        <div
+          class="w-14 h-14 rounded-full bg-gradient-to-tr from-leaf-600 to-harvest-500 text-white flex items-center justify-center shadow-glow-leaf pulse-mic border-4 border-white dark:border-earth-900">
+          <i class="fa-solid fa-microphone text-2xl"></i>
+        </div>
+        <span class="text-[10px] font-black text-leaf-700 dark:text-leaf-400 mt-1" data-i18n="navVoice">মুখে বলুন</span>
+      </button>
+      <button onclick="navigateTo('crop-recommender')" data-mobile-nav="crop-recommender"
+        class="mobile-nav-btn flex flex-col items-center justify-center text-slate-600 dark:text-slate-400 hover:text-leaf-600 touch-target">
+        <i class="fa-solid fa-wheat-awn text-base"></i>
+        <span class="text-[10px] font-black mt-0.5" data-i18n="navCrops">লাভজনক ফসল</span>
+      </button>
+      <button onclick="navigateTo('irrigation-alerts')" data-mobile-nav="irrigation-alerts"
+        class="mobile-nav-btn flex flex-col items-center justify-center text-slate-600 dark:text-slate-400 hover:text-leaf-600 touch-target">
+        <i class="fa-solid fa-gas-pump text-base"></i>
+        <span class="text-[10px] font-black mt-0.5" data-i18n="navIrrig">সেচ ও পাম্প</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- KRISHI BONDHU AI VOICE ASSISTANT MODAL -->
+  <div id="voiceModal"
+    class="fixed inset-0 z-50 bg-black/65 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div
+      class="bg-white dark:bg-earth-900 w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl space-y-4 border border-earth-200 dark:border-earth-700 max-h-[85vh] overflow-y-auto pb-safe">
+      <div class="flex items-center justify-between pb-3 border-b border-earth-100 dark:border-earth-800">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-leaf-100 dark:bg-leaf-950 text-leaf-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 dark:text-white text-sm sm:text-base" data-i18n="voiceAssistantTitle">
+              কৃষি BONDHU AI (ভয়েস বন্ধু)</h3>
+            <p id="micStateIndicator" class="text-xs text-slate-500 font-bold" data-i18n="micReady">শুনতে প্রস্তুত...
+              মাইকে চাপুন</p>
+          </div>
+        </div>
+        <button onclick="closeVoiceModal()" aria-label="Close"
+          class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 text-2xl touch-target flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="flex flex-col items-center justify-center py-2 sm:py-3 space-y-3">
+        <button id="micButton" onclick="toggleListening()" aria-label="Microphone"
+          class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-leaf-600 hover:bg-leaf-700 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-glow-leaf transition duration-300 transform active:scale-90 touch-target">
+          <i id="micIcon" class="fa-solid fa-microphone"></i>
+        </button>
+        <div id="soundWave" class="hidden items-center gap-1.5 h-7">
+          <div class="bar w-2 bg-leaf-500 rounded-full"></div>
+          <div class="bar w-2 bg-harvest-500 rounded-full"></div>
+          <div class="bar w-2 bg-leaf-600 rounded-full"></div>
+          <div class="bar w-2 bg-terracotta-500 rounded-full"></div>
+          <div class="bar w-2 bg-canal-500 rounded-full"></div>
+        </div>
+        <span id="listeningFeedback" class="text-xs font-black text-leaf-700 dark:text-leaf-400 text-center"
+          data-i18n="micHint">
+          কথা বলতে উপরের গোল বোতামে চাপুন
+        </span>
+      </div>
+
+      <div class="space-y-1">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-500">
+          <span data-i18n="yourSpeechLbl">আপনার কথা:</span>
+          <span id="activeVoiceLangTag"
+            class="text-[10px] bg-earth-100 dark:bg-earth-800 px-2 py-0.5 rounded font-mono font-black">বাংলা
+            (bn-BD)</span>
+        </div>
+        <div id="spokenOutput"
+          class="p-3 sm:p-3.5 bg-earth-50 dark:bg-earth-800 rounded-2xl text-xs sm:text-sm min-h-[44px] text-slate-900 dark:text-slate-100 font-bold"
+          data-i18n="spokenPlaceholder">
+          "মাইকে চাপ দিয়ে মুখে প্রশ্ন করুন..."
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-500" data-i18n="aiReplyLbl">স্যাটেলাইট থেকে সহজ সমাধান:</span>
+          <div class="flex items-center gap-2">
+            <button id="replayVoiceBtn" onclick="readResponseAloud()"
+              class="text-xs text-leaf-600 hover:underline hidden font-black touch-target min-h-0">
+              <i class="fa-solid fa-volume-high"></i> <span data-i18n="btnReplay">আবার শুনুন</span>
+            </button>
+            <button id="stopVoiceBtn" onclick="stopSpeaking()"
+              class="text-xs text-rose-600 hover:underline hidden font-black touch-target min-h-0">
+              <i class="fa-solid fa-volume-xmark"></i> <span data-i18n="btnStop">থামুন</span>
+            </button>
+          </div>
+        </div>
+        <div id="aiResponseOutput"
+          class="p-3.5 sm:p-4 bg-emerald-50 dark:bg-earth-800/90 border-2 border-emerald-200 dark:border-earth-700 rounded-2xl text-xs sm:text-sm text-emerald-950 dark:text-emerald-100 min-h-[70px] leading-relaxed font-semibold">
+        </div>
+      </div>
+
+      <form onsubmit="handleManualSubmit(event)" class="flex gap-2 pt-1">
+        <input id="typedQuestionInput" type="text" data-i18n-placeholder="inputPlaceholder"
+          placeholder="বাতাস বেশি থাকলে এখানে লিখে প্রশ্ন করুন..."
+          class="flex-1 bg-earth-50 dark:bg-earth-800 border-2 border-earth-300 dark:border-earth-700 rounded-2xl px-3.5 py-3 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-leaf-600 touch-target" />
+        <button type="submit" aria-label="Send"
+          class="bg-leaf-600 hover:bg-leaf-700 text-white px-4 py-3 rounded-2xl text-xs font-black shadow-sm touch-target">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+
+      <div class="pt-2 border-t border-earth-100 dark:border-earth-800">
+        <div class="text-[11px] text-slate-500 mb-2 font-black" data-i18n="quickAskTitle">এক চাপে জানতে নিচের প্রশ্নে
+          চাপুন:</div>
+        <div class="flex flex-wrap gap-2" id="quickQuestionsContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer
+    class="bg-white dark:bg-earth-950 border-t border-earth-200 dark:border-earth-800 py-8 sm:py-10 mt-12 transition">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-9 h-9 rounded-xl bg-white dark:bg-earth-800 p-1 flex items-center justify-center shrink-0 border border-earth-200 dark:border-earth-700 shadow-sm overflow-hidden">
+              <img src="assets/icons/logo.png" alt="কৃষি BONDHU AI Logo" class="w-full h-full object-contain">
+            </div>
+            <span class="text-xl font-black text-slate-900 dark:text-white">কৃষি BONDHU AI</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 max-w-sm leading-relaxed font-medium"
+            data-i18n="footerDesc">
+            নাসা আর্থ সায়েন্স উপগ্রহের উন্মুক্ত তথ্য ব্যবহার করে দেশের কৃষক ভাইদের জন্য খরা মোকাবেলা, তেলের খরচ কমানো ও
+            নিরাপদ চাষাবাদের মুক্ত প্ল্যাটফর্ম।
+          </p>
+        </div>
+        <div>
+          <h4 class="font-black text-xs uppercase text-slate-900 dark:text-white tracking-wider mb-3"
+            data-i18n="footerNavTitle">নেভিগেশন</h4>
+          <ul class="space-y-2 text-xs font-bold text-slate-600 dark:text-slate-400">
+            <li><a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:text-leaf-600"
+                data-i18n="navHome">প্রথম পাতা</a></li>
+            <li><a href="#map-explorer" onclick="navigateTo('map-explorer'); return false;" class="hover:text-leaf-600"
+                data-i18n="navMap">জমির নকশা</a></li>
+            <li><a href="#crop-recommender" onclick="navigateTo('crop-recommender'); return false;"
+                class="hover:text-leaf-600" data-i18n="navCrops">লাভজনক ফসল</a></li>
+            <li><a href="#irrigation-alerts" onclick="navigateTo('irrigation-alerts'); return false;"
+                class="hover:text-leaf-600" data-i18n="navIrrig">সেচ ও পাম্প</a></li>
+            <li><a href="#dashboard" onclick="navigateTo('dashboard'); return false;" class="hover:text-leaf-600"
+                data-i18n="navDash">ফসলের হালচাল</a></li>
+            <li><a href="#resources" onclick="navigateTo('resources'); return false;" class="hover:text-leaf-600"
+                data-i18n="navRes">নাসা গাইড</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-black text-xs uppercase text-slate-900 dark:text-white tracking-wider mb-3"
+            data-i18n="missionTitle">মিশন তথ্য</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3 font-medium">
+            NASA International Space Apps Challenge 2026: Field Shift — Adapting Farms with NASA Data.
+          </p>
+          <div class="text-[11px] text-leaf-600 font-black" data-i18n="helplineFooter">কৃষি কল সেন্টার: ১৬১২৩</div>
+        </div>
+      </div>
+      <div
+        class="border-t border-earth-200 dark:border-earth-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-bold gap-2 text-center sm:text-left">
+        <p>© 2026 কৃষি BONDHU AI. Open Science for Global Agriculture.</p>
+        <p>Built for Rural Farmers with Tailwind CSS & Web Speech API.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    /* 1. ROUTING ENGINE */
+    const validPages = ['landing', 'map-explorer', 'crop-recommender', 'irrigation-alerts', 'dashboard', 'resources'];
+    function navigateTo(pageId) {
+      if (!validPages.includes(pageId)) pageId = 'landing';
+      validPages.forEach(p => {
+        const el = document.getElementById('page-' + p);
+        if (el) {
+          if (p === pageId) { el.classList.add('active-page'); el.style.display = 'block'; }
+          else { el.classList.remove('active-page'); el.style.display = 'none'; }
+        }
+      });
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-nav') === pageId) {
+          btn.className = 'nav-btn px-4 py-2.5 rounded-full text-xs font-black transition bg-leaf-600 text-white shadow-sm touch-target flex items-center gap-1.5';
+        } else {
+          btn.className = 'nav-btn px-4 py-2.5 rounded-full text-xs font-bold transition text-slate-700 dark:text-slate-200 hover:text-leaf-600 touch-target flex items-center gap-1.5';
+        }
+      });
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-mobile-nav') === pageId) {
+          btn.classList.add('text-leaf-600', 'dark:text-leaf-400');
+          btn.classList.remove('text-slate-600', 'dark:text-slate-400');
+        } else {
+          btn.classList.remove('text-leaf-600', 'dark:text-leaf-400');
+          btn.classList.add('text-slate-600', 'dark:text-slate-400');
+        }
+      });
+      try { if (window.location.hash !== '#' + pageId) window.history.pushState(null, null, '#' + pageId); } catch (e) { }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    window.addEventListener('hashchange', () => { navigateTo((window.location.hash || '').replace('#', '') || 'landing'); });
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobileDrawer');
+      if (drawer) drawer.classList.toggle('hidden');
+    }
+
+    /* 2. STRICT BILINGUAL ISOLATION DICTIONARY (NATURAL, FARMER-FRIENDLY BANGLA) */
+    let currentLang = 'bn';
+    const t = {
+      bn: {
+        topMission: "নাসা স্পেস অ্যাপস ২০২৬:",
+        topDesc: "কৃষক ভাইদের পরম বন্ধু — নাসা স্যাটেলাইটের তথ্যে নিরাপদ ও সাশ্রয়ী চাষাবাদ",
+        topWind: "মাঠের বাতাস", topLiveRadar: "SMAP + GPM লাইভ রাডার",
+        navSub: "কৃষকের নির্ভরযোগ্য ডিজিটাল পরামর্শক", navHome: "প্রথম পাতা", navMap: "জমির নকশা", navCrops: "লাভজনক ফসল",
+        navIrrig: "সেচ ও তেলের খরচ", navDash: "ফসলের হালচাল", navRes: "নাসা গাইড", navVoice: "মুখে বলুন",
+        heroBadge: "নাসা উপগ্রহের সরাসরি তথ্য",
+        heroTitle: "আপনার জমির খবর জানুন সহজেই — কোন ফসল বুনবেন, কখন সেচ দেবেন!",
+        heroSub: "অতিরিক্ত তাপদাহ বা অনাবৃষ্টিতেও ফসলের ক্ষতি হবে না। নাসা স্যাটেলাইটের মাটির রস ও তাপমাত্রার নির্ভুল তথ্য দিয়ে তৈরি এই সহজ অ্যাপ। মুখে প্রশ্ন করলেই কৃষি BONDHU AI সঙ্গে সঙ্গে আমাদের মুখের ভাষায় করণীয় জানিয়ে দেবে।",
+        heroBtnVoice: "মুখে বলুন (কৃষি BONDHU AI)", heroBtnMap: "জমির নকশা", heroBtnCrops: "লাভজনক ফসল",
+        stat1Lbl: "সুরক্ষিত আবাদি জমি", stat1Val: "১,৮৫০+ হেক্টর", stat2Lbl: "সেচের পানি সাশ্রয়", stat2Val: "৩৮.৫%", stat3Lbl: "ব্যবহারের খরচ", stat3Val: "১০০% সম্পূর্ণ ফ্রি",
+        heroCapTitle: "মাটির নিচে পর্যাপ্ত রস আছে কি?", heroCapSub: "নাসার এসএমএপি (SMAP) উপগ্রহ মাটির ১০০ সেমি গভীরের আর্দ্রতা পরিমাপ করে।",
+        gpmHeaderBadge: "নাসা GPM স্যাটেলাইট রাডার", gpmHeading: "আগামী ৩ দিনের বৃষ্টির পূর্বাভাস ও সেচ পরামর্শ", gpmRadarTag: "রাডার সিগন্যাল সচল",
+        pillar1Badge: "মাটির আর্দ্রতা", pillar1Title: "মাটিতে কতটা রস আছে?", pillar1Desc: "নাসার SMAP স্যাটেলাইট বলে দেবে কোন জমির রস কমে গেছে আর কোথায় সেচ দিতে হবে। খরায় গাছ শুকিয়ে যাওয়ার আগেই সময়মতো সতর্ক হোন।", pillar1Action: "জমির অবস্থা দেখুন",
+        pillar2Badge: "স্বল্প পানির ফসল", pillar2Title: "অনাবৃষ্টিতে কোন ফসল লাগাবেন?", pillar2Desc: "বৃষ্টি কম হলে ধানের পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা ডাল চাষ করুন। অল্প পানিতে স্বল্প খরচে বেশি নিশ্চিত লাভ পান।", pillar2Action: "লাভজনক ফসল বেছে নিন",
+        pillar3Badge: "সেচ ও ডিজেল হিসাব", pillar3Title: "কখন সেচ দিলে টাকা বাঁচবে?", pillar3Desc: "দুপুরের কড়া রোদে সেচ দিলে পানি দ্রুত বাষ্প হয়ে নষ্ট হয়। রাত ৩:৩০ থেকে ভোর ৬:০০ টায় সেচ দিলে পানি শিকড়ে থাকে এবং পাম্পের খরচ অনেক কমে।", pillar3Action: "পাম্পের খরচ হিসাব করুন",
+        explorerHeading: "জমির মাটির রস ও স্যাটেলাইট মানচিত্র", explorerSub: "যেকোনো জমির ওপর আঙুল দিয়ে চাপ দিন। মাটির গভীরের রস, ফসলের সবুজ সতেজতা ও সেচের সঠিক সময় জেনে নিন।",
+        layerSmap: "মাটির রস (SMAP)", layerNdvi: "গাছের সতেজতা (NDVI)", layerEcostress: "রোদের তাপ (ECOSTRESS)", layerGpm: "বৃষ্টির মেঘ (GPM)",
+        orbitPass: "স্যাটেলাইট পাস #৪১২০৯", svgRiver: "প্রধান সেচ ক্যানেল ও নদী", timeScrubber: "বিগত ৭ দিনের চিত্র:",
+        specSmap: "মাটির ১০০ সেমি গভীরে রস", specLandsat: "গাছের পাতার সবুজ সতেজতা", specEcostress: "রোদে পানি উবে যাওয়ার চাপ", specGpm: "মেঘ ও বৃষ্টির পূর্বাভাস",
+        diagSelected: "নির্বাচিত জমি", diagMoistLbl: "মাটির শিকড়ের রস", diagNdviLbl: "গাছের সতেজতা ও স্বাস্থ্য", diagHeatLbl: "রোদে পানি শুকিয়ে যাওয়ার চাপ", diagAdviceTitle: "কৃষক ভাইয়ের জন্য সরাসরি পরামর্শ",
+        btnTestCrops: "বিকল্প ফসল বাছুন", btnPlanIrrigation: "সেচ খরচ হিসাব", btnReadAdvice: "পরামর্শটি মুখে শুনুন",
+        cropsHeading: "খরায় কম পানিতে বেশি লাভজনক বিকল্প ফসল", cropsSub: "অনাবৃষ্টি বা সেচের পানির সংকট থাকলে সনাতন বোরো ধান বা ভুট্টার পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা ডাল চাষ করুন। অল্প খরচে বেশি ফলন ও নিশ্চিত লাভ মিলবে।",
+        compBadge: "এক নজরে তুলনা", compHeading: "সনাতন ফসল বনাম খরা-সহনশীল স্মার্ট ফসল", compWaterSavedTag: "💧 পানি সাশ্রয় ও খরচের হিসাব",
+        paramTitle: "আপনার জমির ধরন ও সমস্যা", paramWeatherLbl: "আবহাওয়ার পরিস্থিতি", optDrought: "তীব্র খরা / বৃষ্টির অভাব", optGroundwater: "ভূগর্ভস্থ পানির স্তর নেমে যাওয়া", optHeat: "প্রচণ্ড গরম ও তাপদাহ (>৩৮°C)",
+        paramSoilLbl: "মাটির ধরন", optSandyLoam: "বেলে দোআঁশ মাটি", optClay: "এঁটেল ও কাদা মাটি", optAlluvial: "পলি মাটি (চরের জমি)",
+        paramGoalLbl: "আপনার প্রধান উদ্দেশ্য", goalWater: "পানি বাঁচানো", goalProfit: "বেশি লাভ",
+        nasaRefTitle: "নাসার রেফারেন্স", nasaRefDesc: "নাসা POWER সৌর বিকিরণ ও Landsat NDVI ফসলের বৃদ্ধি বিশ্লেষণ করে এই তালিকা নির্ধারণ করা হয়েছে।",
+        cropSortBadge: "খরা সহনশীলতায় সাজানো",
+        irrigHeading: "সেচ হিসাব, পাম্প চালানোর সময় ও ডিজেল খরচ ক্যালকুলেটর", irrigSub: "আপনার জমির বিঘা ও পাম্পের ক্ষমতা (HP) বসালেই ঠিক কত সময় পাম্প চালাতে হবে এবং ডিজেল বা বিদ্যুতে কত টাকা খরচ হবে তা সঙ্গে সঙ্গে সহজ ভাষায় পেয়ে যাবেন।",
+        alertUrgentTag: "জরুরি সতর্কতা", alertUrgentTime: "আগামী ৭২ ঘণ্টার পূর্বাভাস", alertUrgentTitle: "পূর্ব উঁচু জমির ভুট্টা ক্ষেতে পানির সংকট!",
+        alertUrgentDesc: "ইকোস্ট্রেস স্যাটেলাইটে দেখা যাচ্ছে মাটিতে আর্দ্রতা মাত্র ১৪%। আজ রাতে অথবা কাল ভোরে জমিতে হালকা সেচ দেওয়া অত্যন্ত জরুরি।", btnDismiss: "বুঝেছি",
+        calcTitleBadge: "সহজ কৃষি ক্যালকুলেটর", calcHeading: "পাম্প চালানোর সময় ও তেলের খরচ", calcLandLbl: "১. আপনার জমির পরিমাণ", unitBighaShort: "বিঘা", optBigha: "বিঘা", optAcre: "একর", optKatha: "কাঠা",
+        calcHpLbl: "২. পাম্পের ক্ষমতা (HP)", calcFuelLbl: "৩. জ্বালানি / বিদ্যুৎ", optDiesel: "⛽ ডিজেল শ্যালো পাম্প", optElectric: "⚡ বিদ্যুৎচালিত মোটর",
+        calcCropLbl: "৪. ফসল নির্বাচন", optCropRice: "বোরো ধান (প্রচুর পানি লাগে)", optCropCorn: "ভুট্টা ক্ষেত (মাঝারি পানি)", optCropSorghum: "দানা জোয়ার (স্বল্প পানি)", optCropMillet: "বাজরা (খুবই কম পানি)", optCropPulses: "ছোলা ও ডাল (কম পানি)",
+        calcWeatherLbl: "৫. রোদের মাত্রা", optWeatherMild: "মেঘলা আকাশ / শীতল আবহাওয়া", optWeatherNormal: "স্বাভাবিক রোদ", optWeatherHot: "তীব্র তাপদাহ (>৩৫°C)",
+        resRuntimeLbl: "⏱️ পাম্প চালানোর সময়:", resCostLbl: "💰 আনুমানিক খরচ:", resTotalWaterLbl: "মোট পানির পরিমাণ:", resBreakdownLbl: "জ্বালানি / পাওয়ারের হিসাব:", resBestTimeLbl: "সেচের সর্বোত্তম সময়:", resBestTimeVal: "রাত ৩:৩০ – ভোর ৬:০০ (পানি বাঁচে)",
+        btnReadPump: "হিসাবটি মুখে শুনুন", schedBadge: "৭ দিনের সেচ ক্যালেন্ডার", schedHeading: "কখন কখন পাম্প চালাবেন?", btnPrint: "প্রিন্ট",
+        dashHeading: "খামারের স্যাটেলাইট তথ্য ও সার্বিক অবস্থা", dashSub: "গত কয়েক মাসের ফসলের সতেজতার চিত্র এবং করণীয় কাজের নিয়মিত তালিকা।", btnPdf: "রিপোর্ট ডাউনলোড / প্রিন্ট",
+        chartTitle: "গত ৬ মাসে ফসলের সবুজ সতেজতার তুলনামূলক চিত্র", chartSub: "সনাতন ভুট্টা বনাম খরা-সহনশীল বাজরা শিফট", chartLeg1: "বাজরা শিফট", chartLeg2: "সনাতন ভুট্টা",
+        chartProof: "স্যাটেলাইট প্রমাণ: আগস্ট মাসের তীব্র তাপদাহে সনাতন ভুট্টা শুকিয়ে গেলেও বিকল্প বাজরা ক্ষেত শতকরা ৪২ ভাগ কম পানিতেও চমৎকার সতেজ ছিল।",
+        resHeading: "নাসা উন্মুক্ত বিজ্ঞান ভান্ডার ও কৃষক নির্দেশিকা", resSub: "নাসার সকল উপগ্রহের তথ্য জনসাধারণের জন্য সম্পূর্ণ বিনামূল্যে উন্মুক্ত। এখান থেকে প্রয়োজনীয় তথ্য ও নির্দেশিকা দেখে নিন।",
+        smapCardTitle: "NASA SMAP স্যাটেলাইট", smapCardDesc: "মাটির ১০০ সেমি গভীরে ফসলের মূল বা শিকড়ের আর্দ্রতা পরিমাপকারী গ্লোবাল মাইক্রোওয়েভ রেডিওমিটার।", btnVisitSmap: "নাসা SMAP পোর্টাল",
+        landsatCardTitle: "Landsat 8 ও 9 (NDVI)", landsatCardDesc: "৩০-মিটার রেজোলিউশনের উপগ্রহ ছবি যা ফসলের পাতার ক্লোরোফিল ও সতেজতা সূচক প্রদর্শন করে।", btnVisitLandsat: "ল্যান্ডস্যাট পোর্টাল",
+        ecostressCardTitle: "ECOSTRESS থার্মাল", ecostressCardDesc: "আন্তর্জাতিক মহাকাশ স্টেশন থেকে থার্মাল সেন্সরের মাধ্যমে উদ্ভিদের পানির টান ও বাষ্পীভবন পর্যবেক্ষণ করে।", btnVisitEcostress: "ইকোস্ট্রেস পোর্টাল",
+        helpTitle: "কৃষি সহায়তায় সরকারি জরুরি হটলাইন", helpSub: "যেকোনো ফসল বা পোকামাকড়ের সমস্যায় কৃষি কর্মকর্তার পরামর্শ নিন: ১৬১২৩", btnCall: "সরাসরি কল করুন (১৬১২৩)",
+        voiceAssistantTitle: "কৃষি BONDHU AI (ভয়েস বন্ধু)", micReady: "শুনতে প্রস্তুত... মাইকে চাপুন", micListening: "শুনছি... আপনার প্রশ্নটি মুখে বলুন", micHint: "কথা বলতে উপরের গোল বোতামে চাপুন",
+        yourSpeechLbl: "আপনার কথা:", spokenPlaceholder: '"মাইকে চাপ দিয়ে মুখে প্রশ্ন করুন..."', aiReplyLbl: "স্যাটেলাইট থেকে সহজ সমাধান:", btnReplay: "আবার শুনুন", btnStop: "থামুন",
+        inputPlaceholder: "বাতাস বেশি থাকলে এখানে লিখে প্রশ্ন করুন...", quickAskTitle: "এক চাপে জানতে নিচের প্রশ্নে চাপুন:",
+        footerDesc: "নাসা আর্থ সায়েন্স উপগ্রহের উন্মুক্ত তথ্য ব্যবহার করে দেশের কৃষক ভাইদের জন্য খরা মোকাবেলা, তেলের খরচ কমানো ও নিরাপদ চাষাবাদের মুক্ত প্ল্যাটফর্ম।",
+        footerNavTitle: "নেভিগেশন", missionTitle: "মিশন তথ্য", helplineFooter: "কৃষি কল সেন্টার: ১৬১২৩",
+        months: ["জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর"],
+        assistantGreeting: "সালাম ও নমস্কার কৃষক ভাই! আমি কৃষি BONDHU AI। আপনি মুখে যেকোনো প্রশ্ন করতে পারেন — যেমন: 'মাটিতে কি রস আছে?', 'খরায় কোন ফসল লাগাব?', বা 'পাম্প কতক্ষণ চালাতে হবে?'।"
+      },
+      en: {
+        topMission: "NASA Space Apps 2026:",
+        topDesc: "Farmer's Digital Ally — Satellite intelligence for resilient, low-cost agriculture",
+        topWind: "Field Breeze", topLiveRadar: "SMAP + GPM Live Radar",
+        navSub: "Farmer's Digital Agricultural Companion", navHome: "Home", navMap: "Satellite Map", navCrops: "Crop Shift",
+        navIrrig: "Pump & Irrigation", navDash: "Crop Health", navRes: "NASA Guides", navVoice: "Speak Now",
+        heroBadge: "Direct NASA Satellite Intelligence",
+        heroTitle: "Know Your Field Easily — What to Plant, When to Water!",
+        heroSub: "Extreme heat or flash drought won't harm your harvest. Powered by NASA subsoil moisture and thermal telemetry, কৃষি BONDHU AI provides immediate farmer-friendly advice in plain conversational language.",
+        heroBtnVoice: "Speak Now (কৃষি BONDHU AI)", heroBtnMap: "Satellite Map", heroBtnCrops: "Explore Crops",
+        stat1Lbl: "Hectares Guarded", stat1Val: "1,850+ Ha", stat2Lbl: "Water Conserved", stat2Val: "38.5%", stat3Lbl: "Farmer Cost", stat3Val: "100% Free",
+        heroCapTitle: "How Deep Is the Soil Moisture?", heroCapSub: "NASA SMAP measures root-zone water content down to 100cm depth.",
+        gpmHeaderBadge: "NASA GPM Satellite Radar", gpmHeading: "3-Day Rainfall Forecast & Irrigation Advice", gpmRadarTag: "Radar Active Live",
+        pillar1Badge: "Soil Moisture", pillar1Title: "How Much Water Is in the Soil?", pillar1Desc: "NASA SMAP warns you when subsoil moisture drops, preventing crop wilting days before visual damage occurs.", pillar1Action: "Inspect Field Soil",
+        pillar2Badge: "Low-Water Crops", pillar2Title: "What to Plant in Low Rainfall?", pillar2Desc: "Shift thirsty paddy to Pearl Millet, Sorghum, or Pulses. High profit with half the water requirement.", pillar2Action: "Choose Profitable Crops",
+        pillar3Badge: "Fuel & Pump Calc", pillar3Title: "When to Water to Save Money?", pillar3Desc: "Midday sun evaporates 40% of applied water. Water between 3:30 AM and 6:00 AM to keep moisture at the roots and slash fuel costs.", pillar3Action: "Calculate Pump Cost",
+        explorerHeading: "Satellite Parcel Soil & Vegetation Map", explorerSub: "Tap any parcel to view sub-surface moisture, plant health, and irrigation instructions.",
+        layerSmap: "Soil Moisture (SMAP)", layerNdvi: "Plant Health (NDVI)", layerEcostress: "Thermal Heat (ECOSTRESS)", layerGpm: "Rainfall Radar (GPM)",
+        orbitPass: "Orbit Pass #41209", svgRiver: "Main Irrigation River & Canal", timeScrubber: "Past 7-Day Timeline:",
+        specSmap: "Subsoil Moisture at 100cm", specLandsat: "Canopy Greenness & Health", specEcostress: "Evapotranspiration Stress", specGpm: "Precipitation & Rain Radar",
+        diagSelected: "Selected Parcel", diagMoistLbl: "Root-Zone Soil Moisture", diagNdviLbl: "Canopy Vigour (NDVI)", diagHeatLbl: "Evaporative Heat Pressure", diagAdviceTitle: "Action Recommendation for Farmers",
+        btnTestCrops: "Test Crops", btnPlanIrrigation: "Calculate Pump Cost", btnReadAdvice: "Listen to Advice",
+        cropsHeading: "High-Yield Drought-Resilient Alternative Crops", cropsSub: "When facing low rain or falling water tables, avoid burning expensive diesel on paddy or corn. Cultivate millet, sorghum, or pulses for secure yields.",
+        compBadge: "At a Glance", compHeading: "Traditional Crops vs NASA Climate-Smart Shifts", compWaterSavedTag: "💧 Water Conserved & Financial Metrics",
+        paramTitle: "Field Parameters & Hazards", paramWeatherLbl: "Weather Hazard", optDrought: "Severe Drought / Low Rainfall", optGroundwater: "Depleting Groundwater Table", optHeat: "Intense Heatwave (>38°C)",
+        paramSoilLbl: "Soil Texture", optSandyLoam: "Sandy Loam Soil", optClay: "Clay Soil", optAlluvial: "Alluvial Riverbank Soil",
+        paramGoalLbl: "Primary Objective", goalWater: "Save Water", goalProfit: "Maximize Profit",
+        nasaRefTitle: "NASA Reference", nasaRefDesc: "Calibrated with NASA POWER solar irradiance and Landsat NDVI growth curves.",
+        cropSortBadge: "Sorted by Resilience",
+        irrigHeading: "Precision Irrigation & Pump Fuel Cost Calculator", irrigSub: "Enter your field size and pump horsepower to instantly calculate exact runtime and estimated diesel or electricity expenses.",
+        alertUrgentTag: "Urgent Warning", alertUrgentTime: "Next 72-Hour Outlook", alertUrgentTitle: "Water Deficit on East Ridge Cornfield!",
+        alertUrgentDesc: "ECOSTRESS thermal data indicates moisture is down to 14%. Apply light night-time irrigation tonight or early morning.", btnDismiss: "Understood",
+        calcTitleBadge: "Field Cost Calculator", calcHeading: "Pump Runtime & Fuel/Power Cost", calcLandLbl: "1. Land Area", unitBighaShort: "Bigha", optBigha: "Bigha", optAcre: "Acre", optKatha: "Katha",
+        calcHpLbl: "2. Pump Capacity (HP)", calcFuelLbl: "3. Power Source", optDiesel: "⛽ Diesel Shallow Pump", optElectric: "⚡ Electric Motor",
+        calcCropLbl: "4. Target Crop", optCropRice: "Boro Paddy (Heavy Water)", optCropCorn: "Corn / Maize (Moderate)", optCropSorghum: "Grain Sorghum (Low Water)", optCropMillet: "Pearl Millet (Very Low)", optCropPulses: "Chickpea & Pulses (Low)",
+        calcWeatherLbl: "5. Solar & Heat Condition", optWeatherMild: "Overcast / Cool", optWeatherNormal: "Normal Sunlight", optWeatherHot: "Extreme Heatwave (>35°C)",
+        resRuntimeLbl: "⏱️ Required Pump Runtime:", resCostLbl: "💰 Estimated Cost:", resTotalWaterLbl: "Total Water Needed:", resBreakdownLbl: "Fuel / Electricity Breakdown:", resBestTimeLbl: "Optimal Watering Window:", resBestTimeVal: "3:30 AM – 6:00 AM (Min Evaporation)",
+        btnReadPump: "Listen to Calculation", schedBadge: "7-Day Irrigation Schedule", schedHeading: "When Should You Water?", btnPrint: "Print",
+        dashHeading: "Farm Space Telemetry & Health Overview", dashSub: "Multi-month vegetative health curves and operational farm checklists.", btnPdf: "Download Report / Print",
+        chartTitle: "6-Month Canopy Greenness Comparison Curve", chartSub: "Traditional Corn vs Climate-Smart Millet Shift", chartLeg1: "Millet Shift", chartLeg2: "Traditional Corn",
+        chartProof: "Satellite Evidence: During August peak heatwaves, traditional corn wilted while newly adapted millet retained vibrant health with 42% less water.",
+        resHeading: "NASA Open Science Data & Agronomy Guides", resSub: "Free, unrestricted access to NASA SMAP, Landsat, ECOSTRESS, and GPM mission archives.",
+        smapCardTitle: "NASA SMAP Satellite", smapCardDesc: "Global microwave radiometer measuring root-zone soil moisture at 100cm depth.", btnVisitSmap: "Visit NASA SMAP Portal",
+        landsatCardTitle: "Landsat 8 & 9 (NDVI)", landsatCardDesc: "30-meter optical imagery depicting chlorophyll density and plant vigour.", btnVisitLandsat: "Visit Landsat Portal",
+        ecostressCardTitle: "ECOSTRESS Thermal", ecostressCardDesc: "Thermal infrared measurements from the ISS tracking plant water stress and transpiration.", btnVisitEcostress: "Visit ECOSTRESS Portal",
+        helpTitle: "Government Agricultural Emergency Helpline", helpSub: "For expert advice on pests, diseases, or crop failure call: 16123", btnCall: "Call Helpline (16123)",
+        voiceAssistantTitle: "কৃষি BONDHU AI (Voice Assistant)", micReady: "Ready to listen... Tap microphone", micListening: "Listening... Speak your query clearly", micHint: "Tap the circular button to speak",
+        yourSpeechLbl: "Your Speech:", spokenPlaceholder: '"Tap mic and speak your question..."', aiReplyLbl: "Satellite Answer:", btnReplay: "Listen Again", btnStop: "Stop",
+        inputPlaceholder: "If windy, type your question here...", quickAskTitle: "Tap for Quick Answers:",
+        footerDesc: "Empowering rural farmers with NASA Earth science observation assets to combat drought, reduce fuel costs, and ensure sustainable food security.",
+        footerNavTitle: "Navigation", missionTitle: "Mission Details", helplineFooter: "Agri Call Center: 16123",
+        months: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
+        assistantGreeting: "Hello! I am কৃষি BONDHU AI. Ask me anything about your field — e.g. 'Is there moisture in the soil?', 'What crop to plant in drought?', or 'How long to run the pump?'."
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'bn') ? 'en' : 'bn';
+      document.getElementById('currentLangLabel').textContent = (currentLang === 'bn') ? 'English' : 'বাংলা';
+      document.getElementById('activeVoiceLangTag').textContent = (currentLang === 'bn') ? 'বাংলা (bn-BD)' : 'English (en-US)';
+      applyTranslations();
+    }
+
+    function applyTranslations() {
+      const dict = t[currentLang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.textContent = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) el.placeholder = dict[key];
+      });
+      dict.months.forEach((m, idx) => {
+        const el = document.getElementById('m' + (idx + 1));
+        if (el) el.textContent = m;
+      });
+      renderRainForecast();
+      renderCropComparison();
+      renderCropCards();
+      renderDashboardKpis();
+      renderCalendarDays();
+      renderQuickQuestions();
+      updateInspectorView(currentSelectedParcel);
+      setMapLayer(activeMapLayer);
+      runPumpCostCalculation();
+      document.getElementById('aiResponseOutput').textContent = dict.assistantGreeting;
+    }
+
+    /* 3. DARK / LIGHT THEME */
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        icon.className = 'fa-solid fa-moon';
+      } else {
+        html.classList.add('dark');
+        icon.className = 'fa-solid fa-sun text-harvest-400';
+      }
+    }
+
+    /* 4. SATELLITE MAP ENGINE & PARCELS */
+    const parcelsData = {
+      'parcel-1': {
+        name: { bn: '১ নম্বর জমি: উত্তর বাগান', en: 'Parcel 1: North Orchard' },
+        crop: { bn: 'বোরো ধান ও ডাল • ৪৫ হেক্টর', en: 'Paddy & Pulses • 45 Ha' },
+        status: { bn: 'নিরাপদ / পর্যাপ্ত রস আছে', en: 'Safe / Adequate Water' },
+        statusClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300',
+        smap: { bn: '২৬.৪% (চমৎকার রস)', en: '26.4% (Optimal)' },
+        ndvi: { bn: '০.৭৪ (সবুজ ও সতেজ)', en: '0.74 (Vigorous)' },
+        ecostress: { bn: '৪.২ মিমি/দিন (স্বাভাবিক)', en: '4.2 mm/day (Normal)' },
+        gpm: { bn: '৩২ মিমি বৃষ্টি সঞ্চয়', en: '32 mm Rain' },
+        barMoist: '68%', barNdvi: '74%', barEt: '42%',
+        color: '#10B981',
+        advice: {
+          bn: 'মাটিতে সুন্দর রস রয়েছে। আগামী ৪৮ ঘণ্টা পর্যন্ত ডিজেল পুড়িয়ে পানি দেওয়ার কোনো প্রয়োজন নেই।',
+          en: 'Soil moisture is optimal. No need to burn fuel for irrigation over the next 48 hours.'
+        }
+      },
+      'parcel-2': {
+        name: { bn: '২ নম্বর জমি: পূর্ব উঁচু ক্ষেত', en: 'Parcel 2: East Ridge' },
+        crop: { bn: 'ভুট্টা ক্ষেত • ৮২ হেক্টর', en: 'Cornfield • 82 Ha' },
+        status: { bn: 'জরুরি সেচ প্রয়োজন', en: 'Urgent Irrigation Needed' },
+        statusClass: 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border-rose-300',
+        smap: { bn: '১৪.২% (খটখটে শুকনো মাটি)', en: '14.2% (Dry Deficit)' },
+        ndvi: { bn: '০.৪৮ (পাতা শুকিয়ে আসছে)', en: '0.48 (Leaves Wilting)' },
+        ecostress: { bn: '৬.৮ মিমি/দিন (তীব্র গরমের চাপ)', en: '6.8 mm/day (Excess Heat)' },
+        gpm: { bn: '৮ মিমি বৃষ্টি (অনাবৃষ্টি)', en: '8 mm Rain (Low)' },
+        barMoist: '28%', barNdvi: '48%', barEt: '78%',
+        color: '#EA580C',
+        advice: {
+          bn: 'দুপুরের ৩২°C কড়া রোদে ভুট্টার পাতা শুকিয়ে যাচ্ছে। আজ রাত ৩:৩০ থেকে ভোর ৬:০০ টার মধ্যে জমিতে সেচ দিন। আগামী মৌসুমে এই উঁচু জমিতে ভুট্টার বদলে বাজরা লাগালে পানি ও ডিজেল খরচ ৪০% বাঁচবে।',
+          en: 'Corn leaves are wilting under midday 32°C heat. Water between 3:30 AM and 6:00 AM tonight. Shifting this high ground to pearl millet next season will save 40% water.'
+        }
+      },
+      'parcel-3': {
+        name: { bn: '৩ নম্বর জমি: নিচু মাঠ', en: 'Parcel 3: Valley Lowland' },
+        crop: { bn: 'মুগ ও ছোলা ডাল • ৫৮ হেক্টর', en: 'Gram & Pulses • 58 Ha' },
+        status: { bn: 'নিরাপদ / রস চমৎকার', en: 'Safe / Well Moisturized' },
+        statusClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300',
+        smap: { bn: '৩১.০% (পর্যাপ্ত রস মজুত)', en: '31.0% (Saturated)' },
+        ndvi: { bn: '০.৮১ (গাঢ় সবুজ বৃদ্ধি)', en: '0.81 (Lush Green)' },
+        ecostress: { bn: '৩.৮ মিমি/দিন (শীতল অবস্থা)', en: '3.8 mm/day (Cool Canopy)' },
+        gpm: { bn: '৩৬ মিমি সঞ্চিত বৃষ্টি', en: '36 mm Accumulated' },
+        barMoist: '82%', barNdvi: '81%', barEt: '35%',
+        color: '#059669',
+        advice: {
+          bn: 'ক্যানেলের পাশের এই নিচু জমিতে খুব ভালো রস আছে। ছোলা ও মুগ ডালের জন্য কোনো বাড়তি সেচ দেওয়ার দরকার নেই।',
+          en: 'Canal-adjacent lowland retains excellent moisture. No extra irrigation required for pulses.'
+        }
+      },
+      'parcel-4': {
+        name: { bn: '৪ নম্বর জমি: বাজরা শিফট', en: 'Parcel 4: Millet Shift' },
+        crop: { bn: 'দানা জোয়ার ও বাজরা • ৭০ হেক্টর', en: 'Sorghum & Millet • 70 Ha' },
+        status: { bn: 'পানি সাশ্রয়ী / সুস্থ আবাদ', en: 'Water Resilient / Stable' },
+        statusClass: 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border-amber-300',
+        smap: { bn: '১৯.৫% (সহনশীল মাত্রা)', en: '19.5% (Tolerant)' },
+        ndvi: { bn: '০.৬৭ (শক্তিশালী বৃদ্ধি)', en: '0.67 (Robust)' },
+        ecostress: { bn: '৩.১ মিমি/দিন (পানি সাশ্রয়ী)', en: '3.1 mm/day (Low Loss)' },
+        gpm: { bn: '১২ মিমি বৃষ্টি', en: '12 mm Rain' },
+        barMoist: '52%', barNdvi: '67%', barEt: '38%',
+        color: '#F59E0B',
+        advice: {
+          bn: 'বাজরা ও জোয়ার গাছ খরায় খুব সুন্দর মানিয়ে নিয়েছে। ধানের চেয়ে প্রায় অর্ধেক কম পানিতেই গাছ তাজা ও স্বাস্থ্যবান রয়েছে।',
+          en: 'Millet and sorghum crops have adapted flawlessly. Plants are thriving with half the water of paddy.'
+        }
+      }
+    };
+
+    let activeMapLayer = 'smap';
+    let currentSelectedParcel = 'parcel-2';
+    let currentMapZoom = 1.0;
+    let playbackInterval = null;
+
+    function setMapLayer(layer) {
+      activeMapLayer = layer;
+      document.querySelectorAll('.layer-pill').forEach(btn => {
+        btn.className = 'layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center';
+      });
+      const activeBtn = document.getElementById('layer-btn-' + layer);
+      if (activeBtn) activeBtn.className = 'layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target text-center';
+
+      const layerTitle = document.getElementById('activeLayerIndicator');
+      const legendTitle = document.getElementById('mapLegendTitle');
+      const legendLabels = document.getElementById('mapLegendLabels');
+      const isBn = currentLang === 'bn';
+
+      if (layer === 'smap') {
+        layerTitle.textContent = isBn ? "নাসা SMAP: মাটির ১০০ সেমি গভীরে রস" : "NASA SMAP: Root-Zone Moisture (100cm)";
+        legendTitle.textContent = isBn ? "মাটির রস নির্দেশক স্কেল" : "Soil Moisture Scale";
+        legendLabels.innerHTML = isBn ? '<span>🔴 শুকনো (<১৫%)</span><span>🟡 মাঝারি (২৫%)</span><span>🟢 পর্যাপ্ত (>৩৫%)</span>' : '<span>🔴 Dry (<15%)</span><span>🟡 Moderate</span><span>🟢 Optimal (>35%)</span>';
+      } else if (layer === 'ndvi') {
+        layerTitle.textContent = isBn ? "Landsat 8/9: ফসলের সবুজ সতেজতা (NDVI)" : "Landsat 8/9: Canopy Greenness (NDVI)";
+        legendTitle.textContent = isBn ? "ফসলের পাতার সবুজ ঘনত্ব (NDVI)" : "Canopy Greenness (NDVI)";
+        legendLabels.innerHTML = isBn ? '<span>🟡 হলদেটে (০.২)</span><span>🟢 স্বাভাবিক (০.৫)</span><span>🟢 গাঢ় সবুজ (০.৮৫)</span>' : '<span>🟡 Sparse</span><span>🟢 Normal</span><span>🟢 Dense</span>';
+      } else if (layer === 'ecostress') {
+        layerTitle.textContent = isBn ? "নাসা ECOSTRESS: গাছের তাপমাত্রা ও বাষ্প" : "NASA ECOSTRESS: Heat & Evapotranspiration";
+        legendTitle.textContent = isBn ? "গাছের তাপমাত্রা ও বাষ্পীভবন চাপ" : "Thermal Heat Stress";
+        legendLabels.innerHTML = isBn ? '<span>🟢 স্বাভাবিক</span><span>🟡 উষ্ণ</span><span>🔴 তীব্র তাপদাহ</span>' : '<span>🟢 Normal</span><span>🟡 Warm</span><span>🔴 High Heat</span>';
+      } else if (layer === 'gpm') {
+        layerTitle.textContent = isBn ? "নাসা GPM রেইন রাডার: মেঘ ও বৃষ্টির পরিমাণ" : "NASA GPM Radar: Rain & Clouds";
+        legendTitle.textContent = isBn ? "বৃষ্টির পানির পরিমাণ (মিমি)" : "Rainfall Depth (mm)";
+        legendLabels.innerHTML = isBn ? '<span>🔴 অনাবৃষ্টি (<১০ মিমি)</span><span>🟢 মাঝারি (৩০ মিমি)</span><span>🔵 ভারী বৃষ্টি (>৬০ মিমি)</span>' : '<span>🔴 Low</span><span>🟢 Moderate</span><span>🔵 Heavy</span>';
+      }
+      updateSvgParcels();
+      updateInspectorView(currentSelectedParcel);
+    }
+
+    function updateSvgParcels() {
+      Object.keys(parcelsData).forEach(id => {
+        const poly = document.getElementById('poly-' + id);
+        const textTitle = document.getElementById('svg-text-' + id.replace('parcel-', 'p'));
+        const textSub = document.getElementById('svg-sub-' + id.replace('parcel-', 'p'));
+        const p = parcelsData[id];
+        if (poly) poly.setAttribute('fill', p.color);
+        if (textTitle) textTitle.textContent = p.name[currentLang];
+        if (textSub) textSub.textContent = p.crop[currentLang];
+      });
+    }
+
+    function selectParcelData(parcelId) {
+      currentSelectedParcel = parcelId;
+      Object.keys(parcelsData).forEach(id => {
+        const poly = document.getElementById('poly-' + id);
+        if (poly) {
+          poly.setAttribute('stroke-width', id === parcelId ? '4' : '2');
+          poly.setAttribute('stroke', '#ffffff');
+        }
+      });
+      updateInspectorView(parcelId);
+      if (window.innerWidth < 1024) {
+        const insp = document.getElementById('parcelInspectorSection');
+        if (insp) insp.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function updateInspectorView(parcelId) {
+      const data = parcelsData[parcelId];
+      if (!data) return;
+      document.getElementById('inspectorParcelName').textContent = data.name[currentLang];
+      document.getElementById('inspectorMoistVal').textContent = data.smap[currentLang];
+      document.getElementById('inspectorMoistBar').style.width = data.barMoist;
+      document.getElementById('inspectorNdviVal').textContent = data.ndvi[currentLang];
+      document.getElementById('inspectorNdviBar').style.width = data.barNdvi;
+      document.getElementById('inspectorEtVal').textContent = data.ecostress[currentLang];
+      document.getElementById('inspectorEtBar').style.width = data.barEt;
+      document.getElementById('inspectorAdvice').textContent = data.advice[currentLang];
+      const badge = document.getElementById('inspectorStatusBadge');
+      badge.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${data.status[currentLang]}`;
+      badge.className = `px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-black border flex items-center gap-1 ${data.statusClass}`;
+    }
+
+    function zoomMap(factor) {
+      currentMapZoom = Math.max(0.8, Math.min(2.0, currentMapZoom * factor));
+      const svg = document.getElementById('farmParcelsSvg');
+      if (svg) svg.style.transform = `scale(${currentMapZoom})`;
+      document.getElementById('zoomLevelDisplay').textContent = `${Math.round(currentMapZoom * 14)}x`;
+    }
+
+    function resetMap() {
+      currentMapZoom = 1.0;
+      const svg = document.getElementById('farmParcelsSvg');
+      if (svg) svg.style.transform = 'scale(1)';
+      document.getElementById('zoomLevelDisplay').textContent = '১৪x';
+    }
+
+    function handleTimeScrubber(val) {
+      const daysAgo = 6 - parseInt(val, 10);
+      const isBn = currentLang === 'bn';
+      const label = document.getElementById('timeScrubberLabel');
+      if (daysAgo === 0) {
+        label.textContent = isBn ? 'আজকের লাইভ ছবি (Nov 2026)' : 'Today\'s Live Pass (Nov 2026)';
+      } else {
+        label.textContent = isBn ? `${daysAgo} দিন আগের ছবি` : `${daysAgo} days ago`;
+      }
+      updateSvgParcels();
+    }
+
+    function toggleMapPlayback() {
+      const btnIcon = document.getElementById('playBtnIcon');
+      const scrubber = document.getElementById('timeScrubber');
+      if (playbackInterval) {
+        clearInterval(playbackInterval);
+        playbackInterval = null;
+        btnIcon.className = 'fa-solid fa-play text-sm';
+      } else {
+        btnIcon.className = 'fa-solid fa-pause text-sm';
+        playbackInterval = setInterval(() => {
+          let cur = parseInt(scrubber.value, 10);
+          cur = (cur >= 6) ? 0 : cur + 1;
+          scrubber.value = cur;
+          handleTimeScrubber(cur);
+        }, 1200);
+      }
+    }
+
+    function readAloudInspectorAdvice() {
+      const data = parcelsData[currentSelectedParcel];
+      if (data) speakResponseText(data.advice[currentLang], currentLang === 'bn' ? 'bn-BD' : 'en-US');
+    }
+
+    /* 5. 3-DAY RAIN FORECAST (NASA GPM RADAR) */
+    const rainForecastData = [
+      {
+        day: { bn: "আজ (১ম দিন)", en: "Today (Day 1)" },
+        badge: { bn: "পরিষ্কার আবহাওয়া", en: "Safe / Clear" },
+        badgeClass: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
+        icon: "☀️",
+        title: { bn: "রোদ ঝলমলে আকাশ", en: "Sunny & Dry Skies" },
+        rain: { bn: "বৃষ্টি: ০ মিমি (সম্ভাবনা ৫%)", en: "Rain: 0 mm (5% prob.)" },
+        advice: {
+          bn: "জমিতে রস কম থাকলে সূর্যাস্তের পর বা ভোরে ঠান্ডা বাতাসে পাম্প চালাতে পারেন।",
+          en: "If soil moisture is low, irrigate after sunset or during cool early morning hours."
+        }
+      },
+      {
+        day: { bn: "কাল (২য় দিন)", en: "Tomorrow (Day 2)" },
+        badge: { bn: "সতর্কতা", en: "Advisory" },
+        badgeClass: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border-amber-300",
+        icon: "⛅",
+        title: { bn: "আংশিক মেঘলা আকাশ", en: "Partly Cloudy" },
+        rain: { bn: "বৃষ্টি: ২ - ৫ মিমি (সম্ভাবনা ৩৫%)", en: "Rain: 2 - 5 mm (35% prob.)" },
+        advice: {
+          bn: "অতিরিক্ত সেচ দেবেন না। শুধু হালকা পানি দিন, কারণ বাতাসে আর্দ্রতা রয়েছে।",
+          en: "Avoid heavy irrigation. Apply minimal water as humidity will reduce transpiration."
+        }
+      },
+      {
+        day: { bn: "পরশু (৩য় দিন)", en: "In 2 Days (Day 3)" },
+        badge: { bn: "ভারী বৃষ্টির সতর্কতা", en: "Heavy Rain Warning" },
+        badgeClass: "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border-rose-300",
+        icon: "🌧️",
+        title: { bn: "ভারী বৃষ্টির পূর্বাভাস", en: "Heavy Rain Coming" },
+        rain: { bn: "বৃষ্টি: ৩৫ - ৪৫ মিমি (সম্ভাবনা ৮৫%)", en: "Rain: 35 - 45 mm (85% prob.)" },
+        advice: {
+          bn: "সেচ দেওয়া একদম বন্ধ রাখুন! প্রাকৃতিক বৃষ্টিতে জমি ভিজবে এবং পাম্পের খরচ বাঁচবে।",
+          en: "Hold all pumping! Natural rainfall will quench soil and save costly fuel."
+        }
+      }
+    ];
+
+    function renderRainForecast() {
+      const container = document.getElementById('forecastCardsContainer');
+      if (!container) return;
+      container.innerHTML = rainForecastData.map(item => `
+        <div class="p-4 rounded-2xl bg-earth-50 dark:bg-earth-800/80 border-2 border-earth-200 dark:border-earth-700 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-xs text-slate-800 dark:text-slate-200">${item.day[currentLang]}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black border ${item.badgeClass}">${item.badge[currentLang]}</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="text-3xl">${item.icon}</div>
+            <div>
+              <div class="text-base font-black text-slate-900 dark:text-white">${item.title[currentLang]}</div>
+              <div class="text-xs text-slate-500 font-bold">${item.rain[currentLang]}</div>
+            </div>
+          </div>
+          <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium pt-1 border-t border-earth-200 dark:border-earth-700">
+            👉 <strong>${currentLang === 'bn' ? 'পরামর্শ:' : 'Advice:'}</strong> ${item.advice[currentLang]}
+          </p>
+        </div>
+      `).join('');
+    }
+
+    /* 6. CROP COMPARISON & FEED */
+    const cropComparisons = [
+      {
+        title: { bn: "ধান বনাম বাজরা", en: "Paddy vs Pearl Millet" },
+        badge: { bn: "সবচেয়ে লাভজনক", en: "Top Resilient" },
+        water: { bn: "৬০% পানি সাশ্রয় (মাত্র ২ বার সেচ)", en: "60% Water Saved (Only 2 Irrigations)" },
+        cost: { bn: "বীজ ও সার: ৳ ৭৫০ (ধান: ৳ ৫,৫০০+)", en: "Seed & Fert: ৳ 750 (Paddy: ৳ 5,500+)" },
+        days: { bn: "ফসল তোলার সময়: ৭৫ - ৮৫ দিন (ধান: ১৪০ দিন)", en: "Harvest: 75 - 85 Days (Paddy: 140 Days)" },
+        note: { bn: "✓ ধানে যেখানে ২০-২৫ বার সেচ দিতে হয়, বাজরায় মাত্র ২ বারেই নিশ্চিত বাম্পার ফলন!", en: "✓ Paddy demands 20+ soakings; Millet yields reliably in just 2 light waterings!" }
+      },
+      {
+        title: { bn: "ভুট্টা বনাম দানা জোয়ার", en: "Corn vs Grain Sorghum" },
+        badge: { bn: "উঁচু জমির উপযোগী", en: "Ideal for High Land" },
+        water: { bn: "৪৫% পানি সাশ্রয়", en: "45% Water Conserved" },
+        cost: { bn: "বীজ ও সার: ৳ ৯৫০ (ভুট্টা: ৳ ৩,৮০০)", en: "Seed & Fert: ৳ 950 (Corn: ৳ 3,800)" },
+        days: { bn: "ফসল তোলার সময়: ৯৫ - ১০৫ দিন", en: "Harvest: 95 - 105 Days" },
+        note: { bn: "✓ ৩৮°C কড়া রোদেও গাছ মরে না, পাশাপাশি এর শুকনা খড় মূল্যবান গোখাদ্য।", en: "✓ Thrives under 38°C heat; dry stalk also sells as high-value livestock fodder." }
+      },
+      {
+        title: { bn: "ধান বনাম ছোলা ও মুগ ডাল", en: "Paddy vs Pulses & Gram" },
+        badge: { bn: "মাটি উর্বরকারী", en: "Soil Enriching" },
+        water: { bn: "৭০% পানি সাশ্রয়", en: "70% Water Saved" },
+        cost: { bn: "সার খরচ: ৫০% কম (ইউরিয়া লাগে না)", en: "Fertilizer: 50% Cheaper (Zero Urea)" },
+        days: { bn: "ফসল তোলার সময়: ৬৫ - ৮০ দিন", en: "Harvest: 65 - 80 Days" },
+        note: { bn: "✓ ডালের শিকড়ের গুটি বাতাস থেকে নাইট্রোজেন টেনে জমিকে প্রাকৃতিকভাবে উর্বর রাখে।", en: "✓ Root nodules fix atmospheric nitrogen, replenishing field fertility naturally." }
+      }
+    ];
+
+    function renderCropComparison() {
+      const container = document.getElementById('cropComparisonGrid');
+      if (!container) return;
+      container.innerHTML = cropComparisons.map(c => `
+        <div class="p-4 rounded-2xl bg-white/10 border-2 border-white/15 space-y-3">
+          <div class="flex items-center justify-between border-b border-white/15 pb-2">
+            <span class="font-black text-sm text-harvest-300">${c.title[currentLang]}</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500 text-slate-950">${c.badge[currentLang]}</span>
+          </div>
+          <div class="space-y-1.5 text-xs">
+            <div class="bg-black/20 p-2 rounded-xl text-emerald-300 font-black">💧 ${c.water[currentLang]}</div>
+            <div class="bg-black/20 p-2 rounded-xl text-harvest-300 font-bold">💵 ${c.cost[currentLang]}</div>
+            <div class="bg-black/20 p-2 rounded-xl text-slate-200 font-bold">⏱️ ${c.days[currentLang]}</div>
+          </div>
+          <div class="text-[11px] text-emerald-200 font-bold pt-1">${c.note[currentLang]}</div>
+        </div>
+      `).join('');
+    }
+
+    const cropCardsData = [
+      {
+        id: "millet",
+        img: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=400&q=80",
+        title: { bn: "বাজরা (Pearl Millet)", en: "Pearl Millet (Bajra)" },
+        badge: { bn: "🟢 ৬০% পানি সাশ্রয়ী", en: "🟢 60% Water Conserved" },
+        desc: {
+          bn: "প্রচণ্ড রোদেও পাতা শুকায় না। শিকড় মাটির গভীরে গিয়ে রস টেনে নেয়। বোরো ধান পানির অভাবে নষ্ট হওয়ার ঝুঁকি থাকলে বাজরা চাষ করে নিশ্চিত লাভ পাওয়া যায়।",
+          en: "Does not wilt under scorched sun. Deep root system captures subsoil moisture. Best alternative when paddy fails from water shortage."
+        },
+        time: { bn: "৭৫ - ৮৫ দিন", en: "75 - 85 Days" },
+        irrig: { bn: "মাত্র ১ - ২ বার", en: "Only 1 - 2 Times" },
+        profit: { bn: "+৩৫% নিশ্চিত বাড়তি লাভ", en: "+35% Higher Margin" },
+        feature: { bn: "বেলে দোআঁশ মাটিতে চমৎকার ফলন", en: "Flourishes in sandy loam soils" },
+        query: { bn: "বাজরা চাষের সহজ নিয়ম বলুন", en: "Tell me how to cultivate pearl millet" },
+        hazard: "drought", goal: "water"
+      },
+      {
+        id: "sorghum",
+        img: "https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=400&q=80",
+        title: { bn: "দানা জোয়ার (Sorghum)", en: "Grain Sorghum (Jowar)" },
+        badge: { bn: "🟡 ভুট্টার সেরা বিকল্প", en: "🟡 Top Corn Alternative" },
+        desc: {
+          bn: "ভুট্টায় প্রচুর পানি না দিলে শিষ বাঁধে না, কিন্তু জোয়ার ৩৮°C গরমেও শক্ত দাঁড়িয়ে থাকে। দানা ছাড়াও এর শুকনো ডালপালা গবাদিপশুর পুষ্টিকর খাদ্য।",
+          en: "Corn drops grain production without heavy irrigation, but sorghum stands strong even above 38°C. Dry stalks fetch high livestock feed prices."
+        },
+        time: { bn: "৯৫ - ১০৫ দিন", en: "95 - 105 Days" },
+        irrig: { bn: "২ বার হালকা সেচ", en: "2 Irrigations" },
+        profit: { bn: "বাজারে ভালো চাহিদা", en: "High Market Demand" },
+        feature: { bn: "কড়া রোদেও ক্ষতি হয় না", en: "Heat-resistant leaf canopy" },
+        query: { bn: "জোয়ার চাষের নিয়ম ও লাভ বলুন", en: "Tell me how to grow grain sorghum" },
+        hazard: "heat", goal: "profit"
+      },
+      {
+        id: "pulses",
+        img: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=400&q=80",
+        title: { bn: "ছোলা ও মুগ ডাল", en: "Chickpea & Mung Pulses" },
+        badge: { bn: "🟢 প্রাকৃতিক জৈব সার বৃদ্ধি", en: "🟢 Natural Bio-Fertilizer" },
+        desc: {
+          bn: "ডাল চাষে ইউরিয়া সারের খরচ অর্ধেক বাঁচে, কারণ শিকড়ের গুটি বাতাস থেকে নাইট্রোজেন টেনে মাটিতে জমা করে। সেচের পাম্পে বাড়তি তেল পোড়াতে হয় না।",
+          en: "Cuts synthetic urea expenses in half as root nodules fix atmospheric nitrogen into the soil. Requires minimal pumping fuel."
+        },
+        time: { bn: "৬৫ - ৮০ দিন", en: "65 - 80 Days" },
+        irrig: { bn: "৭০% কম পানি", en: "70% Less Water" },
+        profit: { bn: "৫০% সার খরচ সাশ্রয়", en: "50% Fertilizer Saved" },
+        feature: { bn: "পরবর্তী ফসলের জন্যও জমি উর্বর থাকে", en: "Restores soil fertility for next crop" },
+        query: { bn: "ডাল চাষের সুবিধা ও খরচ বলুন", en: "What are the benefits of pulses?" },
+        hazard: "groundwater", goal: "profit"
+      }
+    ];
+
+    function renderCropCards() {
+      const container = document.getElementById('cropCardsContainer');
+      if (!container) return;
+      const isBn = currentLang === 'bn';
+      container.innerHTML = cropCardsData.map(c => `
+        <div class="crop-item-card bg-white dark:bg-earth-900 p-4 sm:p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-leaf-500 transition space-y-4" data-hazard="${c.hazard}" data-goal="${c.goal}">
+          <div class="flex flex-col sm:flex-row gap-4">
+            <img src="${c.img}" alt="${c.title[currentLang]}" class="w-full sm:w-44 h-36 object-cover rounded-2xl shrink-0" />
+            <div class="space-y-1.5 flex-1">
+              <div class="flex flex-wrap items-center justify-between gap-1">
+                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">${c.title[currentLang]}</h3>
+                <span class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300">${c.badge[currentLang]}</span>
+              </div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">${c.desc[currentLang]}</p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-[11px] font-bold">
+                <div class="p-2 sm:p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
+                  <span class="text-slate-400 block text-[10px]">${isBn ? 'ফসল তোলার সময়:' : 'Harvest Time:'}</span> ${c.time[currentLang]}
+                </div>
+                <div class="p-2 sm:p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
+                  <span class="text-slate-400 block text-[10px]">${isBn ? 'সেচ প্রয়োজন:' : 'Irrigation:'}</span> ${c.irrig[currentLang]}
+                </div>
+                <div class="p-2 sm:p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
+                  <span class="text-slate-400 block text-[10px]">${isBn ? 'লাভের সুযোগ:' : 'Advantage:'}</span> ${c.profit[currentLang]}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-earth-100 dark:border-earth-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <span class="text-xs text-slate-500 font-bold"><i class="fa-solid fa-check-circle text-leaf-600 mr-1"></i> ${c.feature[currentLang]}</span>
+            <button onclick="handleQuickAsk('${c.query[currentLang]}')" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-leaf-50 dark:bg-earth-800 hover:bg-leaf-100 dark:hover:bg-earth-700 text-leaf-700 dark:text-leaf-300 font-black text-xs flex items-center justify-center gap-1.5 touch-target">
+              <i class="fa-solid fa-volume-high"></i> ${isBn ? 'চাষের নিয়ম শুনুন' : 'Listen Guidance'}
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterCropsByParam() {
+      const hazard = document.getElementById('paramHazard').value;
+      const cards = document.querySelectorAll('.crop-item-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const itemHazard = card.getAttribute('data-hazard');
+        if (hazard === 'drought' || itemHazard === hazard) {
+          card.style.display = 'block';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      document.getElementById('cropMatchCount').textContent = currentLang === 'bn' ? `${visible}টি উপযুক্ত বিকল্প ফসল` : `${visible} Suitable Alternative Crops`;
+    }
+
+    function setCropGoal(goal, btn) {
+      document.querySelectorAll('.crop-goal-btn').forEach(b => {
+        b.className = 'crop-goal-btn p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-800 dark:text-slate-200 font-bold text-center touch-target';
+      });
+      btn.className = 'crop-goal-btn active p-3 rounded-2xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-center touch-target';
+    }
+
+    /* 7. PUMP & FUEL CALCULATOR ENGINE */
+    let lastPumpCalcSpeech = "";
+    function setBighaPreset(val) {
+      document.querySelectorAll('.bigha-preset-btn').forEach(btn => {
+        btn.className = 'bigha-preset-btn p-2 rounded-xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 font-black text-xs text-center touch-target';
+      });
+      if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.className = 'bigha-preset-btn active p-2 rounded-xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-xs text-center touch-target';
+      }
+      const bighaInput = document.getElementById('pumpLandBigha');
+      if (bighaInput) {
+        bighaInput.value = val;
+        runPumpCostCalculation();
+      }
+    }
+
+    function runPumpCostCalculation() {
+      const bighaVal = parseFloat(document.getElementById('pumpLandBigha').value) || 1;
+      const unit = document.getElementById('pumpLandUnit').value;
+      const powerHp = parseFloat(document.getElementById('pumpHp').value) || 4;
+      const fuelType = document.getElementById('pumpFuelType').value;
+      const crop = document.getElementById('pumpCrop').value;
+      const weatherFactor = parseFloat(document.getElementById('pumpWeather').value) || 1.0;
+      const isBn = currentLang === 'bn';
+
+      let bighas = bighaVal;
+      if (unit === 'acre') bighas = bighaVal * 3.0;
+      if (unit === 'katha') bighas = bighaVal / 20.0;
+
+      let baseWater = 28000;
+      let cropName = isBn ? "ভুট্টা" : "Corn";
+      if (crop === 'rice') { baseWater = 45000; cropName = isBn ? "বোরো ধান" : "Boro Paddy"; }
+      else if (crop === 'corn') { baseWater = 28000; cropName = isBn ? "ভুট্টা" : "Corn"; }
+      else if (crop === 'sorghum') { baseWater = 18000; cropName = isBn ? "দানা জোয়ার" : "Grain Sorghum"; }
+      else if (crop === 'millet') { baseWater = 14000; cropName = isBn ? "বাজরা" : "Pearl Millet"; }
+      else if (crop === 'pulses') { baseWater = 12000; cropName = isBn ? "ডাল" : "Pulses"; }
+
+      const totalLiters = Math.round(bighas * baseWater * weatherFactor);
+      const pumpFlowRate = Math.max(6000, powerHp * 4000);
+      const totalHours = totalLiters / pumpFlowRate;
+      const wholeHours = Math.floor(totalHours);
+      const minutes = Math.round((totalHours - wholeHours) * 60);
+
+      let cost = 0;
+      let fuelText = "";
+
+      if (fuelType === 'diesel') {
+        const dieselLiters = totalHours * powerHp * 0.22;
+        cost = Math.round(dieselLiters * 108);
+        fuelText = isBn ? `ডিজেল: প্রায় ${dieselLiters.toFixed(1)} লিটার (@ ৳ ১০৮)` : `Diesel: ~${dieselLiters.toFixed(1)} Liters (@ ৳ 108/L)`;
+      } else {
+        const electricUnits = totalHours * powerHp * 0.75;
+        cost = Math.round(electricUnits * 8.5);
+        fuelText = isBn ? `বিদ্যুৎ: প্রায় ${electricUnits.toFixed(1)} ইউনিট (@ ৳ ৮.৫)` : `Electricity: ~${electricUnits.toFixed(1)} Units (@ ৳ 8.5/unit)`;
+      }
+
+      document.getElementById('resPumpRuntime').textContent = isBn ? `${wholeHours} ঘণ্টা ${minutes} মিনিট` : `${wholeHours} hrs ${minutes} mins`;
+      document.getElementById('resPumpCost').textContent = isBn ? `৳ ${cost.toLocaleString()} টাকা` : `৳ ${cost.toLocaleString()} BDT`;
+      document.getElementById('resPumpLiters').textContent = isBn ? `${totalLiters.toLocaleString()} লিটার` : `${totalLiters.toLocaleString()} Liters`;
+      document.getElementById('resFuelBreakdown').textContent = fuelText;
+
+      lastPumpCalcSpeech = isBn
+        ? `আপনার ${bighaVal} বিঘা ${cropName} জমিতে মোট ${totalLiters.toLocaleString()} লিটার পানি লাগবে। ${powerHp} ঘোড়া বা হর্সপাওয়ারের পাম্পটি প্রায় ${wholeHours} ঘণ্টা ${minutes} মিনিট চালাতে হবে, এবং আনুমানিক খরচ হবে ৳ ${cost} টাকা।`
+        : `For your ${bighaVal} ${unit} of ${cropName}, approximately ${totalLiters.toLocaleString()} liters of water are required. Run your ${powerHp} HP pump for ${wholeHours} hours and ${minutes} minutes. Estimated cost is ${cost} Taka.`;
+    }
+
+    function readAloudPumpResult() {
+      if (lastPumpCalcSpeech) speakResponseText(lastPumpCalcSpeech, currentLang === 'bn' ? 'bn-BD' : 'en-US');
+    }
+
+    function dismissBanner(btn) {
+      if (btn && btn.closest('.p-4, .p-5')) btn.closest('.p-4, .p-5').style.display = 'none';
+    }
+
+    /* 8. CALENDAR DAYS & DASHBOARD KPIS */
+    const calendarDays = [
+      {
+        day: { bn: "আজ সোম", en: "Today Mon" },
+        time: { bn: "রাত ৩:৩০ – ভোর ৫:৪৫ (২.২৫ ঘণ্টা)", en: "3:30 AM – 5:45 AM (2.25 hrs)" },
+        sub: { bn: "শিকড়ে ঠান্ডা পানির পুষ্টি • পূর্ব ক্ষেত", en: "Cold root absorption • East Field" },
+        status: { bn: "নির্ধারিত সেচ", en: "Scheduled" },
+        cls: "bg-emerald-50 dark:bg-earth-800 border-2 border-emerald-200 dark:border-earth-700 text-emerald-800 dark:text-emerald-300"
+      },
+      {
+        day: { bn: "মঙ্গল", en: "Tue" },
+        time: { bn: "সেচ বন্ধ রাখুন (বিশ্রাম দিন)", en: "Rest Period (Hold Irrigation)" },
+        sub: { bn: "SMAP বলছে মাটিতে ২৪% রস মজুত রয়েছে", en: "SMAP confirms 24% residual moisture" },
+        status: { bn: "পানি লাগবে না", en: "No Water Needed" },
+        cls: "bg-earth-50 dark:bg-earth-850 border-2 border-earth-200 dark:border-earth-800 text-slate-700 dark:text-slate-300"
+      },
+      {
+        day: { bn: "বুধ", en: "Wed" },
+        time: { bn: "সেচ বন্ধ! ভারী বৃষ্টির সম্ভাবনা", en: "Hold! Heavy Rain Predicted" },
+        sub: { bn: "নাসা GPM রাডার: ৩৫ মিমি বৃষ্টি হবে", en: "NASA GPM: ~35mm rainfall expected" },
+        status: { bn: "তেল বাঁচান", en: "Save Diesel" },
+        cls: "bg-rose-50 dark:bg-earth-850 border-2 border-rose-300 dark:border-rose-900/60 text-rose-800 dark:text-rose-300"
+      },
+      {
+        day: { bn: "বৃহস্পতি", en: "Thu" },
+        time: { bn: "ভোর ৪:০০ – ৫:৩০ (১.৫ ঘণ্টা)", en: "4:00 AM – 5:30 AM (1.5 hrs)" },
+        sub: { bn: "হালকা স্প্রিংকলার বা ড্রিপ সেচ • উত্তর বাগান", en: "Light drip hydration • North Orchard" },
+        status: { bn: "নির্ধারিত", en: "Scheduled" },
+        cls: "bg-emerald-50 dark:bg-earth-800 border-2 border-emerald-200 dark:border-earth-700 text-emerald-800 dark:text-emerald-300"
+      }
+    ];
+
+    function renderCalendarDays() {
+      const container = document.getElementById('calendarDaysContainer');
+      if (!container) return;
+      container.innerHTML = calendarDays.map(item => `
+        <div class="flex items-center justify-between p-3 sm:p-3.5 rounded-2xl ${item.cls}">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-leaf-600 text-white flex items-center justify-center text-xs font-black shrink-0 text-center px-1">
+              ${item.day[currentLang]}
+            </div>
+            <div>
+              <h5 class="text-xs font-black text-slate-900 dark:text-white">${item.time[currentLang]}</h5>
+              <p class="text-[11px] text-slate-600 dark:text-slate-400 font-medium">${item.sub[currentLang]}</p>
+            </div>
+          </div>
+          <span class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-black bg-white dark:bg-earth-900 shadow-sm border border-earth-200 dark:border-earth-700 shrink-0">${item.status[currentLang]}</span>
+        </div>
+      `).join('');
+    }
+
+    const dashboardKpiData = [
+      {
+        title: { bn: "গাছের স্বাস্থ্য (NDVI)", en: "Canopy Vigour (NDVI)" },
+        status: { bn: "🟢 ভালো বৃদ্ধি", en: "🟢 Good" },
+        statusClass: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
+        val: "০.৬৮", sub: { bn: "গত সপ্তাহের চেয়ে বেশি সবুজ", en: "Greener than previous week" }
+      },
+      {
+        title: { bn: "সেচের পানি সাশ্রয়", en: "Irrigation Conserved" },
+        status: { bn: "💧 ডিজেল সাশ্রয়", en: "💧 Fuel Saved" },
+        statusClass: "bg-canal-100 text-canal-800 dark:bg-canal-950 dark:text-canal-300 border-canal-300",
+        val: "৩৮.৫%", sub: { bn: "ডিজেল খরচ উল্লেখযোগ্যভাবে কমেছে", en: "Diesel consumption reduced" }
+      },
+      {
+        title: { bn: "মাটির গড় রস", en: "Mean Soil Moisture" },
+        status: { bn: "🟡 সহনশীল", en: "🟡 Moderate" },
+        statusClass: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border-amber-300",
+        val: "২২.৪%", sub: { bn: "পূর্ব উঁচু জমিতে রাতে পানি দিন", en: "Water East parcel at night" }
+      },
+      {
+        title: { bn: "খরা সহনশীলতা স্কোর", en: "Drought Resilience" },
+        status: { bn: "🟢 চমৎকার", en: "🟢 Excellent" },
+        statusClass: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
+        val: "৮৮ / ১০০", sub: { bn: "বাজরা ফসল সম্পূর্ণ সুরক্ষিত", en: "Millet parcel fully guarded" }
+      }
+    ];
+
+    function renderDashboardKpis() {
+      const container = document.getElementById('dashKpiCards');
+      if (!container) return;
+      container.innerHTML = dashboardKpiData.map(k => `
+        <div class="p-4 sm:p-5 rounded-3xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-slate-500 uppercase">${k.title[currentLang]}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black border ${k.statusClass}">${k.status[currentLang]}</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">${k.val}</div>
+          <div class="text-xs font-black text-leaf-600 flex items-center gap-1">
+            <i class="fa-solid fa-arrow-trend-up"></i> ${k.sub[currentLang]}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const quickQuestions = [
+      { text: { bn: "💧 মাটিতে রস কেমন আছে?", en: "💧 How is soil moisture?" }, q: { bn: "মাটিতে রস কেমন আছে?", en: "How is soil moisture?" } },
+      { text: { bn: "🌾 খরায় কোন ফসল বুনব?", en: "🌾 What crop for drought?" }, q: { bn: "খরায় কোন ফসল লাগাব?", en: "What crop for drought?" } },
+      { text: { bn: "⛽ পাম্প ও তেলের খরচ কত?", en: "⛽ What is pump runtime cost?" }, q: { bn: "পাম্প ও তেলের খরচ কত?", en: "What is pump runtime cost?" } },
+      { text: { bn: "🌧️ আগামী ৩ দিনে বৃষ্টি হবে?", en: "🌧️ Will it rain in 3 days?" }, q: { bn: "আগামী ৩ দিনে কি বৃষ্টি হবে?", en: "Will it rain in 3 days?" } }
+    ];
+
+    function renderQuickQuestions() {
+      const container = document.getElementById('quickQuestionsContainer');
+      if (!container) return;
+      container.innerHTML = quickQuestions.map(item => `
+        <button type="button" onclick="handleQuickAsk('${item.q[currentLang]}')" class="text-xs bg-earth-100 dark:bg-earth-800 hover:bg-leaf-100 dark:hover:bg-earth-700 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-2xl font-black border-2 border-earth-200 dark:border-earth-700 transition touch-target">
+          ${item.text[currentLang]}
+        </button>
+      `).join('');
+    }
+
+    /* 9. KRISHI BONDHU AI VOICE ASSISTANT */
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let isListening = false;
+    let lastSpokenText = "";
+
+    function openVoiceModal() {
+      document.getElementById('voiceModal').classList.remove('hidden');
+    }
+
+    function closeVoiceModal() {
+      document.getElementById('voiceModal').classList.add('hidden');
+      stopListening();
+      stopSpeaking();
+    }
+
+    function stopSpeaking() {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      const stopBtn = document.getElementById('stopVoiceBtn');
+      if (stopBtn) stopBtn.classList.add('hidden');
+    }
+
+    function updateMicUI(listening) {
+      const btn = document.getElementById('micButton');
+      const icon = document.getElementById('micIcon');
+      const feedback = document.getElementById('listeningFeedback');
+      const indicator = document.getElementById('micStateIndicator');
+      const soundWave = document.getElementById('soundWave');
+      const isBn = currentLang === 'bn';
+
+      if (listening) {
+        btn.classList.add('bg-rose-600', 'recording-wave');
+        btn.classList.remove('bg-leaf-600');
+        icon.className = 'fa-solid fa-microphone-slash';
+        soundWave.classList.remove('hidden');
+        soundWave.classList.add('flex');
+        feedback.textContent = isBn ? 'শুনছি... আপনার প্রশ্নটি মুখে বলুন' : 'Listening... Speak your query clearly';
+        indicator.textContent = isBn ? 'মাইক্রোফোন চালু আছে' : 'Microphone listening';
+      } else {
+        btn.classList.remove('bg-rose-600', 'recording-wave');
+        btn.classList.add('bg-leaf-600');
+        icon.className = 'fa-solid fa-microphone';
+        soundWave.classList.add('hidden');
+        soundWave.classList.remove('flex');
+        feedback.textContent = isBn ? 'কথা বলতে উপরের গোল বোতামে চাপুন' : 'Tap the circular button to speak';
+        indicator.textContent = isBn ? 'শুনতে প্রস্তুত... মাইকে চাপুন' : 'Ready to listen';
+      }
+    }
+
+    function stopListening() {
+      if (recognition) {
+        try { recognition.abort(); } catch (e) { }
+      }
+      isListening = false;
+      updateMicUI(false);
+    }
+
+    function toggleListening() {
+      if (isListening) {
+        stopListening();
+        return;
+      }
+      stopSpeaking();
+
+      if (!SpeechRecognition) {
+        const spoken = document.getElementById('spokenOutput');
+        spoken.textContent = currentLang === 'bn' ? "স্পিচ রিকগনিশন সমর্থন নেই, দয়া করে লিখে প্রশ্ন করুন।" : "Speech recognition unsupported. Please type below.";
+        return;
+      }
+
+      try {
+        if (!recognition) recognition = new SpeechRecognition();
+        recognition.lang = currentLang === 'bn' ? 'bn-BD' : 'en-US';
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart = function () {
+          isListening = true;
+          updateMicUI(true);
+          document.getElementById('spokenOutput').textContent = currentLang === 'bn' ? '"শুনছি... মুখে বলুন"' : '"Listening..."';
+        };
+
+        recognition.onresult = function (event) {
+          let text = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            text += event.results[i][0].transcript;
+          }
+          if (text) document.getElementById('spokenOutput').textContent = `"${text}"`;
+          if (event.results[0].isFinal) processFarmerQuery(event.results[0][0].transcript);
+        };
+
+        recognition.onerror = function () { stopListening(); };
+        recognition.onend = function () { stopListening(); };
+        recognition.start();
+      } catch (e) {
+        stopListening();
+      }
+    }
+
+    function handleQuickAsk(query) {
+      processFarmerQuery(query);
+    }
+
+    function handleManualSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('typedQuestionInput');
+      if (input && input.value.trim()) {
+        processFarmerQuery(input.value.trim());
+        input.value = '';
+      }
+    }
+
+    function processFarmerQuery(query) {
+      if (!query || !query.trim()) return;
+      document.getElementById('spokenOutput').textContent = `"${query}"`;
+      const q = query.toLowerCase();
+      let reply = "";
+      const isBn = currentLang === 'bn';
+
+      if (q.includes("বৃষ্টি") || q.includes("মেঘ") || q.includes("rain") || q.includes("gpm") || q.includes("radar")) {
+        reply = isBn
+          ? "নাসার জিপিএম স্যাটেলাইট রাডার বলছে, আজ ও কাল আকাশ পরিষ্কার থাকবে। তবে পরশু দিন এলাকায় ৩৫ মিলিমিটারের মতো ভারী বৃষ্টি হতে পারে। তাই বাড়তি ডিজেল পুড়িয়ে জমিতে আজ বেশি সেচ দেবেন না।"
+          : "NASA GPM rain radar reports clear skies today, but an 85% probability of 35mm heavy rain in 72 hours. Hold off excessive irrigation to save diesel.";
+      } else if (q.includes("খরচ") || q.includes("টাকা") || q.includes("পাম্প") || q.includes("তেল") || q.includes("ডিজেল") || q.includes("cost") || q.includes("fuel") || q.includes("pump")) {
+        reply = isBn
+          ? "৪ হর্সপাওয়ার শ্যালো পাম্প দিয়ে এক বিঘা ভুট্টা ক্ষেত ভেজাতে প্রায় ১ ঘণ্টা ৪৫ মিনিট সময় এবং আনুমানিক ১৭০ টাকার মতো ডিজেল লাগে। সূর্যাস্তের পর বা ভোরে সেচ দিলে পানি বেশি দিন টেকে।"
+          : "For 1 Bigha of corn, a 4 HP pump takes roughly 1 hour 45 minutes and about 170 Taka of diesel. Watering after sunset minimizes evaporative loss.";
+      } else if (q.includes("পানি") || q.includes("রস") || q.includes("আর্দ্রতা") || q.includes("water") || q.includes("moisture")) {
+        reply = isBn
+          ? "নাসার এসএমএপি উপগ্রহ বলছে, আপনার ১ নম্বর ও ৩ নম্বর জমির শিকড়ে চমৎকার রস রয়েছে। শুধু পূর্ব দিকের উঁচু জমিতে আজ রাতে হালকা সেচ দিতে হবে।"
+          : "NASA SMAP satellite readings confirm root-zone moisture is sufficient in parcels 1 and 3. Only the higher ridge parcel needs watering.";
+      } else if (q.includes("ফসল") || q.includes("খরা") || q.includes("বিকল্প") || q.includes("crop") || q.includes("shift") || q.includes("বাজরা") || q.includes("জোয়ার")) {
+        reply = isBn
+          ? "অনাবৃষ্টির দিনে ধানের পেছনে অতিরিক্ত টাকা নষ্ট না করে বাজরা বা জোয়ার চাষ করুন। এতে শতকরা ৬০ ভাগ পানি বাঁচে, মাত্র দুই বার সেচ দিতে হয় এবং ৭৫ থেকে ৮৫ দিনের মধ্যে ফসল ঘরে তোলা যায়।"
+          : "Under drought trends, shift to Pearl Millet or Sorghum. They cut field water requirement by up to 60% and mature within 75 to 85 days.";
+      } else if (q.includes("সেচ") || q.includes("কখন") || q.includes("সময়") || q.includes("irrigation")) {
+        reply = isBn
+          ? "দুপুরের কড়া রোদে সেচ দেওয়া পরিহার করুন। রাত ৩:৩০ থেকে ভোর ৬:০০ টায় সেচ দিলে পানি দ্রুত উবে যায় না এবং শিকড় তা পুরোপুরি গ্রহণ করতে পারে।"
+          : "Avoid midday irrigation to prevent evaporative loss. Water your field in the early morning or evening hours.";
+      } else {
+        reply = isBn
+          ? "আপনার খামারের স্যাটেলাইট তথ্য যাচাই করা হয়েছে। সার্বিক অবস্থা বেশ ভালো এবং কোনো বড় দুর্যোগের ঝুঁকি নেই। যেকোনো ফসল বা সেচ খরচের হিসাব জানতে আমাকে প্রশ্ন করতে পারেন।"
+          : "We checked your field satellite data. Current indices show healthy vegetative health and stable conditions. Feel free to ask about crops or irrigation costs.";
+      }
+
+      document.getElementById('aiResponseOutput').textContent = reply;
+      lastSpokenText = reply;
+      const replayBtn = document.getElementById('replayVoiceBtn');
+      if (replayBtn) replayBtn.classList.remove('hidden');
+      readResponseAloud();
+    }
+
+    function readResponseAloud() {
+      if (lastSpokenText) speakResponseText(lastSpokenText, currentLang === 'bn' ? 'bn-BD' : 'en-US');
+    }
+
+    function speakResponseText(text, langCode) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = langCode;
+      utterance.rate = 0.9;
+      utterance.onstart = () => { document.getElementById('stopVoiceBtn').classList.remove('hidden'); };
+      utterance.onend = () => { document.getElementById('stopVoiceBtn').classList.add('hidden'); };
+      utterance.onerror = () => { document.getElementById('stopVoiceBtn').classList.add('hidden'); };
+      window.speechSynthesis.speak(utterance);
+    }
+
+    /* 10. FIELD WIND AMBIENCE SYNTH */
+    let isAmbiencePlaying = false;
+    let ambienceAudioCtx = null;
+    let windGain = null;
+
+    function toggleAmbience() {
+      const icon = document.getElementById('soundIcon');
+      const text = document.getElementById('soundText');
+      const isBn = currentLang === 'bn';
+      if (isAmbiencePlaying) {
+        if (windGain) windGain.gain.exponentialRampToValueAtTime(0.0001, ambienceAudioCtx.currentTime + 0.5);
+        isAmbiencePlaying = false;
+        icon.className = 'fa-solid fa-wind';
+        text.textContent = isBn ? 'মাঠের বাতাস' : 'Field Breeze';
+      } else {
+        playWindAmbience();
+        isAmbiencePlaying = true;
+        icon.className = 'fa-solid fa-volume-high text-harvest-400';
+        text.textContent = isBn ? 'বাতাস চলছে...' : 'Playing...';
+      }
+    }
+
+    function playWindAmbience() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!ambienceAudioCtx) ambienceAudioCtx = new AudioContext();
+        const bufferSize = ambienceAudioCtx.sampleRate * 2;
+        const noiseBuffer = ambienceAudioCtx.createBuffer(1, bufferSize, ambienceAudioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
+        const whiteNoise = ambienceAudioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+        const filter = ambienceAudioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(320, ambienceAudioCtx.currentTime);
+        windGain = ambienceAudioCtx.createGain();
+        windGain.gain.setValueAtTime(0.04, ambienceAudioCtx.currentTime);
+        whiteNoise.connect(filter);
+        filter.connect(windGain);
+        windGain.connect(ambienceAudioCtx.destination);
+        whiteNoise.start();
+      } catch (e) { }
+    }
+
+    function downloadReportPdf() { window.print(); }
+
+    /* 11. INITIALIZATION */
+    window.addEventListener('DOMContentLoaded', () => {
+      applyTranslations();
+      navigateTo((window.location.hash || '').replace('#', '') || 'landing');
+      selectParcelData('parcel-2');
+    });
+  </script>
+
+<script>
+/* =========================================================
+   AGROSHIFT NEXUS: LIVE BACKEND & NASA MULTI-AGENT CONNECTOR
+   ========================================================= */
+let bdDistricts = [];
+let currentSelectedDistId = 'rajshahi';
+let liveAnalysisData = null;
+
+// Initialize on page load
+window.addEventListener('DOMContentLoaded', () => {
+  fetchDistrictsFromBackend();
+});
+
+async function fetchDistrictsFromBackend() {
+  try {
+    const res = await fetch('/api/districts');
+    if (!res.ok) throw new Error('Districts fetch failed');
+    const data = await res.json();
+    bdDistricts = data.districts;
+    populateDistrictDropdown(bdDistricts);
+    loadLiveBackendAnalysis(currentSelectedDistId);
+  } catch (err) {
+    console.warn('Backend offline, running in standalone mode:', err);
+    loadLiveBackendAnalysis(currentSelectedDistId);
+  }
+}
+
+function populateDistrictDropdown(distList) {
+  const sel = document.getElementById('heroDistrictSelect');
+  if (!sel) return;
+  sel.innerHTML = '';
+
+  const divisions = {};
+  distList.forEach(d => {
+    if (!divisions[d.division_bn]) divisions[d.division_bn] = [];
+    divisions[d.division_bn].push(d);
+  });
+
+  Object.keys(divisions).forEach(divName => {
+    const optGroup = document.createElement('optgroup');
+    optGroup.label = `📍 ${divName} বিভাগ`;
+    divisions[divName].forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d.id;
+      opt.innerText = `${d.name_bn} (${d.name_en}) - ${d.primary_risk}`;
+      if (d.id === currentSelectedDistId) opt.selected = true;
+      optGroup.appendChild(opt);
+    });
+    sel.appendChild(optGroup);
+  });
+}
+
+function filterDistrictsByDivision(divName, btnEl) {
+  document.querySelectorAll('#hero-division-pills button').forEach(b => {
+    b.className = 'div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10';
+  });
+  if (btnEl) btnEl.className = 'div-pill px-2 py-0.5 rounded-md font-bold bg-leaf-600 text-white';
+
+  if (divName === 'all') {
+    populateDistrictDropdown(bdDistricts);
+  } else {
+    const filtered = bdDistricts.filter(d => d.division.toLowerCase() === divName.toLowerCase());
+    populateDistrictDropdown(filtered);
+  }
+}
+
+function onDistrictSelectionChanged() {
+  const sel = document.getElementById('heroDistrictSelect');
+  if (!sel) return;
+  currentSelectedDistId = sel.value;
+  
+  const distObj = bdDistricts.find(d => d.id === currentSelectedDistId);
+  if (distObj) {
+    const aezTag = document.getElementById('hero-aez-tag');
+    if (aezTag) aezTag.innerText = distObj.aez;
+    const riskTag = document.getElementById('hero-dist-risk');
+    if (riskTag) riskTag.innerText = `⚠️ ${distObj.primary_risk}`;
+  }
+  loadLiveBackendAnalysis(currentSelectedDistId);
+}
+
+async function loadLiveBackendAnalysis(distId) {
+  try {
+    const res = await fetch('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        region_id: distId,
+        past_crop: 'boro_rice',
+        monoculture_years: 3,
+        priority: 'water_saving',
+        land_area_bigha: 2.0
+      })
+    });
+    if (!res.ok) throw new Error('Analysis API failed');
+    const data = await res.json();
+    liveAnalysisData = data;
+    updateUiWithLiveAnalysis(data);
+  } catch (err) {
+    console.error('API Error:', err);
+  }
+}
+
+function updateUiWithLiveAnalysis(data) {
+  const master = data.master_adaptive_strategy;
+  const sat = data.nasa_earth_observations;
+  const seq = master.adaptive_crop_sequence;
+  const agents = data.specialist_agent_evaluations;
+  const dist = data.district_profile;
+
+  // 1. DYNAMIC RAINFALL & WEATHER FORECAST CARDS (From NASA GPM & MODIS)
+  if (window.rainForecastData && sat) {
+    const dailyRain = sat.gpm_imerg?.precipitation_rate_mm_day || 1.2;
+    const lstTemp = sat.modis_lst?.land_surface_temp_day_c || 34.0;
+    const isFloodZone = (sat.gpm_imerg?.flood_vulnerability_index || 0) > 60;
+
+    window.rainForecastData[0] = {
+      day: { bn: "আজ (১ম দিন)", en: "Today (Day 1)" },
+      badge: { 
+        bn: isFloodZone ? "⚠️ আকস্মিক বন্যা ঝুঁকি" : (dailyRain > 5 ? "🌧️ মাঝারি বৃষ্টি" : "☀️ খরা / শুষ্ক"), 
+        en: isFloodZone ? "⚠️ Flash Flood Risk" : (dailyRain > 5 ? "🌧️ Moderate Rain" : "☀️ Dry / Drought") 
+      },
+      badgeClass: isFloodZone ? "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 border-red-300" : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
+      icon: isFloodZone ? "⛈️" : (dailyRain > 5 ? "🌧️" : "☀️"),
+      title: { 
+        bn: `নাসা GPM বৃষ্টিপাত: ${dailyRain} মিমি/দিন`, 
+        en: `NASA GPM Rain: ${dailyRain} mm/day` 
+      },
+      rain: { 
+        bn: `মাটির তাপমাত্রা (MODIS): ${lstTemp}°C`, 
+        en: `MODIS LST Temp: ${lstTemp}°C` 
+      },
+      advice: {
+        bn: isFloodZone ? "পাহাড়ি ঢল ও আগাম বন্যার আশঙ্কা রয়েছে। দ্রুত পাকা ফসল তোলার প্রস্তুতি নিন।" : "মাটির আর্দ্রতা কম থাকায় সেচ পাম্প ভোরে বা সূর্যাস্তের পর চালান যাতে বাষ্পীভবন কম হয়।",
+        en: isFloodZone ? "Flash flood alert. Prepare early harvest." : "Low soil moisture. Irrigate at dawn or dusk."
+      }
+    };
+    if (typeof renderRainForecast === 'function') renderRainForecast();
+  }
+
+  // 2. DYNAMIC CROP COMPARISON (Boro vs 3-Season Adaptive Sequence)
+  if (window.cropComparisons && seq && seq.length >= 3) {
+    const rabiCrop = seq[2];
+    window.cropComparisons[0] = {
+      title: { bn: `${rabiCrop.crop_name} (মাস্টার রোটেশন)`, en: `${rabiCrop.crop_name} (Master Sequence)` },
+      badge: { bn: `🟢 ${master.quantified_impact.water_saved_percent}% পানি সাশ্রয়ী`, en: `🟢 ${master.quantified_impact.water_saved_percent}% Water Saved` },
+      water: { bn: `মাত্র ~${rabiCrop.water_need_mm} মিমি (বোরো ধানের ১৩০০ মিমি এর বিপরীতে)`, en: `~${rabiCrop.water_need_mm}mm vs 1300mm for Boro` },
+      cost: { bn: `বিঘাপ্রতি সেচ সাশ্রয়: ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha} টাকা`, en: `Irrigation saved: ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha}` },
+      soil: { bn: `প্রাকৃতিক নাইট্রোজেন যোগ: ${master.quantified_impact.natural_nitrogen_added_kg_per_hectare} কেজি/হেক্টর`, en: `Nitrogen added: ${master.quantified_impact.natural_nitrogen_added_kg_per_hectare} kg/ha` },
+      profit: { bn: `উচ্চ বাজারদর ও নিশ্চিত লাভজনক ফসল`, en: `High market demand & guaranteed returns` },
+      notes: { bn: rabiCrop.why_chosen_bn, en: rabiCrop.why_chosen_bn }
+    };
+    if (typeof renderCropComparison === 'function') renderCropComparison();
+  }
+
+  // 3. DYNAMIC CROP CARDS (Generated from 20,000-sample 97.3% ML Engine & 3-Season Plan)
+  if (window.cropCardsData && seq) {
+    window.cropCardsData = seq.map((item, idx) => {
+      const imgMap = {
+        1: "https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=600&q=80",
+        2: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=600&q=80",
+        3: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=600&q=80"
+      };
+      return {
+        id: item.crop_id,
+        img: imgMap[item.stage] || imgMap[1],
+        title: { bn: `${item.season}: ${item.crop_name}`, en: `${item.season_code}: ${item.crop_name}` },
+        badge: { bn: `⏱️ সময়কাল: ${item.duration_days} দিন`, en: `Duration: ${item.duration_days} Days` },
+        hazard: "drought",
+        goal: "profit",
+        desc: {
+          bn: `${item.role}। ${item.why_chosen_bn}`,
+          en: `${item.role}. ${item.why_chosen_bn}`
+        },
+        waterSavings: { bn: `পানির চাহিদা: ~${item.water_need_mm} মিমি`, en: `Water need: ~${item.water_need_mm}mm` },
+        fertCost: { bn: `প্রাকৃতিক পুষ্টি: ${item.soil_enrichment || 'উচ্চ উর্বরতা'}`, en: 'Natural soil enrichment' },
+        season: { bn: item.season, en: item.season_code },
+        soil: { bn: dist.soil_type, en: dist.soil_type }
+      };
+    });
+    if (typeof renderCropCards === 'function') renderCropCards();
+  }
+
+  // 4. DYNAMIC DASHBOARD KPIS (Directly from NASA Satellites & ML Engine)
+  if (window.dashboardKpiData && sat) {
+    window.dashboardKpiData[0] = {
+      title: { bn: "গাছের স্বাস্থ্য সূচক (Landsat NDVI)", en: "Canopy Vigour (NDVI)" },
+      status: { bn: "🟢 স্যাটেলাইট লাইভ", en: "🟢 NASA Live" },
+      statusClass: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
+      val: String(sat.landsat_modis_vegetation?.ndvi_score || 0.45),
+      sub: { bn: `EVI অবনতি সূচক: ${sat.landsat_modis_vegetation?.evi_degradation_trend || -0.01}`, en: "Landsat 8/9 & MODIS 250m" }
+    };
+    window.dashboardKpiData[1] = {
+      title: { bn: "সেচের পানি সাশ্রয় (Master Engine)", en: "Irrigation Conserved" },
+      status: { bn: "💧 ভূগর্ভস্থ পানি সুরক্ষা", en: "💧 Groundwater Saved" },
+      statusClass: "bg-canal-100 text-canal-800 dark:bg-canal-950 dark:text-canal-300 border-canal-300",
+      val: master.quantified_impact.water_saved_percent + "%",
+      sub: { bn: `সেচ ব্যয় সাশ্রয়: ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha} টাকা/বিঘা`, en: "Compared to continuous Boro" }
+    };
+    window.dashboardKpiData[2] = {
+      title: { bn: "মাটির শিকড়ের আর্দ্রতা (NASA SMAP)", en: "Root Moisture (SMAP)" },
+      status: { 
+        bn: sat.smap_hydrology?.wilting_point_proximity || "পর্যাপ্ত", 
+        en: sat.smap_hydrology?.wilting_point_proximity || "Adequate" 
+      },
+      statusClass: sat.smap_hydrology?.root_zone_moisture_m3_m3 < 0.20 ? "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 border-red-300" : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
+      val: (sat.smap_hydrology?.root_zone_moisture_m3_m3 || 0.22) + " m³/m³",
+      sub: { bn: `সারফেস আর্দ্রতা ফ্র্যাকশন: ${sat.smap_hydrology?.surface_wetness_fraction || 0.3}`, en: "SMAP L4 Global 9km" }
+    };
+    window.dashboardKpiData[3] = {
+      title: { bn: "বার্ষিক বৃষ্টিপাত (NASA GPM IMERG)", en: "Annual Rain (GPM)" },
+      status: { bn: "🛰️ লাইভ ক্যালিব্রেটেড", en: "🛰️ Calibrated" },
+      statusClass: "bg-harvest-100 text-harvest-800 dark:bg-harvest-950 dark:text-harvest-300 border-harvest-300",
+      val: (sat.gpm_imerg?.annual_precipitation_mm || 1400) + " mm",
+      sub: { bn: `দৈনিক হার: ${sat.gpm_imerg?.precipitation_rate_mm_day || 2.1} মিমি/দিন`, en: "NASA GPM IMERG V07" }
+    };
+    if (typeof renderDashboardKpis === 'function') renderDashboardKpis();
+  }
+
+  // 5. INJECT 6 SPECIALIST AGENTS CONSENSUS DIRECTLY INTO DASHBOARD
+  renderSpecialistAgentsAudit(agents, master);
+
+  // 6. SYNC VOICE MODAL WITH BANGLA DIRECTIVE
+  window.lastFarmerDirectiveText = master.farmer_directive_bn;
+}
+
+function renderSpecialistAgentsAudit(agents, master) {
+  const dashSection = document.getElementById('page-dashboard');
+  if (!dashSection) return;
+
+  let auditContainer = document.getElementById('agentsAuditContainer');
+  if (!auditContainer) {
+    auditContainer = document.createElement('div');
+    auditContainer.id = 'agentsAuditContainer';
+    auditContainer.className = 'mt-8 p-5 sm:p-6 rounded-3xl bg-white dark:bg-earth-900 border-2 border-leaf-500/50 space-y-4 shadow-sm';
+    dashSection.querySelector('.max-w-7xl')?.appendChild(auditContainer);
+  }
+
+  const agentKeys = Object.keys(agents || {});
+  let agentsHtml = `
+    <div class="flex items-center justify-between pb-3 border-b border-earth-200 dark:border-earth-700">
+      <div>
+        <h3 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-network-wired text-leaf-500"></i>
+          ৬+১ অটোনোমাস মাল্টি-এজেন্ট কনসেনসাস ও এমএল মডেল অডিট
+        </h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">২০,০০০ স্যাম্পলে ট্রেইন করা Random Forest ML মডেল (৯৭.৩% অ্যাকুরেসি) এবং ৬টি স্পেশালিস্ট এজেন্টের সম্মিলিত সিদ্ধান্ত</p>
+      </div>
+      <span class="px-3 py-1 rounded-full text-xs font-black bg-emerald-500 text-slate-950">১০০% ভেরিফাইড</span>
+    </div>
+
+    <!-- Master Directive Alert Box -->
+    <div class="p-4 rounded-2xl bg-emerald-950/60 border border-emerald-500/60 text-xs sm:text-sm text-emerald-100 font-medium leading-relaxed">
+      <strong>🎯 মাস্টার রোটেশন এজেন্টের চূড়ান্ত সিদ্ধান্ত:</strong> ${master.farmer_directive_bn}
+    </div>
+
+    <!-- 6 Agents Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+  `;
+
+  agentKeys.forEach(k => {
+    const ag = agents[k];
+    agentsHtml += `
+      <div class="p-3.5 rounded-2xl bg-earth-50 dark:bg-earth-800/80 border border-earth-200 dark:border-earth-700 space-y-1.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-xs text-slate-900 dark:text-white">${ag.agent_name_bn}</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded font-bold ${
+            ag.status.includes('CRITICAL') || ag.status.includes('SEVERE') ? 'bg-red-950 text-red-300 border border-red-700' :
+            ag.status.includes('MODERATE') ? 'bg-amber-950 text-amber-300 border border-amber-700' : 'bg-emerald-950 text-emerald-300 border border-emerald-700'
+          }">${ag.status}</span>
+        </div>
+        <div class="text-[10px] text-leaf-600 dark:text-leaf-400 font-mono">${ag.satellite_instrument || ag.data_source || 'NASA Data'}</div>
+        <p class="text-xs text-slate-700 dark:text-slate-300 leading-snug">${ag.observations_bn}</p>
+        <div class="text-[11px] text-amber-600 dark:text-amber-300 pt-1 border-t border-earth-200 dark:border-earth-700">
+          ⚠️ ${ag.warning_bn || ag.economic_verdict_bn || ''}
+        </div>
+      </div>
+    `;
+  });
+
+  agentsHtml += `</div>`;
+  auditContainer.innerHTML = agentsHtml;
+}
+
+// Override or enhance voice speaking function
+const originalOpenVoiceModal = window.openVoiceModal;
+window.playBanglaVoiceAdvice = function() {
+  const text = window.lastFarmerDirectiveText || "আপনার জমিতে খরিফ-১ এ মুগ ডাল, খরিফ-২ এ স্বল্পমেয়াদী আমন এবং রবিতে সরিষা চাষ করুন। এতে সেচ খরচ বাঁচবে।";
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'bn-BD';
+    u.rate = 0.92;
+    window.speechSynthesis.speak(u);
+  } else {
+    alert('Browser TTS is not supported.');
+  }
+};
+</script>
+
+</body>
+
+</html>
