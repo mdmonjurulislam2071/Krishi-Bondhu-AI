@@ -1,0 +1,210 @@
+{
+  "rajshahi": {
+    "source": "NASA Earth Science Division (Live API Query)",
+    "data_source_url": "https://power.larc.nasa.gov",
+    "region_id": "rajshahi",
+    "region_name": "High Barind Tract (Rajshahi)",
+    "coordinates": {
+      "lat": 24.3745,
+      "lon": 88.6042
+    },
+    "nasa_gpm_imerg_precipitation": {
+      "daily_precipitation_mm_day": 3.82,
+      "annual_precipitation_total_mm": 1395.3,
+      "monthly_profile": {
+        "JAN": 0.25,
+        "FEB": 0.41,
+        "MAR": 0.85,
+        "APR": 2.67,
+        "MAY": 5.09,
+        "JUN": 7.46,
+        "JUL": 9.21,
+        "AUG": 7.45,
+        "SEP": 7.37,
+        "OCT": 4.41,
+        "NOV": 0.3,
+        "DEC": 0.2
+      }
+    },
+    "nasa_modis_skin_temperature": {
+      "mean_annual_skin_temp_c": 25.75,
+      "peak_thermal_stress_temp_c": 32.83,
+      "monthly_profile": {
+        "JAN": 15.81,
+        "FEB": 20.67,
+        "MAR": 27.26,
+        "APR": 32.04,
+        "MAY": 32.83,
+        "JUN": 30.95,
+        "JUL": 29.15,
+        "AUG": 28.73,
+        "SEP": 27.86,
+        "OCT": 25.55,
+        "NOV": 21.05,
+        "DEC": 16.87
+      }
+    },
+    "nasa_smap_rootzone_hydrology": {
+      "annual_mean_rootzone_wetness": 0.62,
+      "volumetric_rootzone_moisture_m3_m3": 0.279,
+      "surface_wetness": 0.6,
+      "is_critical_drought_stress": false
+    }
+  },
+  "sylhet": {
+    "source": "NASA Earth Science Division (Live API Query)",
+    "data_source_url": "https://power.larc.nasa.gov",
+    "region_id": "sylhet",
+    "region_name": "Haor Basin (Sylhet)",
+    "coordinates": {
+      "lat": 25.0658,
+      "lon": 91.4073
+    },
+    "nasa_gpm_imerg_precipitation": {
+      "daily_precipitation_mm_day": 9.81,
+      "annual_precipitation_total_mm": 3583.1,
+      "monthly_profile": {
+        "JAN": 0.37,
+        "FEB": 1.17,
+        "MAR": 2.96,
+        "APR": 11.93,
+        "MAY": 16.65,
+        "JUN": 22.63,
+        "JUL": 21.62,
+        "AUG": 17.02,
+        "SEP": 14.1,
+        "OCT": 7.5,
+        "NOV": 0.76,
+        "DEC": 0.62
+      }
+    },
+    "nasa_modis_skin_temperature": {
+      "mean_annual_skin_temp_c": 24.33,
+      "peak_thermal_stress_temp_c": 28.16,
+      "monthly_profile": {
+        "JAN": 16.04,
+        "FEB": 19.27,
+        "MAR": 24.46,
+        "APR": 27.35,
+        "MAY": 28.01,
+        "JUN": 28.16,
+        "JUL": 28.09,
+        "AUG": 28.06,
+        "SEP": 27.44,
+        "OCT": 25.72,
+        "NOV": 21.6,
+        "DEC": 17.58
+      }
+    },
+    "nasa_smap_rootzone_hydrology": {
+      "annual_mean_rootzone_wetness": 0.75,
+      "volumetric_rootzone_moisture_m3_m3": 0.338,
+      "surface_wetness": 0.76,
+      "is_critical_drought_stress": false
+    }
+  },
+  "rangpur": {
+    "source": "NASA Earth Science Division (Live API Query)",
+    "data_source_url": "https://power.larc.nasa.gov",
+    "region_id": "rangpur",
+    "region_name": "Tista Floodplain (Rangpur)",
+    "coordinates": {
+      "lat": 25.7439,
+      "lon": 89.2752
+    },
+    "nasa_gpm_imerg_precipitation": {
+      "daily_precipitation_mm_day": 5.39,
+      "annual_precipitation_total_mm": 1968.7,
+      "monthly_profile": {
+        "JAN": 0.24,
+        "FEB": 0.44,
+        "MAR": 0.99,
+        "APR": 4.17,
+        "MAY": 7.81,
+        "JUN": 11.5,
+        "JUL": 12.5,
+        "AUG": 10.23,
+        "SEP": 10.64,
+        "OCT": 5.53,
+        "NOV": 0.23,
+        "DEC": 0.11
+      }
+    },
+    "nasa_modis_skin_temperature": {
+      "mean_annual_skin_temp_c": 25.47,
+      "peak_thermal_stress_temp_c": 31.23,
+      "monthly_profile": {
+        "JAN": 16.13,
+        "FEB": 20.48,
+        "MAR": 26.5,
+        "APR": 30.67,
+        "MAY": 31.23,
+        "JUN": 30.09,
+        "JUL": 29.25,
+        "AUG": 29.03,
+        "SEP": 28.04,
+        "OCT": 25.58,
+        "NOV": 21.19,
+        "DEC": 17.3
+      }
+    },
+    "nasa_smap_rootzone_hydrology": {
+      "annual_mean_rootzone_wetness": 0.65,
+      "volumetric_rootzone_moisture_m3_m3": 0.293,
+      "surface_wetness": 0.64,
+      "is_critical_drought_stress": false
+    }
+  },
+  "khulna": {
+    "source": "NASA Earth Science Division (Live API Query)",
+    "data_source_url": "https://power.larc.nasa.gov",
+    "region_id": "khulna",
+    "region_name": "Coastal Saline Zone (Khulna)",
+    "coordinates": {
+      "lat": 22.8456,
+      "lon": 89.5403
+    },
+    "nasa_gpm_imerg_precipitation": {
+      "daily_precipitation_mm_day": 4.86,
+      "annual_precipitation_total_mm": 1775.1,
+      "monthly_profile": {
+        "JAN": 0.29,
+        "FEB": 0.73,
+        "MAR": 1.15,
+        "APR": 2.58,
+        "MAY": 6.29,
+        "JUN": 9.44,
+        "JUL": 12.08,
+        "AUG": 10.29,
+        "SEP": 8.18,
+        "OCT": 5.52,
+        "NOV": 1.01,
+        "DEC": 0.47
+      }
+    },
+    "nasa_modis_skin_temperature": {
+      "mean_annual_skin_temp_c": 25.97,
+      "peak_thermal_stress_temp_c": 32.51,
+      "monthly_profile": {
+        "JAN": 17.22,
+        "FEB": 22.47,
+        "MAR": 28.55,
+        "APR": 32.51,
+        "MAY": 31.84,
+        "JUN": 29.54,
+        "JUL": 28.4,
+        "AUG": 28.14,
+        "SEP": 27.59,
+        "OCT": 25.79,
+        "NOV": 21.6,
+        "DEC": 17.88
+      }
+    },
+    "nasa_smap_rootzone_hydrology": {
+      "annual_mean_rootzone_wetness": 0.71,
+      "volumetric_rootzone_moisture_m3_m3": 0.32,
+      "surface_wetness": 0.66,
+      "is_critical_drought_stress": false
+    }
+  }
+}

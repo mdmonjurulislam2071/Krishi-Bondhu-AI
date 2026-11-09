@@ -1,0 +1,41 @@
+{
+  "model_type": "Random Forest Classifier (Scikit-Learn, 150 Trees)",
+  "test_accuracy_pct": 97.28,
+  "n_samples": 20000,
+  "dataset_scope": "National 64-District Scale (20,000 Records over 25 Years)",
+  "features": [
+    "crop_id",
+    "nasa_rainfall_mm",
+    "nasa_modis_lst_c",
+    "nasa_smap_root_moisture",
+    "monoculture_years",
+    "groundwater_stress"
+  ],
+  "feature_importances": {
+    "crop_id": 26.46,
+    "nasa_rainfall_mm": 6.9,
+    "nasa_modis_lst_c": 7.08,
+    "nasa_smap_root_moisture": 9.1,
+    "monoculture_years": 44.01,
+    "groundwater_stress": 6.45
+  },
+  "crop_encoding": {
+    "mustard": 0,
+    "lentil": 1,
+    "boro_rice": 2,
+    "aman_rice_short": 3,
+    "aman_rice_submergence": 4,
+    "mungbean": 5,
+    "wheat": 6,
+    "sunflower": 7,
+    "soybean": 8,
+    "groundnut": 9,
+    "maize": 10
+  },
+  "classes": [
+    "Low Risk (Success)",
+    "Moderate Risk",
+    "High Failure Risk"
+  ],
+  "training_data_path": "backend/data/nasa_crop_training_dataset.csv"
+}

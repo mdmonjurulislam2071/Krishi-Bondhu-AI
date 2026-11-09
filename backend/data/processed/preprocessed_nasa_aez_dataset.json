@@ -1,0 +1,138 @@
+{
+  "rajshahi": {
+    "region_id": "rajshahi",
+    "region_name": "High Barind Tract (Rajshahi/Naogaon)",
+    "coordinates": {
+      "lat": 24.3745,
+      "lon": 88.6042
+    },
+    "nasa_gpm_imerg": {
+      "product_id": "GPM_3IMERGDF_07",
+      "daily_precipitation_mm": 1.15,
+      "flood_vulnerability_index": 11,
+      "extreme_rain_warning": false
+    },
+    "nasa_modis_lst": {
+      "product_id": "MOD11A2_061",
+      "calibrated_lst_celsius": 41.19,
+      "drought_heat_stress_index": 98,
+      "thermal_evapotranspiration_risk": "CRITICAL"
+    },
+    "nasa_smap_hydrology": {
+      "product_id": "SPL4SMGP_007",
+      "root_zone_moisture_m3_m3": 0.158,
+      "wilting_point_threshold": 0.17,
+      "stress_percentage": 7.1,
+      "status": "MODERATE_STRESS"
+    },
+    "nasa_landsat_modis_agronomy": {
+      "product_id": "MOD13Q1_061 / Landsat-8_SR",
+      "calculated_ndvi": 0.4,
+      "vegetation_health_status": "STRESSED",
+      "five_year_evi_trend_slope": -0.024,
+      "land_degradation_risk": "HIGH"
+    }
+  },
+  "sylhet": {
+    "region_id": "sylhet",
+    "region_name": "Haor Basin (Sylhet/Sunamganj)",
+    "coordinates": {
+      "lat": 25.0658,
+      "lon": 91.4073
+    },
+    "nasa_gpm_imerg": {
+      "product_id": "GPM_3IMERGDF_07",
+      "daily_precipitation_mm": 9.24,
+      "flood_vulnerability_index": 92,
+      "extreme_rain_warning": true
+    },
+    "nasa_modis_lst": {
+      "product_id": "MOD11A2_061",
+      "calibrated_lst_celsius": 31.85,
+      "drought_heat_stress_index": 28,
+      "thermal_evapotranspiration_risk": "NORMAL"
+    },
+    "nasa_smap_hydrology": {
+      "product_id": "SPL4SMGP_007",
+      "root_zone_moisture_m3_m3": 0.442,
+      "wilting_point_threshold": 0.17,
+      "stress_percentage": 0.0,
+      "status": "OPTIMAL"
+    },
+    "nasa_landsat_modis_agronomy": {
+      "product_id": "MOD13Q1_061 / Landsat-8_SR",
+      "calculated_ndvi": 0.657,
+      "vegetation_health_status": "VIGOROUS",
+      "five_year_evi_trend_slope": -0.005,
+      "land_degradation_risk": "LOW"
+    }
+  },
+  "rangpur": {
+    "region_id": "rangpur",
+    "region_name": "Tista Floodplain (Rangpur/Dinajpur)",
+    "coordinates": {
+      "lat": 25.7439,
+      "lon": 89.2752
+    },
+    "nasa_gpm_imerg": {
+      "product_id": "GPM_3IMERGDF_07",
+      "daily_precipitation_mm": 2.76,
+      "flood_vulnerability_index": 27,
+      "extreme_rain_warning": false
+    },
+    "nasa_modis_lst": {
+      "product_id": "MOD11A2_061",
+      "calibrated_lst_celsius": 37.05,
+      "drought_heat_stress_index": 67,
+      "thermal_evapotranspiration_risk": "ELEVATED"
+    },
+    "nasa_smap_hydrology": {
+      "product_id": "SPL4SMGP_007",
+      "root_zone_moisture_m3_m3": 0.215,
+      "wilting_point_threshold": 0.17,
+      "stress_percentage": 0.0,
+      "status": "OPTIMAL"
+    },
+    "nasa_landsat_modis_agronomy": {
+      "product_id": "MOD13Q1_061 / Landsat-8_SR",
+      "calculated_ndvi": 0.457,
+      "vegetation_health_status": "MODERATE",
+      "five_year_evi_trend_slope": -0.016,
+      "land_degradation_risk": "MODERATE"
+    }
+  },
+  "khulna": {
+    "region_id": "khulna",
+    "region_name": "Coastal Saline Zone (Khulna/Satkhira)",
+    "coordinates": {
+      "lat": 22.8456,
+      "lon": 89.5403
+    },
+    "nasa_gpm_imerg": {
+      "product_id": "GPM_3IMERGDF_07",
+      "daily_precipitation_mm": 3.6,
+      "flood_vulnerability_index": 36,
+      "extreme_rain_warning": false
+    },
+    "nasa_modis_lst": {
+      "product_id": "MOD11A2_061",
+      "calibrated_lst_celsius": 35.55,
+      "drought_heat_stress_index": 56,
+      "thermal_evapotranspiration_risk": "ELEVATED"
+    },
+    "nasa_smap_hydrology": {
+      "product_id": "SPL4SMGP_007",
+      "root_zone_moisture_m3_m3": 0.318,
+      "wilting_point_threshold": 0.17,
+      "stress_percentage": 0.0,
+      "status": "OPTIMAL"
+    },
+    "nasa_landsat_modis_agronomy": {
+      "product_id": "MOD13Q1_061 / Landsat-8_SR",
+      "calculated_ndvi": 0.452,
+      "vegetation_health_status": "MODERATE",
+      "five_year_evi_trend_slope": -0.028,
+      "land_degradation_risk": "HIGH"
+    }
+  }
+}
