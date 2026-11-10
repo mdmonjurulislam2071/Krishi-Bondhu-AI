@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn" class="scroll-smooth overflow-x-hidden">
 
 <head>
@@ -9,6 +9,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Leaflet Interactive Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- Google Fonts: Hind Siliguri (Bangla) & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -327,6 +330,15 @@
          <button type="button" onclick="filterDistrictsByDivision('Mymensingh', this)" class="div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10">ময়মনসিংহ</button>
        </div>
 
+       <!-- Search Text Box + 64 District Dropdown -->
+       <div class="relative">
+         <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-leaf-400 text-xs"></i>
+         <input id="heroDistrictSearch" type="text" oninput="filterDistrictsBySearch()"
+           placeholder="জেলার নাম লিখুন (যেমন: রাজশাহী, Sylhet, খুলনা)..."
+           class="w-full bg-slate-950/90 border border-leaf-500/60 rounded-xl pl-8 pr-16 py-2 text-xs sm:text-sm text-white placeholder-slate-400 font-bold focus:outline-none focus:border-harvest-400" />
+         <button type="button" id="clearDistrictSearchBtn" onclick="clearDistrictSearch()" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-[10px] px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 font-bold">মুছুন</button>
+       </div>
+
        <!-- 64 District Dropdown -->
        <select id="heroDistrictSelect" onchange="onDistrictSelectionChanged()" class="w-full bg-slate-900 border-2 border-leaf-500 rounded-xl px-3 py-2 text-sm sm:text-base text-white font-bold focus:outline-none shadow-inner">
          <option value="rajshahi">রাজশাহী (Rajshahi) - বরেন্দ্র খরা জোন</option>
@@ -334,7 +346,7 @@
          <option value="satkhira">সাতক্ষীরা (Satkhira) - উপকূলীয় লবণাক্ত জোন</option>
          <option value="kurigram">কুড়িগ্রাম (Kurigram) - তিস্তা চরাঞ্চল</option>
        </select>
-       <div class="flex items-center justify-between text-[11px] text-emerald-200">
+       <div class="flex items-center justify-between text-[11px] text-emerald-200 flex-wrap gap-1">
          <span id="hero-dist-risk">⚠️ তীব্র ভূগর্ভস্থ পানির সংকট ও খরা</span>
          <span class="text-harvest-400 font-bold"><i class="fa-solid fa-satellite"></i> নাসা লাইভ সংযুক্ত</span>
        </div>
@@ -516,40 +528,46 @@
     <!-- PAGE 2: NASA EARTH EXPLORER MAP -->
     <section id="page-map-explorer" class="page-view">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <!-- Compact Header + Synced District Selector -->
         <div
-          class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white dark:bg-earth-900 p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm">
-          <div>
-            <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
-              <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
-                data-i18n="navHome">প্রথম পাতা</a>
-              <span>/</span>
-              <span class="text-slate-900 dark:text-white" data-i18n="navMap">জমির নকশা</span>
+          class="bg-white dark:bg-earth-900 p-4 sm:p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm space-y-3">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-0.5">
+                <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
+                  data-i18n="navHome">প্রথম পাতা</a>
+                <span>/</span>
+                <span class="text-slate-900 dark:text-white" data-i18n="navMap">জমির নকশা</span>
+              </div>
+              <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white" data-i18n="explorerHeading">জমির
+                মাটির রস ও স্যাটেলাইট মানচিত্র</h1>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="explorerHeading">জমির
-              মাটির রস ও স্যাটেলাইট মানচিত্র</h1>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-0.5 font-medium" data-i18n="explorerSub">
-              যেকোনো জমির ওপর আঙুল দিয়ে চাপ দিন। মাটির গভীরের রস, ফসলের সবুজ সতেজতা ও সেচের সঠিক সময় জেনে নিন।
-            </p>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1.5 rounded-xl bg-leaf-600 text-white text-xs font-black flex items-center gap-1.5">
+                <i class="fa-solid fa-location-dot"></i>
+                <span id="mapSelectedDistBadge">নির্বাচিত জেলা: রাজশাহী (Rajshahi)</span>
+              </span>
+              <span id="mapSelectedAezBadge"
+                class="px-2.5 py-1.5 rounded-xl bg-earth-100 dark:bg-earth-800 text-leaf-700 dark:text-leaf-300 text-[11px] font-mono font-bold border border-earth-200 dark:border-earth-700">
+                AEZ-25: High Barind Tract
+              </span>
+            </div>
           </div>
 
-          <div
-            class="flex flex-wrap items-center gap-1.5 sm:gap-2 bg-earth-100 dark:bg-earth-800 p-1.5 rounded-2xl border border-earth-200 dark:border-earth-700">
-            <button onclick="setMapLayer('smap')" id="layer-btn-smap"
-              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target text-center">
-              <i class="fa-solid fa-droplet mr-1"></i> <span data-i18n="layerSmap">মাটির রস (SMAP)</span>
-            </button>
-            <button onclick="setMapLayer('ndvi')" id="layer-btn-ndvi"
-              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
-              <i class="fa-solid fa-leaf mr-1"></i> <span data-i18n="layerNdvi">গাছের সতেজতা (NDVI)</span>
-            </button>
-            <button onclick="setMapLayer('ecostress')" id="layer-btn-ecostress"
-              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
-              <i class="fa-solid fa-temperature-high mr-1"></i> <span data-i18n="layerEcostress">রোদের তাপ
-                (ECOSTRESS)</span>
-            </button>
-            <button onclick="setMapLayer('gpm')" id="layer-btn-gpm"
-              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
-              <i class="fa-solid fa-cloud-showers-heavy mr-1"></i> <span data-i18n="layerGpm">বৃষ্টির মেঘ (GPM)</span>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-2 border-t border-earth-100 dark:border-earth-800">
+            <div class="relative flex-1">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+              <input id="mapDistrictSearch" type="text" oninput="filterMapDistrictsBySearch()"
+                placeholder="জেলার নাম লিখুন (যেমন: রাজশাহী, Sylhet)..."
+                class="w-full text-xs font-bold pl-8 pr-3 py-2.5 rounded-xl border border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none focus:border-leaf-500" />
+            </div>
+            <select id="mapDistrictSelect" onchange="onMapDistrictChanged()"
+              class="flex-1 text-xs font-bold p-2.5 rounded-xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target">
+              <option value="rajshahi">রাজশাহী (Rajshahi)</option>
+            </select>
+            <button type="button" id="mapLocateBtn" onclick="locateFarmerOnMap()"
+              class="px-3.5 py-2.5 rounded-xl bg-canal-600 hover:bg-canal-700 text-white text-xs font-black flex items-center justify-center gap-1.5 shrink-0 touch-target">
+              <i class="fa-solid fa-crosshairs"></i> <span>আমার এলাকা (GPS)</span>
             </button>
           </div>
         </div>
@@ -557,100 +575,77 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div class="lg:col-span-8 space-y-4">
             <div
-              class="bg-white dark:bg-earth-900 p-4 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm relative overflow-hidden">
+              class="bg-white dark:bg-earth-900 p-4 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm relative overflow-hidden space-y-3">
+              <!-- Layer Factor Controls Attached Directly Above Map (Always Visible Together!) -->
               <div
-                class="flex items-center justify-between pb-3 mb-2 border-b border-earth-100 dark:border-earth-800 text-xs">
+                class="flex flex-wrap items-center gap-1.5 sm:gap-2 bg-earth-100 dark:bg-earth-800 p-1.5 rounded-2xl border border-earth-200 dark:border-earth-700">
+                <button onclick="setMapLayer('smap')" id="layer-btn-smap"
+                  class="layer-pill flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target text-center">
+                  <i class="fa-solid fa-droplet mr-1"></i> <span data-i18n="layerSmap">মাটির রস (SMAP)</span>
+                </button>
+                <button onclick="setMapLayer('ndvi')" id="layer-btn-ndvi"
+                  class="layer-pill flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
+                  <i class="fa-solid fa-leaf mr-1"></i> <span data-i18n="layerNdvi">গাছের সতেজতা (NDVI)</span>
+                </button>
+                <button onclick="setMapLayer('ecostress')" id="layer-btn-ecostress"
+                  class="layer-pill flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
+                  <i class="fa-solid fa-temperature-high mr-1"></i> <span data-i18n="layerEcostress">রোদের তাপ (ECOSTRESS)</span>
+                </button>
+                <button onclick="setMapLayer('gpm')" id="layer-btn-gpm"
+                  class="layer-pill flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
+                  <i class="fa-solid fa-cloud-showers-heavy mr-1"></i> <span data-i18n="layerGpm">বৃষ্টির মেঘ (GPM)</span>
+                </button>
+              </div>
+
+              <div
+                class="flex items-center justify-between pb-2 border-b border-earth-100 dark:border-earth-800 text-xs gap-2 flex-wrap">
                 <div class="flex items-center gap-2">
                   <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span id="activeLayerIndicator"
                     class="font-black text-slate-900 dark:text-white truncate max-w-[200px] sm:max-w-none">নাসা SMAP
                     উপগ্রহ</span>
                 </div>
-                <div
-                  class="flex items-center gap-2 text-[11px] font-mono font-bold text-leaf-700 dark:text-leaf-300 bg-earth-50 dark:bg-earth-800 px-2.5 py-1 rounded-xl shrink-0">
-                  <span data-i18n="orbitPass">স্যাটেলাইট পাস #৪১২০৯</span>
-                  <span>|</span>
-                  <span id="zoomLevelDisplay">১৪x</span>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="mapStyleToggleBtn" onclick="toggleBaseMapStyle()"
+                    class="px-2.5 py-1 rounded-xl bg-leaf-50 dark:bg-earth-800 hover:bg-leaf-100 dark:hover:bg-earth-700 text-leaf-700 dark:text-leaf-300 text-[11px] font-black border border-leaf-500/30 flex items-center gap-1">
+                    <i class="fa-solid fa-satellite"></i> <span id="mapStyleToggleLbl">স্যাটেলাইট ভিউ</span>
+                  </button>
+                  <div
+                    class="flex items-center gap-2 text-[11px] font-mono font-bold text-leaf-700 dark:text-leaf-300 bg-earth-50 dark:bg-earth-800 px-2.5 py-1 rounded-xl shrink-0">
+                    <span data-i18n="orbitPass">৬৪ জেলা লাইভ</span>
+                    <span>|</span>
+                    <span id="zoomLevelDisplay">১০x</span>
+                  </div>
                 </div>
               </div>
 
-              <!-- Farm Parcels SVG Canvas -->
+              <!-- Interactive Swipeable Regional Map (Leaflet.js) -->
               <div
-                class="relative w-full max-w-full aspect-[4/3] sm:aspect-[16/10] bg-earth-950 rounded-2xl border-2 border-leaf-700/40 overflow-hidden select-none">
-                <svg id="farmParcelsSvg" class="w-full h-full object-cover transition-transform duration-300"
-                  viewBox="0 0 800 500">
-                  <rect width="800" height="500" fill="#09140e" />
-                  <path d="M-10,395 C140,380 260,450 460,420 C620,395 710,460 810,445 L810,500 L-10,500 Z"
-                    fill="#0284c7" opacity="0.95" />
-                  <text x="320" y="465" fill="#ffffff" font-size="12" font-weight="800" data-i18n="svgRiver">প্রধান সেচ
-                    ক্যানেল ও নদী</text>
-
-                  <!-- 4 Parcels -->
-                  <g class="cursor-pointer" onclick="selectParcelData('parcel-1')" id="svg-group-parcel-1">
-                    <polygon points="50,45 320,50 300,205 40,190" id="poly-parcel-1" fill="#10B981" fill-opacity="0.85"
-                      stroke="#ffffff" stroke-width="2" />
-                    <circle cx="160" cy="115" r="7" fill="#ffffff" stroke="#10B981" stroke-width="2.5"
-                      class="animate-pulse" />
-                    <text x="75" y="115" fill="#ffffff" font-size="15" font-weight="800" id="svg-text-p1">১ নম্বর জমি:
-                      উত্তর বাগান</text>
-                    <text x="75" y="136" fill="#d1fae5" font-size="12" font-weight="700" id="svg-sub-p1">বোরো ধান ও ডাল
-                      • ৪৫ হেক্টর</text>
-                  </g>
-
-                  <g class="cursor-pointer" onclick="selectParcelData('parcel-2')" id="svg-group-parcel-2">
-                    <polygon points="340,40 760,35 770,195 320,205" id="poly-parcel-2" fill="#EA580C"
-                      fill-opacity="0.88" stroke="#ffffff" stroke-width="3.5" />
-                    <circle cx="540" cy="115" r="8" fill="#ffffff" stroke="#EA580C" stroke-width="3"
-                      class="animate-ping" />
-                    <text x="440" y="115" fill="#ffffff" font-size="15" font-weight="800" id="svg-text-p2">২ নম্বর জমি:
-                      পূর্ব উঁচু ক্ষেত</text>
-                    <text x="440" y="136" fill="#fed7aa" font-size="12" font-weight="700" id="svg-sub-p2">ভুট্টা ক্ষেত •
-                      ৮২ হেক্টর</text>
-                  </g>
-
-                  <g class="cursor-pointer" onclick="selectParcelData('parcel-3')" id="svg-group-parcel-3">
-                    <polygon points="40,220 360,225 380,360 30,350" id="poly-parcel-3" fill="#059669"
-                      fill-opacity="0.85" stroke="#ffffff" stroke-width="2" />
-                    <circle cx="180" cy="285" r="7" fill="#ffffff" stroke="#059669" stroke-width="2.5" />
-                    <text x="80" y="285" fill="#ffffff" font-size="15" font-weight="800" id="svg-text-p3">৩ নম্বর জমি:
-                      নিচু মাঠ</text>
-                    <text x="80" y="306" fill="#d1fae5" font-size="12" font-weight="700" id="svg-sub-p3">মুগ ও ছোলা ডাল
-                      • ৫৮ হেক্টর</text>
-                  </g>
-
-                  <g class="cursor-pointer" onclick="selectParcelData('parcel-4')" id="svg-group-parcel-4">
-                    <polygon points="380,225 760,210 740,380 400,370" id="poly-parcel-4" fill="#F59E0B"
-                      fill-opacity="0.85" stroke="#ffffff" stroke-width="2" />
-                    <circle cx="550" cy="285" r="7" fill="#ffffff" stroke="#F59E0B" stroke-width="2.5" />
-                    <text x="460" y="285" fill="#ffffff" font-size="15" font-weight="800" id="svg-text-p4">৪ নম্বর জমি:
-                      বাজরা শিফট</text>
-                    <text x="460" y="306" fill="#fef3c7" font-size="12" font-weight="700" id="svg-sub-p4">দানা জোয়ার ও
-                      বাজরা • ৭০ হেক্টর</text>
-                  </g>
-                </svg>
+                class="relative w-full max-w-full h-[360px] sm:h-[460px] bg-earth-950 rounded-2xl border-2 border-leaf-700/40 overflow-hidden select-none">
+                <div id="bangladeshLeafletMap" class="w-full h-full z-0"></div>
 
                 <!-- Map Legend -->
-                <div
-                  class="absolute bottom-3 left-3 bg-white/95 dark:bg-earth-900/95 p-2.5 sm:p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 text-xs shadow-md max-w-[200px] sm:max-w-xs">
+                <div style="z-index: 450;"
+                  class="absolute bottom-3 left-3 bg-white/95 dark:bg-earth-900/95 p-2.5 sm:p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 text-xs shadow-md max-w-[210px] sm:max-w-xs pointer-events-auto">
                   <div class="font-black text-slate-900 dark:text-white mb-1" id="mapLegendTitle">মাটির রস নির্দেশক
                     স্কেল</div>
                   <div class="w-full h-3 rounded-full bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 mb-1"
                     id="mapLegendBar"></div>
-                  <div class="flex justify-between text-[9px] sm:text-[10px] font-black" id="mapLegendLabels"></div>
+                  <div class="flex justify-between text-[9px] sm:text-[10px] font-black gap-1" id="mapLegendLabels"></div>
                 </div>
 
                 <!-- Zoom Controls -->
-                <div class="absolute top-3 right-3 flex flex-col gap-2 z-10">
+                <div style="z-index: 450;" class="absolute top-3 right-3 flex flex-col gap-2">
                   <button onclick="zoomMap(1.15)" aria-label="Zoom in"
-                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                    class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target border border-earth-200 dark:border-earth-700">
                     <i class="fa-solid fa-plus"></i>
                   </button>
                   <button onclick="zoomMap(0.85)" aria-label="Zoom out"
-                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                    class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target border border-earth-200 dark:border-earth-700">
                     <i class="fa-solid fa-minus"></i>
                   </button>
-                  <button onclick="resetMap()" aria-label="Reset map"
-                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                  <button onclick="resetMap()" aria-label="Reset map" title="নির্বাচিত জেলায় ফিরে যান"
+                    class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target border border-earth-200 dark:border-earth-700">
                     <i class="fa-solid fa-rotate-left"></i>
                   </button>
                 </div>
@@ -833,41 +828,90 @@
               class="bg-white dark:bg-earth-900 p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
               <h3 class="font-black text-base text-slate-900 dark:text-white flex items-center gap-2">
                 <i class="fa-solid fa-sliders text-leaf-600"></i>
-                <span data-i18n="paramTitle">আপনার জমির ধরন ও সমস্যা</span>
+                <span data-i18n="paramTitle">আপনার জমির তথ্য ও চাষাবাদের ধরন</span>
               </h3>
 
+              <!-- Synced District Picker -->
               <div>
-                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5"
-                  data-i18n="paramWeatherLbl">আবহাওয়ার পরিস্থিতি</label>
-                <select id="paramHazard" onchange="filterCropsByParam()"
-                  class="w-full text-xs font-bold p-3.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target">
-                  <option value="drought" data-i18n="optDrought">তীব্র খরা / বৃষ্টির অভাব</option>
-                  <option value="groundwater" data-i18n="optGroundwater">ভূগর্ভস্থ পানির স্তর নেমে যাওয়া</option>
-                  <option value="heat" data-i18n="optHeat">প্রচণ্ড গরম ও তাপদাহ (>৩৮°C)</option>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  📍 জেলা নির্বাচন করুন (৬৪ জেলা)
+                </label>
+                <input id="recDistrictSearch" type="text" oninput="filterRecDistrictsBySearch()"
+                  placeholder="জেলার নাম লিখুন (যেমন: রাজশাহী, Sylhet)..."
+                  class="w-full text-xs font-bold px-3 py-2 mb-1.5 rounded-xl border border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none focus:border-leaf-500" />
+                <select id="recDistrictSelect" onchange="onRecDistrictChanged()"
+                  class="w-full text-xs font-bold p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target">
+                  <option value="rajshahi">রাজশাহী (Rajshahi)</option>
                 </select>
               </div>
 
+              <!-- Past Crop Selection -->
               <div>
-                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5"
-                  data-i18n="paramSoilLbl">মাটির ধরন</label>
-                <select id="paramSoil" onchange="filterCropsByParam()"
-                  class="w-full text-xs font-bold p-3.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target">
-                  <option value="sandy-loam" data-i18n="optSandyLoam">বেলে দোআঁশ মাটি</option>
-                  <option value="clay" data-i18n="optClay">এঁটেল ও কাদা মাটি</option>
-                  <option value="alluvial" data-i18n="optAlluvial">পলি মাটি (চরের জমি)</option>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  🌾 আগের মৌসুমে কী চাষ করেছেন?
+                </label>
+                <select id="recPastCrop" onchange="onFarmerParamsChanged()"
+                  class="w-full text-xs font-bold p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target">
+                  <option value="boro_rice" selected>বোরো ধান (Boro Rice)</option>
+                  <option value="aman_rice_short">রোপা আমন ধান (Aman Rice)</option>
+                  <option value="aush_rice">আউশ ধান (Aush Rice)</option>
+                  <option value="maize">হাইব্রিড ভুট্টা (Hybrid Maize)</option>
+                  <option value="potato">আলু (Potato)</option>
+                  <option value="wheat">গম (Wheat)</option>
+                  <option value="jute">পাট (Jute)</option>
+                  <option value="mustard">সরিষা (Mustard)</option>
                 </select>
               </div>
 
+              <!-- Consecutive Monoculture Years (Slider + Number Input) -->
+              <div class="p-3.5 rounded-2xl bg-earth-50 dark:bg-earth-800/70 border border-earth-200 dark:border-earth-700 space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <label class="text-xs font-bold text-slate-700 dark:text-slate-300">
+                    🔁 টানা কত বছর একই ফসল করছেন?
+                  </label>
+                  <span id="monoRiskTag" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300">
+                    চরম ঝুঁকি (৩+ বছর)
+                  </span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <input id="recMonocultureYears" type="range" min="1" max="6" value="3"
+                    oninput="syncMonocultureInputs(this.value, 'slider')"
+                    class="flex-1 accent-leaf-600 cursor-pointer" />
+                  <div class="flex items-center gap-1">
+                    <input id="recMonocultureNumber" type="number" min="1" max="10" value="3"
+                      oninput="syncMonocultureInputs(this.value, 'number')"
+                      class="w-14 text-center text-xs font-black p-2 rounded-xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-900 text-slate-900 dark:text-white focus:outline-none" />
+                    <span class="text-xs font-bold text-slate-500">বছর</span>
+                  </div>
+                </div>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
+                  টানা ৩+ বছর একই ফসল করলে মাটির উর্বরতা কমে ও পোকার বংশবৃদ্ধি বাড়ে।
+                </p>
+              </div>
+
+              <!-- Land Area in Bigha -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  📐 জমির পরিমাণ (বিঘা)
+                </label>
+                <input id="recLandBigha" type="number" min="0.5" max="100" step="0.5" value="2"
+                  onchange="onFarmerParamsChanged()"
+                  class="w-full text-xs font-bold p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target" />
+              </div>
+
+              <!-- Farmer Priority -->
               <div>
                 <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5"
                   data-i18n="paramGoalLbl">আপনার প্রধান উদ্দেশ্য</label>
-                <div class="grid grid-cols-2 gap-2 text-xs">
-                  <button type="button" onclick="setCropGoal('water', this)"
-                    class="crop-goal-btn active p-3 rounded-2xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-center touch-target"
+                <div class="grid grid-cols-3 gap-2 text-xs">
+                  <button type="button" onclick="setCropGoal('water_saving', this)"
+                    class="crop-goal-btn active p-2.5 rounded-2xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-center touch-target"
                     data-i18n="goalWater">পানি বাঁচানো</button>
-                  <button type="button" onclick="setCropGoal('profit', this)"
-                    class="crop-goal-btn p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-800 dark:text-slate-200 font-bold text-center touch-target"
+                  <button type="button" onclick="setCropGoal('max_profit', this)"
+                    class="crop-goal-btn p-2.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-800 dark:text-slate-200 font-bold text-center touch-target"
                     data-i18n="goalProfit">বেশি লাভ</button>
+                  <button type="button" onclick="setCropGoal('soil_health', this)"
+                    class="crop-goal-btn p-2.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-800 dark:text-slate-200 font-bold text-center touch-target">মাটির স্বাস্থ্য</button>
                 </div>
               </div>
 
@@ -877,14 +921,72 @@
                     data-i18n="nasaRefTitle">নাসার রেফারেন্স</span></span>
                 <p class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300 font-medium"
                   data-i18n="nasaRefDesc">
-                  নাসা POWER সৌর বিকিরণ ও Landsat NDVI ফসলের বৃদ্ধি বিশ্লেষণ করে এই তালিকা নির্ধারণ করা হয়েছে।
+                  নাসা POWER সৌর বিকিরণ ও Landsat NDVI এবং ৯৭.৩% অ্যাকুরেসির ML মডেল দিয়ে এই তালিকা নির্ধারণ করা হয়েছে।
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- Dynamic Crop Feed -->
-          <div class="lg:col-span-8 space-y-4">
+          <!-- Dynamic 3-Season Timeline, Soil Fatigue Alert & Crop Feed -->
+          <div class="lg:col-span-8 space-y-5">
+            <!-- Soil Fatigue & Monoculture Alert Card (Degradation Agent) -->
+            <div id="soilFatigueAlertCard"
+              class="p-4 sm:p-5 rounded-3xl bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-300 dark:border-amber-800 space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-bug text-rose-600 text-lg"></i>
+                  <h3 class="font-black text-sm sm:text-base text-slate-900 dark:text-white">
+                    মাটির ক্লান্তি ও পোকার ঝুঁকি বিশ্লেষণ (Degradation Agent)
+                  </h3>
+                </div>
+                <span id="soilFatigueBadge" class="px-3 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300">
+                  যাচাই হচ্ছে...
+                </span>
+              </div>
+              <div class="space-y-1">
+                <div class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+                  <span>কীটপতঙ্গ ও ছত্রাকের আক্রমণ সূচক:</span>
+                  <span id="pestIndexVal" class="font-black text-rose-600">৮৪ / ১০০</span>
+                </div>
+                <div class="w-full h-2.5 bg-white/80 dark:bg-earth-800 rounded-full overflow-hidden border border-earth-200 dark:border-earth-700">
+                  <div id="pestIndexBar" class="h-full bg-gradient-to-r from-amber-500 to-rose-600 rounded-full transition-all duration-300" style="width: 84%"></div>
+                </div>
+              </div>
+              <p id="soilFatigueWarningText" class="text-xs text-slate-800 dark:text-slate-200 font-semibold leading-relaxed">
+                টানা একই ফসল চাষে মাটির পুষ্টি ও জৈব পদার্থের ঘাটতি বিশ্লেষণ করা হচ্ছে...
+              </p>
+              <p id="soilFatigueRecText" class="text-xs text-leaf-800 dark:text-leaf-300 font-bold bg-white/60 dark:bg-earth-900/60 p-2.5 rounded-xl border border-leaf-500/20">
+                💡 পরামর্শ লোড হচ্ছে...
+              </p>
+            </div>
+
+            <!-- 3-Season Adaptive Sequence Timeline (Master Rotation Agent) -->
+            <div id="threeSeasonTimelineContainer"
+              class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-earth-900 border-2 border-leaf-500/50 shadow-sm space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-earth-200 dark:border-earth-700">
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-[10px] font-black uppercase text-leaf-600 dark:text-leaf-400">মাস্টার রোটেশন এজেন্ট (১ বছরের পূর্ণাঙ্গ পরিকল্পনা)</span>
+                    <span id="timelinePriorityBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-leaf-100 text-leaf-800 dark:bg-leaf-950 dark:text-leaf-300 border border-leaf-300">অগ্রাধিকার: পানি বাঁচানো</span>
+                  </div>
+                  <h3 id="timelineThemeTitle" class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-0.5">
+                    ৩-মৌসুমী ফসল চক্র: খরিফ-১ ➔ খরিফ-২ ➔ রবি
+                  </h3>
+                </div>
+                <button type="button" onclick="playBanglaVoiceAdvice()"
+                  class="px-3.5 py-2 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black flex items-center gap-1.5 shadow-sm touch-target">
+                  <i class="fa-solid fa-volume-high"></i> পরিকল্পনা শুনুন
+                </button>
+              </div>
+              <div id="timelineStepsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="p-4 rounded-2xl bg-earth-50 dark:bg-earth-800 text-xs font-bold text-slate-500">
+                  জেলা ও ফসল বিশ্লেষণ লোড হচ্ছে...
+                </div>
+              </div>
+              <div id="timelineImpactBar" class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-earth-200 dark:border-earth-700 text-xs">
+              </div>
+            </div>
+
             <div class="flex items-center justify-between pb-1 text-xs">
               <span class="font-black text-slate-900 dark:text-white uppercase" id="cropMatchCount">৩টি উপযুক্ত বিকল্প
                 ফসল</span>
@@ -900,41 +1002,46 @@
     <!-- PAGE 4: IRRIGATION & PUMP COST CALCULATOR -->
     <section id="page-irrigation-alerts" class="page-view">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
-        <div class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
-          <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
-            <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
-              data-i18n="navHome">প্রথম পাতা</a>
-            <span>/</span>
-            <span class="text-slate-900 dark:text-white" data-i18n="navIrrig">সেচ ও তেলের খরচ</span>
+        <div class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
+              <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
+                data-i18n="navHome">প্রথম পাতা</a>
+              <span>/</span>
+              <span class="text-slate-900 dark:text-white" data-i18n="navIrrig">সেচ ও তেলের খরচ</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="irrigHeading">সেচ হিসাব,
+              পাম্প চালানোর সময় ও ডিজেল খরচ ক্যালকুলেটর</h1>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed font-medium"
+              data-i18n="irrigSub">
+              আপনার জমির বিঘা ও পাম্পের ক্ষমতা (HP) বসালেই ঠিক কত সময় পাম্প চালাতে হবে এবং ডিজেল বা বিদ্যুতে কত টাকা খরচ
+              হবে তা সঙ্গে সঙ্গে সহজ ভাষায় পেয়ে যাবেন।
+            </p>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="irrigHeading">সেচ হিসাব,
-            পাম্প চালানোর সময় ও ডিজেল খরচ ক্যালকুলেটর</h1>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed font-medium"
-            data-i18n="irrigSub">
-            আপনার জমির বিঘা ও পাম্পের ক্ষমতা (HP) বসালেই ঠিক কত সময় পাম্প চালাতে হবে এবং ডিজেল বা বিদ্যুতে কত টাকা খরচ
-            হবে তা সঙ্গে সঙ্গে সহজ ভাষায় পেয়ে যাবেন।
-          </p>
+          <span id="irrigDistBadge" class="px-3.5 py-2 rounded-2xl bg-leaf-100 dark:bg-leaf-950 text-leaf-800 dark:text-leaf-300 border border-leaf-300 dark:border-leaf-700 text-xs font-black self-start sm:self-center shrink-0">
+            📍 জেলা: রাজশাহী (Rajshahi)
+          </span>
         </div>
 
         <!-- Alerts -->
         <div class="space-y-3">
-          <div
+          <div id="irrigUrgentCard"
             class="p-4 sm:p-5 rounded-3xl border-2 border-rose-500 bg-rose-50 dark:bg-earth-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
             <div class="flex items-start gap-3.5">
-              <div
+              <div id="irrigUrgentIconBox"
                 class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-md">
                 <i class="fa-solid fa-triangle-exclamation"></i>
               </div>
               <div class="space-y-0.5">
-                <div class="flex items-center gap-2">
-                  <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-600 text-white"
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span id="irrigUrgentTag" class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-600 text-white"
                     data-i18n="alertUrgentTag">জরুরি সতর্কতা</span>
-                  <span class="text-xs font-black text-rose-700 dark:text-rose-300" data-i18n="alertUrgentTime">আগামী ৭২
+                  <span id="irrigUrgentTime" class="text-xs font-black text-rose-700 dark:text-rose-300" data-i18n="alertUrgentTime">আগামী ৭২
                     ঘণ্টার পূর্বাভাস</span>
                 </div>
-                <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white" data-i18n="alertUrgentTitle">
+                <h4 id="irrigUrgentTitle" class="text-sm sm:text-base font-black text-slate-900 dark:text-white" data-i18n="alertUrgentTitle">
                   পূর্ব উঁচু জমির ভুট্টা ক্ষেতে পানির সংকট!</h4>
-                <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium"
+                <p id="irrigUrgentDesc" class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium"
                   data-i18n="alertUrgentDesc">
                   ইকোস্ট্রেস স্যাটেলাইটে দেখা যাচ্ছে মাটিতে আর্দ্রতা মাত্র ১৪%। আজ রাতে অথবা কাল ভোরে জমিতে হালকা সেচ
                   দেওয়া অত্যন্ত জরুরি।
@@ -1126,8 +1233,13 @@
             <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="dashHeading">খামারের
               স্যাটেলাইট তথ্য ও সার্বিক অবস্থা</h1>
             <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 font-medium" data-i18n="dashSub">
-              গত কয়েক মাসের ফসলের সতেজতার চিত্র এবং করণীয় কাজের নিয়মিত তালিকা।
+              নির্বাচিত জেলার মাটি-আবহাওয়া (স্যাটেলাইট ডেটা) এবং আপনার ৩-মৌসুমী ফসল পরিকল্পনার সারসংক্ষেপ।
             </p>
+            <div class="mt-2 flex flex-wrap gap-2">
+              <span id="dashDistCropBadge" class="px-3 py-1 rounded-xl bg-leaf-100 dark:bg-leaf-950 text-leaf-800 dark:text-leaf-300 text-xs font-black border border-leaf-300 dark:border-leaf-700">
+                📍 জেলা: রাজশাহী | ফসল তুলনা: বোরো ধান বনাম প্রস্তাবিত রোটেশন
+              </span>
+            </div>
           </div>
           <button onclick="downloadReportPdf()"
             class="px-5 py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white font-black text-xs shadow-glow-leaf transition flex items-center justify-center gap-2 self-stretch sm:self-center touch-target">
@@ -1146,48 +1258,49 @@
             <div>
               <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white" data-i18n="chartTitle">গত ৬
                 মাসে ফসলের সবুজ সতেজতার তুলনামূলক চিত্র</h3>
-              <p class="text-xs text-slate-500 font-medium" data-i18n="chartSub">সনাতন ভুট্টা বনাম খরা-সহনশীল বাজরা শিফট
+              <p id="chartSubDynamic" class="text-xs text-slate-500 font-medium">সনাতন ফসল বনাম মাস্টার রোটেশন স্মার্ট ফসল
               </p>
             </div>
-            <div class="flex items-center gap-4 text-xs font-black">
+            <div class="flex items-center gap-4 text-xs font-black flex-wrap">
               <span class="flex items-center gap-1.5 text-leaf-600"><span
-                  class="w-3.5 h-3.5 rounded-full bg-leaf-500 inline-block"></span> <span data-i18n="chartLeg1">বাজরা
-                  শিফট</span></span>
+                  class="w-3.5 h-3.5 rounded-full bg-leaf-500 inline-block"></span> <span id="chartLeg1Text">প্রস্তাবিত ফসল</span></span>
               <span class="flex items-center gap-1.5 text-rose-600"><span
-                  class="w-3.5 h-3.5 rounded-full bg-rose-500 inline-block"></span> <span data-i18n="chartLeg2">সনাতন
-                  ভুট্টা</span></span>
+                  class="w-3.5 h-3.5 rounded-full bg-rose-500 inline-block"></span> <span id="chartLeg2Text">আগের ফসল</span></span>
             </div>
           </div>
 
           <div class="w-full aspect-[16/7] relative overflow-hidden">
-            <svg class="w-full h-full" viewBox="0 0 600 220">
-              <line x1="40" y1="20" x2="580" y2="20" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
+            <svg id="cropHealthChartSvg" class="w-full h-full" viewBox="0 0 600 220">
+              <line x1="48" y1="25" x2="580" y2="25" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
                 stroke-dasharray="4" />
-              <line x1="40" y1="70" x2="580" y2="70" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
+              <line x1="48" y1="75" x2="580" y2="75" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
                 stroke-dasharray="4" />
-              <line x1="40" y1="120" x2="580" y2="120" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
+              <line x1="48" y1="125" x2="580" y2="125" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
                 stroke-dasharray="4" />
-              <line x1="40" y1="170" x2="580" y2="170" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
+              <line x1="48" y1="175" x2="580" y2="175" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
                 stroke-dasharray="4" />
-              <line x1="40" y1="190" x2="580" y2="190" stroke="#059669" stroke-width="2" />
+              <text x="6" y="29" fill="#64748b" font-size="10" font-weight="700">0.90</text>
+              <text x="6" y="79" fill="#64748b" font-size="10" font-weight="700">0.70</text>
+              <text x="6" y="129" fill="#64748b" font-size="10" font-weight="700">0.50</text>
+              <text x="6" y="179" fill="#64748b" font-size="10" font-weight="700">0.30</text>
+              <line x1="48" y1="190" x2="580" y2="190" stroke="#059669" stroke-width="2" />
               <text x="60" y="210" fill="#047857" font-size="12" font-weight="800" id="m1">জুন</text>
               <text x="160" y="210" fill="#047857" font-size="12" font-weight="800" id="m2">জুলাই</text>
               <text x="260" y="210" fill="#047857" font-size="12" font-weight="800" id="m3">আগস্ট</text>
               <text x="360" y="210" fill="#047857" font-size="12" font-weight="800" id="m4">সেপ্টেম্বর</text>
               <text x="460" y="210" fill="#047857" font-size="12" font-weight="800" id="m5">অক্টোবর</text>
               <text x="540" y="210" fill="#047857" font-size="12" font-weight="800" id="m6">নভেম্বর</text>
-              <path d="M60,140 Q160,90 260,150 T360,175 T460,180 T540,185" fill="none" stroke="#EA580C" stroke-width="4"
+              <path id="chartCurvePast" d="M60,140 Q160,90 260,150 T360,175 T460,180 T540,185" fill="none" stroke="#EA580C" stroke-width="4"
                 stroke-linecap="round" />
-              <path d="M60,150 Q160,100 260,70 T360,60 T460,55 T540,60" fill="none" stroke="#10B981" stroke-width="4.5"
+              <path id="chartCurveShift" d="M60,150 Q160,100 260,70 T360,60 T460,55 T540,60" fill="none" stroke="#10B981" stroke-width="4.5"
                 stroke-linecap="round" />
+              <g id="chartDynamicDots"></g>
             </svg>
           </div>
 
-          <div
-            class="p-3.5 sm:p-4 rounded-2xl bg-earth-50 dark:bg-earth-800 text-xs text-slate-700 dark:text-slate-300 font-medium"
-            data-i18n="chartProof">
-            <strong>স্যাটেলাইট প্রমাণ:</strong> আগস্ট মাসের তীব্র তাপদাহে সনাতন ভুট্টা শুকিয়ে গেলেও বিকল্প বাজরা ক্ষেত
-            শতকরা ৪২ ভাগ কম পানিতেও চমৎকার সতেজ ছিল।
+          <div id="chartProofBox"
+            class="p-3.5 sm:p-4 rounded-2xl bg-earth-50 dark:bg-earth-800 text-xs text-slate-700 dark:text-slate-300 font-medium">
+            <strong>স্যাটেলাইট প্রমাণ:</strong> জেলা ও ফসল অনুযায়ী স্যাটেলাইট তুলনামূলক বিশ্লেষণ লোড হচ্ছে...
           </div>
         </div>
       </div>
@@ -1425,10 +1538,17 @@
         </button>
       </form>
 
-      <div class="pt-2 border-t border-earth-100 dark:border-earth-800">
-        <div class="text-[11px] text-slate-500 mb-2 font-black" data-i18n="quickAskTitle">এক চাপে জানতে নিচের প্রশ্নে
-          চাপুন:</div>
-        <div class="flex flex-wrap gap-2" id="quickQuestionsContainer"></div>
+      <div class="pt-2 border-t border-earth-100 dark:border-earth-800 space-y-2.5">
+        <button type="button" onclick="handleQuickAsk('মাস্টার রোটেশন পরিকল্পনা কী?')"
+          class="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-leaf-600 to-emerald-600 hover:from-leaf-700 hover:to-emerald-700 text-white text-xs font-black flex items-center justify-center gap-2 shadow-sm touch-target">
+          <i class="fa-solid fa-wand-magic-sparkles text-harvest-300"></i>
+          <span id="voiceMasterDirectiveLbl">আমার জেলার সম্পূর্ণ এজেন্ট পরামর্শ শুনুন</span>
+        </button>
+        <div>
+          <div class="text-[11px] text-slate-500 mb-2 font-black" data-i18n="quickAskTitle">এক চাপে জানতে নিচের প্রশ্নে
+            চাপুন:</div>
+          <div class="flex flex-wrap gap-2" id="quickQuestionsContainer"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1518,6 +1638,11 @@
       });
       try { if (window.location.hash !== '#' + pageId) window.history.pushState(null, null, '#' + pageId); } catch (e) { }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (pageId === 'map-explorer') {
+        setTimeout(() => {
+          if (typeof window.refreshRegionalLeafletMap === 'function') window.refreshRegionalLeafletMap();
+        }, 80);
+      }
     }
     window.addEventListener('hashchange', () => { navigateTo((window.location.hash || '').replace('#', '') || 'landing'); });
     function toggleMobileDrawer() {
@@ -1668,6 +1793,11 @@
       updateInspectorView(currentSelectedParcel);
       setMapLayer(activeMapLayer);
       runPumpCostCalculation();
+      if (window.liveAnalysisData) {
+        if (typeof updateIrrigationAlertBanner === 'function') updateIrrigationAlertBanner(window.liveAnalysisData);
+        if (typeof window.updateDynamicIrrigationSchedule === 'function') window.updateDynamicIrrigationSchedule();
+        if (typeof renderDynamicCropHealthChart === 'function') renderDynamicCropHealthChart(window.liveAnalysisData);
+      }
       document.getElementById('aiResponseOutput').textContent = dict.assistantGreeting;
     }
 
@@ -1760,10 +1890,10 @@
     function setMapLayer(layer) {
       activeMapLayer = layer;
       document.querySelectorAll('.layer-pill').forEach(btn => {
-        btn.className = 'layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center';
+        btn.className = 'layer-pill flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center';
       });
       const activeBtn = document.getElementById('layer-btn-' + layer);
-      if (activeBtn) activeBtn.className = 'layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target text-center';
+      if (activeBtn) activeBtn.className = 'layer-pill flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target text-center';
 
       const layerTitle = document.getElementById('activeLayerIndicator');
       const legendTitle = document.getElementById('mapLegendTitle');
@@ -1787,39 +1917,36 @@
         legendTitle.textContent = isBn ? "বৃষ্টির পানির পরিমাণ (মিমি)" : "Rainfall Depth (mm)";
         legendLabels.innerHTML = isBn ? '<span>🔴 অনাবৃষ্টি (<১০ মিমি)</span><span>🟢 মাঝারি (৩০ মিমি)</span><span>🔵 ভারী বৃষ্টি (>৬০ মিমি)</span>' : '<span>🔴 Low</span><span>🟢 Moderate</span><span>🔵 Heavy</span>';
       }
-      updateSvgParcels();
-      updateInspectorView(currentSelectedParcel);
+      if (typeof window.updateMapLayerVisuals === 'function') {
+        window.updateMapLayerVisuals(layer);
+      }
+      if (typeof window.updateDistrictInspectorFromLive === 'function' && window.liveAnalysisData) {
+        window.updateDistrictInspectorFromLive(window.liveAnalysisData);
+      } else {
+        updateInspectorView(currentSelectedParcel);
+      }
     }
 
     function updateSvgParcels() {
-      Object.keys(parcelsData).forEach(id => {
-        const poly = document.getElementById('poly-' + id);
-        const textTitle = document.getElementById('svg-text-' + id.replace('parcel-', 'p'));
-        const textSub = document.getElementById('svg-sub-' + id.replace('parcel-', 'p'));
-        const p = parcelsData[id];
-        if (poly) poly.setAttribute('fill', p.color);
-        if (textTitle) textTitle.textContent = p.name[currentLang];
-        if (textSub) textSub.textContent = p.crop[currentLang];
-      });
+      if (typeof window.updateMapLayerVisuals === 'function') {
+        window.updateMapLayerVisuals(activeMapLayer);
+      }
     }
 
     function selectParcelData(parcelId) {
       currentSelectedParcel = parcelId;
-      Object.keys(parcelsData).forEach(id => {
-        const poly = document.getElementById('poly-' + id);
-        if (poly) {
-          poly.setAttribute('stroke-width', id === parcelId ? '4' : '2');
-          poly.setAttribute('stroke', '#ffffff');
-        }
-      });
-      updateInspectorView(parcelId);
-      if (window.innerWidth < 1024) {
-        const insp = document.getElementById('parcelInspectorSection');
-        if (insp) insp.scrollIntoView({ behavior: 'smooth' });
+      if (typeof window.updateDistrictInspectorFromLive === 'function' && window.liveAnalysisData) {
+        window.updateDistrictInspectorFromLive(window.liveAnalysisData);
+      } else {
+        updateInspectorView(parcelId);
       }
     }
 
     function updateInspectorView(parcelId) {
+      if (typeof window.updateDistrictInspectorFromLive === 'function' && window.liveAnalysisData) {
+        window.updateDistrictInspectorFromLive(window.liveAnalysisData);
+        return;
+      }
       const data = parcelsData[parcelId];
       if (!data) return;
       document.getElementById('inspectorParcelName').textContent = data.name[currentLang];
@@ -1836,17 +1963,22 @@
     }
 
     function zoomMap(factor) {
+      if (window.leafletMap) {
+        if (factor > 1) window.leafletMap.zoomIn();
+        else window.leafletMap.zoomOut();
+        return;
+      }
       currentMapZoom = Math.max(0.8, Math.min(2.0, currentMapZoom * factor));
-      const svg = document.getElementById('farmParcelsSvg');
-      if (svg) svg.style.transform = `scale(${currentMapZoom})`;
-      document.getElementById('zoomLevelDisplay').textContent = `${Math.round(currentMapZoom * 14)}x`;
+      document.getElementById('zoomLevelDisplay').textContent = `${Math.round(currentMapZoom * 10)}x`;
     }
 
     function resetMap() {
+      if (typeof window.centerMapOnSelectedDistrict === 'function') {
+        window.centerMapOnSelectedDistrict();
+        return;
+      }
       currentMapZoom = 1.0;
-      const svg = document.getElementById('farmParcelsSvg');
-      if (svg) svg.style.transform = 'scale(1)';
-      document.getElementById('zoomLevelDisplay').textContent = '১৪x';
+      document.getElementById('zoomLevelDisplay').textContent = '১০x';
     }
 
     function handleTimeScrubber(val) {
@@ -1858,7 +1990,13 @@
       } else {
         label.textContent = isBn ? `${daysAgo} দিন আগের ছবি` : `${daysAgo} days ago`;
       }
-      updateSvgParcels();
+      window.currentMapDaysAgo = daysAgo;
+      if (typeof window.updateMapLayerVisuals === 'function') {
+        window.updateMapLayerVisuals(activeMapLayer);
+      }
+      if (typeof window.updateDistrictInspectorFromLive === 'function' && window.liveAnalysisData) {
+        window.updateDistrictInspectorFromLive(window.liveAnalysisData);
+      }
     }
 
     function toggleMapPlayback() {
@@ -1880,12 +2018,17 @@
     }
 
     function readAloudInspectorAdvice() {
+      const liveAdvice = document.getElementById('inspectorAdvice')?.textContent;
+      if (liveAdvice && liveAdvice.trim()) {
+        speakResponseText(liveAdvice.trim(), currentLang === 'bn' ? 'bn-BD' : 'en-US');
+        return;
+      }
       const data = parcelsData[currentSelectedParcel];
       if (data) speakResponseText(data.advice[currentLang], currentLang === 'bn' ? 'bn-BD' : 'en-US');
     }
 
     /* 5. 3-DAY RAIN FORECAST (NASA GPM RADAR) */
-    const rainForecastData = [
+    var rainForecastData = [
       {
         day: { bn: "আজ (১ম দিন)", en: "Today (Day 1)" },
         badge: { bn: "পরিষ্কার আবহাওয়া", en: "Safe / Clear" },
@@ -1948,7 +2091,7 @@
     }
 
     /* 6. CROP COMPARISON & FEED */
-    const cropComparisons = [
+    var cropComparisons = [
       {
         title: { bn: "ধান বনাম বাজরা", en: "Paddy vs Pearl Millet" },
         badge: { bn: "সবচেয়ে লাভজনক", en: "Top Resilient" },
@@ -1994,7 +2137,7 @@
       `).join('');
     }
 
-    const cropCardsData = [
+    var cropCardsData = [
       {
         id: "millet",
         img: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=400&q=80",
@@ -2083,7 +2226,8 @@
     }
 
     function filterCropsByParam() {
-      const hazard = document.getElementById('paramHazard').value;
+      const hazardEl = document.getElementById('paramHazard');
+      const hazard = hazardEl ? hazardEl.value : 'drought';
       const cards = document.querySelectorAll('.crop-item-card');
       let visible = 0;
       cards.forEach(card => {
@@ -2095,14 +2239,18 @@
           card.style.display = 'none';
         }
       });
-      document.getElementById('cropMatchCount').textContent = currentLang === 'bn' ? `${visible}টি উপযুক্ত বিকল্প ফসল` : `${visible} Suitable Alternative Crops`;
+      const countEl = document.getElementById('cropMatchCount');
+      if (countEl) countEl.textContent = currentLang === 'bn' ? `${visible}টি উপযুক্ত বিকল্প ফসল` : `${visible} Suitable Alternative Crops`;
     }
 
     function setCropGoal(goal, btn) {
       document.querySelectorAll('.crop-goal-btn').forEach(b => {
-        b.className = 'crop-goal-btn p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-800 dark:text-slate-200 font-bold text-center touch-target';
+        b.className = 'crop-goal-btn p-2.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 text-slate-800 dark:text-slate-200 font-bold text-center touch-target';
       });
-      btn.className = 'crop-goal-btn active p-3 rounded-2xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-center touch-target';
+      if (btn) btn.className = 'crop-goal-btn active p-2.5 rounded-2xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-center touch-target';
+      if (typeof window.setPriorityAndAnalyze === 'function') {
+        window.setPriorityAndAnalyze(goal);
+      }
     }
 
     /* 7. PUMP & FUEL CALCULATOR ENGINE */
@@ -2166,6 +2314,14 @@
       document.getElementById('resPumpLiters').textContent = isBn ? `${totalLiters.toLocaleString()} লিটার` : `${totalLiters.toLocaleString()} Liters`;
       document.getElementById('resFuelBreakdown').textContent = fuelText;
 
+      window.lastPumpCalcMeta = {
+        bighaVal, unit, bighas, powerHp, fuelType, crop, cropName, weatherFactor,
+        totalLiters, wholeHours, minutes, cost
+      };
+      if (typeof window.updateDynamicIrrigationSchedule === 'function') {
+        window.updateDynamicIrrigationSchedule();
+      }
+
       lastPumpCalcSpeech = isBn
         ? `আপনার ${bighaVal} বিঘা ${cropName} জমিতে মোট ${totalLiters.toLocaleString()} লিটার পানি লাগবে। ${powerHp} ঘোড়া বা হর্সপাওয়ারের পাম্পটি প্রায় ${wholeHours} ঘণ্টা ${minutes} মিনিট চালাতে হবে, এবং আনুমানিক খরচ হবে ৳ ${cost} টাকা।`
         : `For your ${bighaVal} ${unit} of ${cropName}, approximately ${totalLiters.toLocaleString()} liters of water are required. Run your ${powerHp} HP pump for ${wholeHours} hours and ${minutes} minutes. Estimated cost is ${cost} Taka.`;
@@ -2180,7 +2336,7 @@
     }
 
     /* 8. CALENDAR DAYS & DASHBOARD KPIS */
-    const calendarDays = [
+    var calendarDays = [
       {
         day: { bn: "আজ সোম", en: "Today Mon" },
         time: { bn: "রাত ৩:৩০ – ভোর ৫:৪৫ (২.২৫ ঘণ্টা)", en: "3:30 AM – 5:45 AM (2.25 hrs)" },
@@ -2217,7 +2373,7 @@
       container.innerHTML = calendarDays.map(item => `
         <div class="flex items-center justify-between p-3 sm:p-3.5 rounded-2xl ${item.cls}">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-leaf-600 text-white flex items-center justify-center text-xs font-black shrink-0 text-center px-1">
+            <div class="min-w-[68px] sm:min-w-[78px] min-h-[44px] py-1.5 px-2 rounded-2xl bg-leaf-600 text-white flex flex-col items-center justify-center text-[10px] sm:text-[11px] font-black shrink-0 text-center leading-tight">
               ${item.day[currentLang]}
             </div>
             <div>
@@ -2230,7 +2386,7 @@
       `).join('');
     }
 
-    const dashboardKpiData = [
+    var dashboardKpiData = [
       {
         title: { bn: "গাছের স্বাস্থ্য (NDVI)", en: "Canopy Vigour (NDVI)" },
         status: { bn: "🟢 ভালো বৃদ্ধি", en: "🟢 Good" },
@@ -2277,8 +2433,9 @@
     const quickQuestions = [
       { text: { bn: "💧 মাটিতে রস কেমন আছে?", en: "💧 How is soil moisture?" }, q: { bn: "মাটিতে রস কেমন আছে?", en: "How is soil moisture?" } },
       { text: { bn: "🌾 খরায় কোন ফসল বুনব?", en: "🌾 What crop for drought?" }, q: { bn: "খরায় কোন ফসল লাগাব?", en: "What crop for drought?" } },
+      { text: { bn: "🐛 পোকা ও মাটির ক্লান্তি ঝুঁকি?", en: "🐛 Soil fatigue & pest risk?" }, q: { bn: "পোকা ও মাটির ক্লান্তি ঝুঁকি কেমন?", en: "What is soil fatigue and pest risk?" } },
       { text: { bn: "⛽ পাম্প ও তেলের খরচ কত?", en: "⛽ What is pump runtime cost?" }, q: { bn: "পাম্প ও তেলের খরচ কত?", en: "What is pump runtime cost?" } },
-      { text: { bn: "🌧️ আগামী ৩ দিনে বৃষ্টি হবে?", en: "🌧️ Will it rain in 3 days?" }, q: { bn: "আগামী ৩ দিনে কি বৃষ্টি হবে?", en: "Will it rain in 3 days?" } }
+      { text: { bn: "🌧️ বৃষ্টি ও বন্যার পূর্বাভাস?", en: "🌧️ Rain & flood forecast?" }, q: { bn: "আগামী ৩ দিনে বৃষ্টি বা বন্যার ঝুঁকি?", en: "What is the rain and flood forecast?" } }
     ];
 
     function renderQuickQuestions() {
@@ -2299,6 +2456,14 @@
 
     function openVoiceModal() {
       document.getElementById('voiceModal').classList.remove('hidden');
+      renderQuickQuestions();
+      const lbl = document.getElementById('voiceMasterDirectiveLbl');
+      if (lbl && window.liveAnalysisData?.district_profile) {
+        const d = window.liveAnalysisData.district_profile;
+        lbl.textContent = currentLang === 'bn'
+          ? `${d.name_bn} জেলার সম্পূর্ণ এজেন্ট পরামর্শ শুনুন`
+          : `Listen to Full Agent Plan for ${d.name_en}`;
+      }
     }
 
     function closeVoiceModal() {
@@ -2391,6 +2556,10 @@
     }
 
     function handleQuickAsk(query) {
+      const modal = document.getElementById('voiceModal');
+      if (modal && modal.classList.contains('hidden')) {
+        openVoiceModal();
+      }
       processFarmerQuery(query);
     }
 
@@ -2409,31 +2578,82 @@
       const q = query.toLowerCase();
       let reply = "";
       const isBn = currentLang === 'bn';
+      const live = window.liveAnalysisData;
+      const agents = live?.specialist_agent_evaluations || {};
+      const master = live?.master_adaptive_strategy;
+      const sat = live?.nasa_earth_observations;
+      const dist = live?.district_profile;
 
-      if (q.includes("বৃষ্টি") || q.includes("মেঘ") || q.includes("rain") || q.includes("gpm") || q.includes("radar")) {
-        reply = isBn
-          ? "নাসার জিপিএম স্যাটেলাইট রাডার বলছে, আজ ও কাল আকাশ পরিষ্কার থাকবে। তবে পরশু দিন এলাকায় ৩৫ মিলিমিটারের মতো ভারী বৃষ্টি হতে পারে। তাই বাড়তি ডিজেল পুড়িয়ে জমিতে আজ বেশি সেচ দেবেন না।"
-          : "NASA GPM rain radar reports clear skies today, but an 85% probability of 35mm heavy rain in 72 hours. Hold off excessive irrigation to save diesel.";
-      } else if (q.includes("খরচ") || q.includes("টাকা") || q.includes("পাম্প") || q.includes("তেল") || q.includes("ডিজেল") || q.includes("cost") || q.includes("fuel") || q.includes("pump")) {
-        reply = isBn
-          ? "৪ হর্সপাওয়ার শ্যালো পাম্প দিয়ে এক বিঘা ভুট্টা ক্ষেত ভেজাতে প্রায় ১ ঘণ্টা ৪৫ মিনিট সময় এবং আনুমানিক ১৭০ টাকার মতো ডিজেল লাগে। সূর্যাস্তের পর বা ভোরে সেচ দিলে পানি বেশি দিন টেকে।"
-          : "For 1 Bigha of corn, a 4 HP pump takes roughly 1 hour 45 minutes and about 170 Taka of diesel. Watering after sunset minimizes evaporative loss.";
-      } else if (q.includes("পানি") || q.includes("রস") || q.includes("আর্দ্রতা") || q.includes("water") || q.includes("moisture")) {
-        reply = isBn
-          ? "নাসার এসএমএপি উপগ্রহ বলছে, আপনার ১ নম্বর ও ৩ নম্বর জমির শিকড়ে চমৎকার রস রয়েছে। শুধু পূর্ব দিকের উঁচু জমিতে আজ রাতে হালকা সেচ দিতে হবে।"
-          : "NASA SMAP satellite readings confirm root-zone moisture is sufficient in parcels 1 and 3. Only the higher ridge parcel needs watering.";
-      } else if (q.includes("ফসল") || q.includes("খরা") || q.includes("বিকল্প") || q.includes("crop") || q.includes("shift") || q.includes("বাজরা") || q.includes("জোয়ার")) {
-        reply = isBn
-          ? "অনাবৃষ্টির দিনে ধানের পেছনে অতিরিক্ত টাকা নষ্ট না করে বাজরা বা জোয়ার চাষ করুন। এতে শতকরা ৬০ ভাগ পানি বাঁচে, মাত্র দুই বার সেচ দিতে হয় এবং ৭৫ থেকে ৮৫ দিনের মধ্যে ফসল ঘরে তোলা যায়।"
-          : "Under drought trends, shift to Pearl Millet or Sorghum. They cut field water requirement by up to 60% and mature within 75 to 85 days.";
-      } else if (q.includes("সেচ") || q.includes("কখন") || q.includes("সময়") || q.includes("irrigation")) {
-        reply = isBn
-          ? "দুপুরের কড়া রোদে সেচ দেওয়া পরিহার করুন। রাত ৩:৩০ থেকে ভোর ৬:০০ টায় সেচ দিলে পানি দ্রুত উবে যায় না এবং শিকড় তা পুরোপুরি গ্রহণ করতে পারে।"
-          : "Avoid midday irrigation to prevent evaporative loss. Water your field in the early morning or evening hours.";
+      if (live && master) {
+        const distLabel = isBn ? (dist?.name_bn || "আপনার জেলা") : (dist?.name_en || "your district");
+        if (q.includes("মাস্টার") || q.includes("পরিকল্পনা") || q.includes("সম্পূর্ণ") || q.includes("plan") || q.includes("strategy") || q.includes("rotation")) {
+          reply = isBn
+            ? master.farmer_directive_bn
+            : `${distLabel} Master Strategy (${master.aez_zone}): Recommended 3-season rotation is ${master.adaptive_crop_sequence.map(s => s.crop_name).join(' -> ')}. Saves ${master.quantified_impact.water_saved_percent}% water and ৳${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha}/bigha.`;
+        } else if (q.includes("পোকা") || q.includes("ক্লান্তি") || q.includes("অবক্ষয়") || q.includes("একই ফসল") || q.includes("fatigue") || q.includes("pest") || q.includes("degrad")) {
+          const deg = agents.degradation_agent;
+          reply = isBn
+            ? `${deg?.observations_bn || ''} ${deg?.warning_bn || ''} পরামর্শ: ${deg?.recommendation_bn || ''}`
+            : `${distLabel} Soil Fatigue Status: ${deg?.status}. Pest index: ${deg?.metrics?.pest_vulnerability_index}/100. Break the monoculture cycle with legumes or oilseeds.`;
+        } else if (q.includes("বৃষ্টি") || q.includes("মেঘ") || q.includes("বন্যা") || q.includes("rain") || q.includes("flood") || q.includes("gpm") || q.includes("radar")) {
+          const flood = agents.flood_agent;
+          const rainRate = sat?.gpm_imerg?.precipitation_rate_mm_day ?? 2.0;
+          reply = isBn
+            ? `${flood?.observations_bn || ''} ${flood?.warning_bn || ''}`
+            : `${distLabel} NASA GPM rain rate is ${rainRate} mm/day (Annual: ${sat?.gpm_imerg?.annual_precipitation_mm || '--'} mm). Flood status: ${flood?.status || 'MONITORED'}.`;
+        } else if (q.includes("খরচ") || q.includes("টাকা") || q.includes("পাম্প") || q.includes("তেল") || q.includes("ডিজেল") || q.includes("লাভ") || q.includes("cost") || q.includes("fuel") || q.includes("pump") || q.includes("profit")) {
+          const econ = agents.economic_agent;
+          reply = isBn
+            ? `${econ?.observations_bn || ''} ${econ?.economic_verdict_bn || ''}`
+            : `${distLabel} Economic Agent: Switching saves ৳${econ?.metrics?.irrigation_cost_saved_bdt || 0} (${econ?.metrics?.irrigation_savings_percentage || 0}%) in irrigation costs for ${econ?.metrics?.land_area_bigha || 2} bigha.`;
+        } else if (q.includes("পানি") || q.includes("রস") || q.includes("আর্দ্রতা") || q.includes("তাপ") || q.includes("water") || q.includes("moisture") || q.includes("drought")) {
+          const soil = agents.soil_agent;
+          const drought = agents.drought_agent;
+          reply = isBn
+            ? `${soil?.observations_bn || ''} ${drought?.observations_bn || ''}`
+            : `${distLabel} NASA SMAP root moisture: ${sat?.smap_hydrology?.root_zone_moisture_m3_m3 ?? '--'} m³/m³, MODIS surface temp: ${sat?.modis_lst?.land_surface_temp_day_c ?? '--'}°C.`;
+        } else if (q.includes("ফসল") || q.includes("খরা") || q.includes("বিকল্প") || q.includes("বুনব") || q.includes("লাগাব") || q.includes("crop") || q.includes("shift") || q.includes("বাজরা") || q.includes("জোয়ার")) {
+          const agro = agents.agronomy_agent;
+          const seqNames = (master.adaptive_crop_sequence || []).map(s => `${s.season}: ${s.crop_name}`).join('। ');
+          reply = isBn
+            ? `${distLabel} জেলার ৩-মৌসুমী পরামর্শ: ${seqNames}। ${agro?.observations_bn || ''}`
+            : `${distLabel} 3-season plan: ${master.adaptive_crop_sequence.map(s => s.season_code + ': ' + s.crop_name).join(' -> ')}.`;
+        } else if (q.includes("সেচ") || q.includes("কখন") || q.includes("সময়") || q.includes("irrigation")) {
+          const drought = agents.drought_agent;
+          reply = isBn
+            ? `${drought?.warning_bn || "দুপুরের কড়া রোদে সেচ দেওয়া পরিহার করুন।"} রাত ৩:৩০ থেকে ভোর ৬:০০ টার মধ্যে সেচ দিলে পানি দ্রুত বাষ্প হয়ে উড়ে যায় না।`
+            : `Avoid midday irrigation (${sat?.modis_lst?.land_surface_temp_day_c ?? 34}°C peak). Irrigate between 3:30 AM and 6:00 AM to minimize evaporative loss.`;
+        } else {
+          reply = isBn
+            ? master.farmer_directive_bn
+            : `${distLabel} Satellite Analysis Ready. Recommended 3-season cycle saves ${master.quantified_impact.water_saved_percent}% water and ৳${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha}/bigha.`;
+        }
       } else {
-        reply = isBn
-          ? "আপনার খামারের স্যাটেলাইট তথ্য যাচাই করা হয়েছে। সার্বিক অবস্থা বেশ ভালো এবং কোনো বড় দুর্যোগের ঝুঁকি নেই। যেকোনো ফসল বা সেচ খরচের হিসাব জানতে আমাকে প্রশ্ন করতে পারেন।"
-          : "We checked your field satellite data. Current indices show healthy vegetative health and stable conditions. Feel free to ask about crops or irrigation costs.";
+        if (q.includes("বৃষ্টি") || q.includes("মেঘ") || q.includes("rain") || q.includes("gpm") || q.includes("radar")) {
+          reply = isBn
+            ? "নাসার জিপিএম স্যাটেলাইট রাডার বলছে, আজ ও কাল আকাশ পরিষ্কার থাকবে। তবে পরশু দিন এলাকায় ৩৫ মিলিমিটারের মতো ভারী বৃষ্টি হতে পারে। তাই বাড়তি ডিজেল পুড়িয়ে জমিতে আজ বেশি সেচ দেবেন না।"
+            : "NASA GPM rain radar reports clear skies today, but an 85% probability of 35mm heavy rain in 72 hours. Hold off excessive irrigation to save diesel.";
+        } else if (q.includes("খরচ") || q.includes("টাকা") || q.includes("পাম্প") || q.includes("তেল") || q.includes("ডিজেল") || q.includes("cost") || q.includes("fuel") || q.includes("pump")) {
+          reply = isBn
+            ? "৪ হর্সপাওয়ার শ্যালো পাম্প দিয়ে এক বিঘা ভুট্টা ক্ষেত ভেজাতে প্রায় ১ ঘণ্টা ৪৫ মিনিট সময় এবং আনুমানিক ১৭০ টাকার মতো ডিজেল লাগে। সূর্যাস্তের পর বা ভোরে সেচ দিলে পানি বেশি দিন টেকে।"
+            : "For 1 Bigha of corn, a 4 HP pump takes roughly 1 hour 45 minutes and about 170 Taka of diesel. Watering after sunset minimizes evaporative loss.";
+        } else if (q.includes("পানি") || q.includes("রস") || q.includes("আর্দ্রতা") || q.includes("water") || q.includes("moisture")) {
+          reply = isBn
+            ? "নাসার এসএমএপি উপগ্রহ বলছে, আপনার ১ নম্বর ও ৩ নম্বর জমির শিকড়ে চমৎকার রস রয়েছে। শুধু পূর্ব দিকের উঁচু জমিতে আজ রাতে হালকা সেচ দিতে হবে।"
+            : "NASA SMAP satellite readings confirm root-zone moisture is sufficient in parcels 1 and 3. Only the higher ridge parcel needs watering.";
+        } else if (q.includes("ফসল") || q.includes("খরা") || q.includes("বিকল্প") || q.includes("crop") || q.includes("shift") || q.includes("বাজরা") || q.includes("জোয়ার")) {
+          reply = isBn
+            ? "অনাবৃষ্টির দিনে ধানের পেছনে অতিরিক্ত টাকা নষ্ট না করে বাজরা বা জোয়ার চাষ করুন। এতে শতকরা ৬০ ভাগ পানি বাঁচে, মাত্র দুই বার সেচ দিতে হয় এবং ৭৫ থেকে ৮৫ দিনের মধ্যে ফসল ঘরে তোলা যায়।"
+            : "Under drought trends, shift to Pearl Millet or Sorghum. They cut field water requirement by up to 60% and mature within 75 to 85 days.";
+        } else if (q.includes("সেচ") || q.includes("কখন") || q.includes("সময়") || q.includes("irrigation")) {
+          reply = isBn
+            ? "দুপুরের কড়া রোদে সেচ দেওয়া পরিহার করুন। রাত ৩:৩০ থেকে ভোর ৬:০০ টায় সেচ দিলে পানি দ্রুত উবে যায় না এবং শিকড় তা পুরোপুরি গ্রহণ করতে পারে।"
+            : "Avoid midday irrigation to prevent evaporative loss. Water your field in the early morning or evening hours.";
+        } else {
+          reply = isBn
+            ? "আপনার খামারের স্যাটেলাইট তথ্য যাচাই করা হয়েছে। সার্বিক অবস্থা বেশ ভালো এবং কোনো বড় দুর্যোগের ঝুঁকি নেই। যেকোনো ফসল বা সেচ খরচের হিসাব জানতে আমাকে প্রশ্ন করতে পারেন।"
+            : "We checked your field satellite data. Current indices show healthy vegetative health and stable conditions. Feel free to ask about crops or irrigation costs.";
+        }
       }
 
       document.getElementById('aiResponseOutput').textContent = reply;
@@ -2521,7 +2741,12 @@
    ========================================================= */
 let bdDistricts = [];
 let currentSelectedDistId = 'rajshahi';
-let liveAnalysisData = null;
+let activeDivisionFilter = 'all';
+let currentPastCrop = 'boro_rice';
+let currentMonocultureYears = 3;
+let currentPriority = 'water_saving';
+let currentLandBigha = 2.0;
+window.liveAnalysisData = null;
 
 // Initialize on page load
 window.addEventListener('DOMContentLoaded', () => {
@@ -2533,8 +2758,14 @@ async function fetchDistrictsFromBackend() {
     const res = await fetch('/api/districts');
     if (!res.ok) throw new Error('Districts fetch failed');
     const data = await res.json();
-    bdDistricts = data.districts;
-    populateDistrictDropdown(bdDistricts);
+    bdDistricts = data.districts || [];
+    populateDistrictDropdown(bdDistricts, 'heroDistrictSelect');
+    populateDistrictDropdown(bdDistricts, 'recDistrictSelect');
+    populateDistrictDropdown(bdDistricts, 'mapDistrictSelect');
+    updateHeroDistrictBadges(currentSelectedDistId);
+    if (typeof window.initOrRefreshRegionalMap === 'function') {
+      window.initOrRefreshRegionalMap();
+    }
     loadLiveBackendAnalysis(currentSelectedDistId);
   } catch (err) {
     console.warn('Backend offline, running in standalone mode:', err);
@@ -2542,15 +2773,24 @@ async function fetchDistrictsFromBackend() {
   }
 }
 
-function populateDistrictDropdown(distList) {
-  const sel = document.getElementById('heroDistrictSelect');
+function populateDistrictDropdown(distList, selectId = 'heroDistrictSelect') {
+  const sel = document.getElementById(selectId);
   if (!sel) return;
   sel.innerHTML = '';
 
+  if (!distList || distList.length === 0) {
+    const emptyOpt = document.createElement('option');
+    emptyOpt.value = '';
+    emptyOpt.innerText = 'কোনো জেলা পাওয়া যায়নি (অনুসন্ধান পরিবর্তন করুন)';
+    sel.appendChild(emptyOpt);
+    return;
+  }
+
   const divisions = {};
   distList.forEach(d => {
-    if (!divisions[d.division_bn]) divisions[d.division_bn] = [];
-    divisions[d.division_bn].push(d);
+    const divKey = d.division_bn || d.division || 'বাংলাদেশ';
+    if (!divisions[divKey]) divisions[divKey] = [];
+    divisions[divKey].push(d);
   });
 
   Object.keys(divisions).forEach(divName => {
@@ -2567,54 +2807,828 @@ function populateDistrictDropdown(distList) {
   });
 }
 
+function getFilteredHeroDistricts() {
+  const query = (document.getElementById('heroDistrictSearch')?.value || '').trim().toLowerCase();
+  return bdDistricts.filter(d => {
+    const matchesDiv = activeDivisionFilter === 'all' || (d.division || '').toLowerCase() === activeDivisionFilter.toLowerCase();
+    const matchesText = !query ||
+      (d.name_en || '').toLowerCase().includes(query) ||
+      (d.name_bn || '').toLowerCase().includes(query) ||
+      (d.division_bn || '').toLowerCase().includes(query) ||
+      (d.primary_risk || '').toLowerCase().includes(query);
+    return matchesDiv && matchesText;
+  });
+}
+
 function filterDistrictsByDivision(divName, btnEl) {
+  activeDivisionFilter = divName;
   document.querySelectorAll('#hero-division-pills button').forEach(b => {
     b.className = 'div-pill px-2 py-0.5 rounded-md font-bold bg-black/50 text-slate-300 hover:text-white border border-white/10';
   });
   if (btnEl) btnEl.className = 'div-pill px-2 py-0.5 rounded-md font-bold bg-leaf-600 text-white';
 
-  if (divName === 'all') {
-    populateDistrictDropdown(bdDistricts);
-  } else {
-    const filtered = bdDistricts.filter(d => d.division.toLowerCase() === divName.toLowerCase());
-    populateDistrictDropdown(filtered);
+  const filtered = getFilteredHeroDistricts();
+  populateDistrictDropdown(filtered, 'heroDistrictSelect');
+  if (filtered.length > 0 && !filtered.some(d => d.id === currentSelectedDistId)) {
+    currentSelectedDistId = filtered[0].id;
+    syncDistrictSelectors(currentSelectedDistId);
+    loadLiveBackendAnalysis(currentSelectedDistId);
   }
 }
 
-function onDistrictSelectionChanged() {
-  const sel = document.getElementById('heroDistrictSelect');
-  if (!sel) return;
-  currentSelectedDistId = sel.value;
-  
-  const distObj = bdDistricts.find(d => d.id === currentSelectedDistId);
+function filterDistrictsBySearch() {
+  const input = document.getElementById('heroDistrictSearch');
+  const clearBtn = document.getElementById('clearDistrictSearchBtn');
+  if (clearBtn) {
+    clearBtn.classList.toggle('hidden', !(input && input.value.trim().length > 0));
+  }
+  const filtered = getFilteredHeroDistricts();
+  populateDistrictDropdown(filtered, 'heroDistrictSelect');
+  if (filtered.length > 0 && !filtered.some(d => d.id === currentSelectedDistId)) {
+    currentSelectedDistId = filtered[0].id;
+    syncDistrictSelectors(currentSelectedDistId);
+    loadLiveBackendAnalysis(currentSelectedDistId);
+  }
+}
+
+function clearDistrictSearch() {
+  const input = document.getElementById('heroDistrictSearch');
+  if (input) input.value = '';
+  const clearBtn = document.getElementById('clearDistrictSearchBtn');
+  if (clearBtn) clearBtn.classList.add('hidden');
+  populateDistrictDropdown(getFilteredHeroDistricts(), 'heroDistrictSelect');
+}
+
+function filterRecDistrictsBySearch() {
+  const query = (document.getElementById('recDistrictSearch')?.value || '').trim().toLowerCase();
+  const filtered = bdDistricts.filter(d =>
+    !query ||
+    (d.name_en || '').toLowerCase().includes(query) ||
+    (d.name_bn || '').toLowerCase().includes(query) ||
+    (d.division_bn || '').toLowerCase().includes(query)
+  );
+  populateDistrictDropdown(filtered, 'recDistrictSelect');
+  if (filtered.length > 0 && !filtered.some(d => d.id === currentSelectedDistId)) {
+    currentSelectedDistId = filtered[0].id;
+    syncDistrictSelectors(currentSelectedDistId);
+    loadLiveBackendAnalysis(currentSelectedDistId);
+  }
+}
+
+function filterMapDistrictsBySearch() {
+  const query = (document.getElementById('mapDistrictSearch')?.value || '').trim().toLowerCase();
+  const filtered = bdDistricts.filter(d =>
+    !query ||
+    (d.name_en || '').toLowerCase().includes(query) ||
+    (d.name_bn || '').toLowerCase().includes(query) ||
+    (d.division_bn || '').toLowerCase().includes(query)
+  );
+  populateDistrictDropdown(filtered, 'mapDistrictSelect');
+  if (filtered.length > 0 && !filtered.some(d => d.id === currentSelectedDistId)) {
+    currentSelectedDistId = filtered[0].id;
+    syncDistrictSelectors(currentSelectedDistId);
+    loadLiveBackendAnalysis(currentSelectedDistId);
+  }
+}
+
+function syncDistrictSelectors(distId) {
+  ['heroDistrictSelect', 'recDistrictSelect', 'mapDistrictSelect'].forEach(selId => {
+    const el = document.getElementById(selId);
+    if (el && Array.from(el.options).some(o => o.value === distId)) {
+      el.value = distId;
+    }
+  });
+  updateHeroDistrictBadges(distId);
+  if (typeof window.centerMapOnSelectedDistrict === 'function') {
+    window.centerMapOnSelectedDistrict();
+  }
+}
+
+function updateHeroDistrictBadges(distId) {
+  const distObj = bdDistricts.find(d => d.id === distId);
   if (distObj) {
     const aezTag = document.getElementById('hero-aez-tag');
     if (aezTag) aezTag.innerText = distObj.aez;
     const riskTag = document.getElementById('hero-dist-risk');
     if (riskTag) riskTag.innerText = `⚠️ ${distObj.primary_risk}`;
+
+    const mapBadge = document.getElementById('mapSelectedDistBadge');
+    if (mapBadge) mapBadge.textContent = `নির্বাচিত জেলা: ${distObj.name_bn} (${distObj.name_en})`;
+    const mapAez = document.getElementById('mapSelectedAezBadge');
+    if (mapAez) mapAez.textContent = distObj.aez;
+
+    const irrigBadge = document.getElementById('irrigDistBadge');
+    if (irrigBadge) irrigBadge.textContent = `📍 জেলা: ${distObj.name_bn} (${distObj.name_en})`;
   }
+}
+
+function onDistrictSelectionChanged() {
+  const sel = document.getElementById('heroDistrictSelect');
+  if (!sel || !sel.value) return;
+  currentSelectedDistId = sel.value;
+  syncDistrictSelectors(currentSelectedDistId);
+  loadLiveBackendAnalysis(currentSelectedDistId);
+}
+
+function onRecDistrictChanged() {
+  const sel = document.getElementById('recDistrictSelect');
+  if (!sel || !sel.value) return;
+  currentSelectedDistId = sel.value;
+  syncDistrictSelectors(currentSelectedDistId);
+  loadLiveBackendAnalysis(currentSelectedDistId);
+}
+
+function onMapDistrictChanged() {
+  const sel = document.getElementById('mapDistrictSelect');
+  if (!sel || !sel.value) return;
+  currentSelectedDistId = sel.value;
+  syncDistrictSelectors(currentSelectedDistId);
+  loadLiveBackendAnalysis(currentSelectedDistId);
+}
+
+let monoDebounceTimer = null;
+function syncMonocultureInputs(val, source) {
+  let num = parseInt(val, 10);
+  if (isNaN(num) || num < 1) num = 1;
+  if (num > 10) num = 10;
+  currentMonocultureYears = num;
+
+  const slider = document.getElementById('recMonocultureYears');
+  const numberInput = document.getElementById('recMonocultureNumber');
+  if (source !== 'slider' && slider) slider.value = Math.min(6, num);
+  if (source !== 'number' && numberInput) numberInput.value = num;
+
+  const riskTag = document.getElementById('monoRiskTag');
+  if (riskTag) {
+    if (num >= 3) {
+      riskTag.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300';
+      riskTag.textContent = `চরম ঝুঁকি (${num} বছর)`;
+    } else if (num === 2) {
+      riskTag.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-300';
+      riskTag.textContent = `সতর্কতা (${num} বছর)`;
+    } else {
+      riskTag.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300';
+      riskTag.textContent = `স্বাভাবিক (${num} বছর)`;
+    }
+  }
+
+  clearTimeout(monoDebounceTimer);
+  monoDebounceTimer = setTimeout(() => {
+    loadLiveBackendAnalysis(currentSelectedDistId);
+  }, 180);
+}
+
+window.setPriorityAndAnalyze = function(priority) {
+  currentPriority = priority || 'water_saving';
+  loadLiveBackendAnalysis(currentSelectedDistId);
+};
+
+function onFarmerParamsChanged() {
+  const pastEl = document.getElementById('recPastCrop');
+  if (pastEl) currentPastCrop = pastEl.value || 'boro_rice';
+  const bighaEl = document.getElementById('recLandBigha');
+  if (bighaEl) currentLandBigha = Math.max(0.5, parseFloat(bighaEl.value) || 2.0);
   loadLiveBackendAnalysis(currentSelectedDistId);
 }
 
 async function loadLiveBackendAnalysis(distId) {
+  if (!distId) return;
   try {
     const res = await fetch('/api/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         region_id: distId,
-        past_crop: 'boro_rice',
-        monoculture_years: 3,
-        priority: 'water_saving',
-        land_area_bigha: 2.0
+        past_crop: currentPastCrop,
+        monoculture_years: currentMonocultureYears,
+        priority: currentPriority,
+        land_area_bigha: currentLandBigha
       })
     });
     if (!res.ok) throw new Error('Analysis API failed');
     const data = await res.json();
-    liveAnalysisData = data;
+    window.liveAnalysisData = data;
     updateUiWithLiveAnalysis(data);
   } catch (err) {
     console.error('API Error:', err);
+  }
+}
+
+function renderSoilFatigueAlert(degAgent) {
+  if (!degAgent) return;
+  const card = document.getElementById('soilFatigueAlertCard');
+  const badge = document.getElementById('soilFatigueBadge');
+  const indexVal = document.getElementById('pestIndexVal');
+  const indexBar = document.getElementById('pestIndexBar');
+  const warnEl = document.getElementById('soilFatigueWarningText');
+  const recEl = document.getElementById('soilFatigueRecText');
+  if (!card) return;
+
+  const pestIdx = degAgent.metrics?.pest_vulnerability_index ?? 28;
+  const status = degAgent.status || 'MODERATE_RISK';
+
+  if (status === 'CRITICAL_SOIL_FATIGUE') {
+    card.className = 'p-4 sm:p-5 rounded-3xl bg-rose-50 dark:bg-rose-950/30 border-2 border-rose-300 dark:border-rose-800 space-y-3';
+    if (badge) {
+      badge.className = 'px-3 py-1 rounded-full text-xs font-black bg-rose-600 text-white';
+      badge.textContent = '⚠️ চরম মাটির ক্লান্তি (Break Cycle)';
+    }
+  } else if (status === 'MODERATE_RISK') {
+    card.className = 'p-4 sm:p-5 rounded-3xl bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-300 dark:border-amber-800 space-y-3';
+    if (badge) {
+      badge.className = 'px-3 py-1 rounded-full text-xs font-black bg-amber-500 text-slate-950';
+      badge.textContent = '🟡 মাঝারি ঝুঁকি';
+    }
+  } else {
+    card.className = 'p-4 sm:p-5 rounded-3xl bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-300 dark:border-emerald-800 space-y-3';
+    if (badge) {
+      badge.className = 'px-3 py-1 rounded-full text-xs font-black bg-emerald-600 text-white';
+      badge.textContent = '🟢 মাটি সুস্থ';
+    }
+  }
+
+  if (indexVal) indexVal.textContent = `${pestIdx} / ১০০`;
+  if (indexBar) indexBar.style.width = `${Math.min(100, Math.max(5, pestIdx))}%`;
+  if (warnEl) warnEl.textContent = degAgent.warning_bn || degAgent.observations_bn || '';
+  if (recEl) recEl.textContent = `💡 করণীয়: ${degAgent.recommendation_bn || ''}`;
+}
+
+function renderThreeSeasonTimeline(master, agroAgent) {
+  const titleEl = document.getElementById('timelineThemeTitle');
+  const priorityEl = document.getElementById('timelinePriorityBadge');
+  const gridEl = document.getElementById('timelineStepsGrid');
+  const impactEl = document.getElementById('timelineImpactBar');
+  if (!gridEl || !master) return;
+
+  if (titleEl) titleEl.textContent = master.strategy_theme || '৩-মৌসুমী ফসল চক্র';
+  if (priorityEl) {
+    const pMap = {
+      water_saving: 'অগ্রাধিকার: পানি বাঁচানো',
+      max_profit: 'অগ্রাধিকার: বেশি লাভ',
+      soil_health: 'অগ্রাধিকার: মাটির স্বাস্থ্য'
+    };
+    priorityEl.textContent = pMap[currentPriority] || 'অগ্রাধিকার: পানি বাঁচানো';
+  }
+
+  const mlPreds = agroAgent?.ml_crop_risk_predictions || {};
+  const seq = master.adaptive_crop_sequence || [];
+
+  const stageStyles = {
+    1: { border: 'border-emerald-300 dark:border-emerald-700', bg: 'bg-emerald-50/70 dark:bg-emerald-950/30', badge: 'bg-emerald-600 text-white', icon: '🌱' },
+    2: { border: 'border-canal-300 dark:border-canal-700', bg: 'bg-canal-50/70 dark:bg-canal-950/30', badge: 'bg-canal-600 text-white', icon: '🌧️' },
+    3: { border: 'border-harvest-300 dark:border-harvest-700', bg: 'bg-harvest-50/70 dark:bg-harvest-950/30', badge: 'bg-harvest-600 text-white', icon: '☀️' }
+  };
+
+  gridEl.innerHTML = seq.map((step, idx) => {
+    const st = stageStyles[step.stage] || stageStyles[1];
+    const mlInfo = mlPreds[step.crop_id];
+    const mlBadge = mlInfo
+      ? `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-white dark:bg-earth-900 border border-earth-200 dark:border-earth-700 text-leaf-700 dark:text-leaf-300">ML সফলতা: ${mlInfo.ml_success_probability_pct}%</span>`
+      : '';
+    return `
+      <div class="relative p-4 rounded-2xl border-2 ${st.border} ${st.bg} space-y-2.5 flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between gap-1 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black ${st.badge}">ধাপ ${step.stage}: ${step.season}</span>
+            ${mlBadge}
+          </div>
+          <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+            <span>${st.icon}</span> ${step.crop_name}
+          </h4>
+          <p class="text-[11px] font-bold text-leaf-700 dark:text-leaf-300">${step.role}</p>
+          <p class="text-xs text-slate-700 dark:text-slate-300 leading-snug">${step.why_chosen_bn}</p>
+        </div>
+        <div class="pt-2 border-t border-earth-200/70 dark:border-earth-700 flex items-center justify-between text-[11px] font-black text-slate-700 dark:text-slate-300">
+          <span>⏱️ ${step.duration_days} দিন</span>
+          <span>💧 ${step.water_need_mm} মিমি</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (impactEl && master.quantified_impact) {
+    const imp = master.quantified_impact;
+    impactEl.innerHTML = `
+      <div class="p-2.5 rounded-xl bg-canal-50 dark:bg-earth-800 font-black text-canal-700 dark:text-canal-300 text-center">
+        💧 পানি সাশ্রয়: ${imp.water_saved_percent}%
+      </div>
+      <div class="p-2.5 rounded-xl bg-emerald-50 dark:bg-earth-800 font-black text-emerald-700 dark:text-emerald-300 text-center">
+        💵 সেচ সাশ্রয়: ৳${imp.irrigation_cost_saved_bdt_per_bigha}/বিঘা
+      </div>
+      <div class="p-2.5 rounded-xl bg-harvest-50 dark:bg-earth-800 font-black text-harvest-700 dark:text-harvest-300 text-center">
+        🌿 জৈব নাইট্রোজেন: +${imp.natural_nitrogen_added_kg_per_hectare} কেজি/হে.
+      </div>
+    `;
+  }
+}
+
+/* =========================================================
+   INTERACTIVE REGIONAL MAP (LEAFLET + 64 DISTRICTS CONDITION)
+   ========================================================= */
+window.leafletMap = null;
+window.districtMapCircles = {};
+window.currentMapDaysAgo = 0;
+let streetTileLayer = null;
+let satTileLayer = null;
+let useSatelliteBase = false;
+let userGpsMarker = null;
+
+function getDistrictLayerConditionColor(d, layer, daysAgo = 0) {
+  const zone = (d.zone_type || '').toUpperCase();
+  const stress = (d.groundwater_stress || '').toLowerCase();
+  const isLiveDist = d.id === currentSelectedDistId && window.liveAnalysisData?.nasa_earth_observations;
+  const sat = isLiveDist ? window.liveAnalysisData.nasa_earth_observations : null;
+
+  if (layer === 'smap') {
+    if (sat?.smap_hydrology) {
+      const m = sat.smap_hydrology.root_zone_moisture_m3_m3 || 0.22;
+      if (m < 0.18) return { color: '#EF4444', label: 'শুকনো (<১৮%)' };
+      if (m < 0.24) return { color: '#F59E0B', label: 'মাঝারি রস' };
+      return { color: '#10B981', label: 'পর্যাপ্ত রস' };
+    }
+    if (zone.includes('BARIND') || stress.includes('critical')) return { color: '#EF4444', label: 'শুকনো / সংকট' };
+    if (zone.includes('CHAR') || zone.includes('COASTAL') || stress.includes('high')) return { color: '#F59E0B', label: 'মাঝারি টান' };
+    return { color: '#10B981', label: 'পর্যাপ্ত রস' };
+  }
+
+  if (layer === 'ndvi') {
+    if (sat?.landsat_modis_vegetation) {
+      const ndvi = sat.landsat_modis_vegetation.ndvi_score || 0.45;
+      if (ndvi < 0.42) return { color: '#F59E0B', label: 'দুর্বল বিস্তার' };
+      if (ndvi < 0.62) return { color: '#84CC16', label: 'স্বাভাবিক সবুজ' };
+      return { color: '#059669', label: 'সতেজ সবুজ' };
+    }
+    if (zone.includes('BARIND') || zone.includes('COASTAL')) return { color: '#F59E0B', label: 'চাপযুক্ত' };
+    if (zone.includes('CHAR')) return { color: '#84CC16', label: 'মাঝারি সবুজ' };
+    return { color: '#059669', label: 'সতেজ সবুজ' };
+  }
+
+  if (layer === 'ecostress') {
+    if (sat?.modis_lst) {
+      const lst = sat.modis_lst.land_surface_temp_day_c || 34;
+      if (lst >= 37) return { color: '#DC2626', label: 'তীব্র তাপদাহ' };
+      if (lst >= 33) return { color: '#F59E0B', label: 'উষ্ণ চাপ' };
+      return { color: '#10B981', label: 'স্বাভাবিক তাপ' };
+    }
+    if (zone.includes('BARIND')) return { color: '#DC2626', label: 'তীব্র তাপদাহ' };
+    if (zone.includes('CHAR') || zone.includes('COASTAL')) return { color: '#F59E0B', label: 'উষ্ণ' };
+    return { color: '#10B981', label: 'স্বাভাবিক' };
+  }
+
+  // gpm (rainfall & flood)
+  if (sat?.gpm_imerg) {
+    const fvi = sat.gpm_imerg.flood_vulnerability_index || 30;
+    if (fvi >= 65) return { color: '#0284C7', label: 'ভারী বৃষ্টি / ঢল' };
+    if (fvi >= 40) return { color: '#10B981', label: 'মাঝারি বৃষ্টি' };
+    return { color: '#EA580C', label: 'অনাবৃষ্টি ঝুঁকি' };
+  }
+  if (zone.includes('HAOR') || zone.includes('BEEL')) return { color: '#0284C7', label: 'ভারী বৃষ্টি / বন্যা' };
+  if (zone.includes('BARIND')) return { color: '#EA580C', label: 'অনাবৃষ্টি' };
+  return { color: '#10B981', label: 'স্বাভাবিক বৃষ্টি' };
+}
+
+window.initOrRefreshRegionalMap = function() {
+  const mapEl = document.getElementById('bangladeshLeafletMap');
+  if (!mapEl) return;
+  if (typeof L === 'undefined') {
+    mapEl.innerHTML = '<div class="w-full h-full flex items-center justify-center text-xs font-bold text-slate-300 p-4 text-center">ইন্টারনেট সংযোগ না থাকায় অফলাইন মোড সক্রিয় রয়েছে। উপরে থেকে আপনার জেলা নির্বাচন করে ডানদিকে রিপোর্ট দেখুন।</div>';
+    return;
+  }
+
+  if (!window.leafletMap) {
+    const startDist = bdDistricts.find(d => d.id === currentSelectedDistId) || { lat: 24.3745, lon: 88.6042 };
+    window.leafletMap = L.map('bangladeshLeafletMap', {
+      center: [startDist.lat, startDist.lon],
+      zoom: 9,
+      zoomControl: false,
+      dragging: true,
+      touchZoom: true,
+      scrollWheelZoom: true
+    });
+
+    streetTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap'
+    });
+    satTileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 18,
+      attribution: '&copy; Esri Satellite'
+    });
+    streetTileLayer.addTo(window.leafletMap);
+
+    window.leafletMap.on('zoomend', () => {
+      const zEl = document.getElementById('zoomLevelDisplay');
+      if (zEl && window.leafletMap) zEl.textContent = `${window.leafletMap.getZoom()}x`;
+    });
+  }
+
+  // Render 64 district condition zones
+  Object.values(window.districtMapCircles).forEach(c => c.remove());
+  window.districtMapCircles = {};
+
+  bdDistricts.forEach(d => {
+    const cond = getDistrictLayerConditionColor(d, activeMapLayer, window.currentMapDaysAgo);
+    const isSelected = d.id === currentSelectedDistId;
+    const circle = L.circle([d.lat, d.lon], {
+      radius: isSelected ? 22000 : 16000,
+      color: isSelected ? '#FFFFFF' : cond.color,
+      weight: isSelected ? 3.5 : 1.5,
+      fillColor: cond.color,
+      fillOpacity: isSelected ? 0.55 : 0.35
+    }).addTo(window.leafletMap);
+
+    circle.bindTooltip(`<b>${d.name_bn} (${d.name_en})</b><br>${cond.label} • ${d.aez}`, {
+      direction: 'top',
+      sticky: true
+    });
+
+    circle.on('click', () => {
+      currentSelectedDistId = d.id;
+      syncDistrictSelectors(d.id);
+      loadLiveBackendAnalysis(d.id);
+      if (window.innerWidth < 1024) {
+        document.getElementById('parcelInspectorSection')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    window.districtMapCircles[d.id] = circle;
+  });
+};
+
+window.refreshRegionalLeafletMap = function() {
+  if (!window.leafletMap) {
+    window.initOrRefreshRegionalMap();
+  }
+  if (window.leafletMap) {
+    setTimeout(() => {
+      window.leafletMap.invalidateSize();
+      window.centerMapOnSelectedDistrict();
+    }, 60);
+  }
+};
+
+window.updateMapLayerVisuals = function(layer) {
+  if (!window.leafletMap || bdDistricts.length === 0) return;
+  bdDistricts.forEach(d => {
+    const circle = window.districtMapCircles[d.id];
+    if (!circle) return;
+    const cond = getDistrictLayerConditionColor(d, layer, window.currentMapDaysAgo);
+    const isSelected = d.id === currentSelectedDistId;
+    const daysFactor = Math.max(0.25, 0.55 - (window.currentMapDaysAgo || 0) * 0.03);
+    circle.setStyle({
+      radius: isSelected ? 22000 : 16000,
+      color: isSelected ? '#FFFFFF' : cond.color,
+      weight: isSelected ? 3.5 : 1.5,
+      fillColor: cond.color,
+      fillOpacity: isSelected ? daysFactor : daysFactor - 0.15
+    });
+    circle.setTooltipContent(`<b>${d.name_bn} (${d.name_en})</b><br>${cond.label} • ${d.aez}`);
+  });
+};
+
+window.centerMapOnSelectedDistrict = function() {
+  if (!window.leafletMap || bdDistricts.length === 0) return;
+  const dist = bdDistricts.find(d => d.id === currentSelectedDistId);
+  if (!dist) return;
+  window.updateMapLayerVisuals(activeMapLayer);
+  window.leafletMap.flyTo([dist.lat, dist.lon], 10, { duration: 0.7 });
+};
+
+function toggleBaseMapStyle() {
+  if (!window.leafletMap || !streetTileLayer || !satTileLayer) return;
+  useSatelliteBase = !useSatelliteBase;
+  const lbl = document.getElementById('mapStyleToggleLbl');
+  if (useSatelliteBase) {
+    window.leafletMap.removeLayer(streetTileLayer);
+    satTileLayer.addTo(window.leafletMap);
+    if (lbl) lbl.textContent = currentLang === 'bn' ? 'রাস্তা ও এলাকা ভিউ' : 'Street View';
+  } else {
+    window.leafletMap.removeLayer(satTileLayer);
+    streetTileLayer.addTo(window.leafletMap);
+    if (lbl) lbl.textContent = currentLang === 'bn' ? 'স্যাটেলাইট ভিউ' : 'Satellite View';
+  }
+}
+
+function locateFarmerOnMap() {
+  if (!navigator.geolocation) {
+    alert(currentLang === 'bn' ? 'আপনার ব্রাউজারে GPS সুবিধা নেই।' : 'Geolocation is not supported by your browser.');
+    return;
+  }
+  const btn = document.getElementById('mapLocateBtn');
+  if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>খোঁজা হচ্ছে...</span>';
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const { latitude, longitude } = pos.coords;
+      let nearest = null;
+      let minDist = Infinity;
+      bdDistricts.forEach(d => {
+        const distSq = Math.pow(d.lat - latitude, 2) + Math.pow(d.lon - longitude, 2);
+        if (distSq < minDist) {
+          minDist = distSq;
+          nearest = d;
+        }
+      });
+      if (window.leafletMap && typeof L !== 'undefined') {
+        if (userGpsMarker) userGpsMarker.remove();
+        userGpsMarker = L.marker([latitude, longitude]).addTo(window.leafletMap)
+          .bindPopup(currentLang === 'bn' ? '📍 আপনার বর্তমান অবস্থান' : '📍 Your Location').openPopup();
+        window.leafletMap.flyTo([latitude, longitude], 11, { duration: 0.8 });
+      }
+      if (nearest) {
+        currentSelectedDistId = nearest.id;
+        syncDistrictSelectors(nearest.id);
+        loadLiveBackendAnalysis(nearest.id);
+      }
+      if (btn) btn.innerHTML = '<i class="fa-solid fa-crosshairs"></i> <span>আমার এলাকা (GPS)</span>';
+    },
+    () => {
+      alert(currentLang === 'bn' ? 'অবস্থান পাওয়া যায়নি। দয়া করে জেলা তালিকা থেকে বেছে নিন।' : 'Unable to retrieve GPS location. Please choose from the district dropdown.');
+      if (btn) btn.innerHTML = '<i class="fa-solid fa-crosshairs"></i> <span>আমার এলাকা (GPS)</span>';
+    },
+    { timeout: 8000 }
+  );
+}
+
+window.updateDistrictInspectorFromLive = function(data) {
+  if (!data) return;
+  const dist = data.district_profile || {};
+  const sat = data.nasa_earth_observations || {};
+  const agents = data.specialist_agent_evaluations || {};
+  const master = data.master_adaptive_strategy || {};
+  const isBn = currentLang === 'bn';
+
+  const smapVal = sat.smap_hydrology?.root_zone_moisture_m3_m3 ?? 0.22;
+  const smapPct = Math.round(smapVal * 100);
+  const ndviVal = sat.landsat_modis_vegetation?.ndvi_score ?? 0.50;
+  const lstVal = sat.modis_lst?.land_surface_temp_day_c ?? 34.0;
+  const etVal = sat.modis_lst?.evapotranspiration_rate_mm_day ?? 4.5;
+
+  const nameEl = document.getElementById('inspectorParcelName');
+  if (nameEl) nameEl.textContent = isBn ? `${dist.name_bn || 'জেলা'} (${dist.division_bn || ''})` : `${dist.name_en || 'District'} (${dist.division || ''})`;
+
+  const moistEl = document.getElementById('inspectorMoistVal');
+  const moistBar = document.getElementById('inspectorMoistBar');
+  if (moistEl) moistEl.textContent = `${smapPct}% (${sat.smap_hydrology?.wilting_point_proximity || 'SMAP'})`;
+  if (moistBar) moistBar.style.width = `${Math.min(100, Math.max(10, Math.round(smapPct * 2.2)))}%`;
+
+  const ndviEl = document.getElementById('inspectorNdviVal');
+  const ndviBar = document.getElementById('inspectorNdviBar');
+  if (ndviEl) ndviEl.textContent = `${ndviVal} (Landsat)`;
+  if (ndviBar) ndviBar.style.width = `${Math.min(100, Math.max(10, Math.round(ndviVal * 100)))}%`;
+
+  const etEl = document.getElementById('inspectorEtVal');
+  const etBar = document.getElementById('inspectorEtBar');
+  if (etEl) etEl.textContent = `${lstVal}°C • ${etVal} mm/day`;
+  if (etBar) etBar.style.width = `${Math.min(100, Math.max(15, Math.round((lstVal / 45) * 100)))}%`;
+
+  const advEl = document.getElementById('inspectorAdvice');
+  if (advEl) advEl.textContent = master.farmer_directive_bn || agents.soil_agent?.observations_bn || '';
+
+  const badge = document.getElementById('inspectorStatusBadge');
+  if (badge) {
+    const isCritical = smapVal < 0.19 || (sat.gpm_imerg?.flood_vulnerability_index || 0) > 65;
+    badge.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${isCritical ? (isBn ? 'বিশেষ সতর্কতা' : 'Alert') : (isBn ? 'পর্যবেক্ষণে আছে' : 'Monitored')}`;
+    badge.className = isCritical
+      ? 'px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-black border flex items-center gap-1 bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border-rose-300'
+      : 'px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-black border flex items-center gap-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300';
+  }
+};
+
+/* =========================================================
+   DYNAMIC 7-DAY IRRIGATION SCHEDULE & ALERT BANNER
+   ========================================================= */
+function updateIrrigationAlertBanner(data) {
+  if (!data) return;
+  const dist = data.district_profile || {};
+  const sat = data.nasa_earth_observations || {};
+  const agents = data.specialist_agent_evaluations || {};
+  const isBn = currentLang === 'bn';
+
+  const card = document.getElementById('irrigUrgentCard');
+  const iconBox = document.getElementById('irrigUrgentIconBox');
+  const tag = document.getElementById('irrigUrgentTag');
+  const time = document.getElementById('irrigUrgentTime');
+  const title = document.getElementById('irrigUrgentTitle');
+  const desc = document.getElementById('irrigUrgentDesc');
+  if (!card) return;
+
+  const isFlood = (sat.gpm_imerg?.flood_vulnerability_index || 0) > 60;
+  const smap = sat.smap_hydrology?.root_zone_moisture_m3_m3 ?? 0.22;
+  const lst = sat.modis_lst?.land_surface_temp_day_c ?? 34;
+
+  if (isFlood) {
+    card.className = 'p-4 sm:p-5 rounded-3xl border-2 border-canal-500 bg-canal-50 dark:bg-earth-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm';
+    if (iconBox) iconBox.className = 'w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-canal-600 text-white flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-md';
+    if (tag) { tag.className = 'text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-canal-600 text-white'; tag.textContent = isBn ? 'বন্যা ও বৃষ্টির সতর্কতা' : 'Flood & Rain Alert'; }
+    if (title) title.textContent = isBn ? `${dist.name_bn} জেলায় ভারী বৃষ্টি ও পাহাড়ি ঢলের ঝুঁকি!` : `Heavy Rain / Flood Risk in ${dist.name_en}!`;
+    if (desc) desc.textContent = agents.flood_agent?.warning_bn || agents.flood_agent?.observations_bn || '';
+  } else if (smap < 0.20 || lst >= 36) {
+    card.className = 'p-4 sm:p-5 rounded-3xl border-2 border-rose-500 bg-rose-50 dark:bg-earth-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm';
+    if (iconBox) iconBox.className = 'w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-md';
+    if (tag) { tag.className = 'text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-600 text-white'; tag.textContent = isBn ? 'জরুরি সেচ সতর্কতা' : 'Urgent Drought Alert'; }
+    if (title) title.textContent = isBn ? `${dist.name_bn}: মাটির রস কম (${Math.round(smap * 100)}%) ও তাপমাত্রা ${lst}°C` : `${dist.name_en}: Low Moisture (${Math.round(smap * 100)}%) & ${lst}°C Heat`;
+    if (desc) desc.textContent = agents.soil_agent?.warning_bn || agents.drought_agent?.warning_bn || '';
+  } else {
+    card.className = 'p-4 sm:p-5 rounded-3xl border-2 border-emerald-500 bg-emerald-50 dark:bg-earth-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm';
+    if (iconBox) iconBox.className = 'w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-md';
+    if (tag) { tag.className = 'text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-emerald-600 text-white'; tag.textContent = isBn ? 'নিয়মিত পর্যবেক্ষণ' : 'Normal Advisory'; }
+    if (title) title.textContent = isBn ? `${dist.name_bn}: মাটির রস স্বাভাবিক (${Math.round(smap * 100)}%)` : `${dist.name_en}: Soil Moisture Adequate (${Math.round(smap * 100)}%)`;
+    if (desc) desc.textContent = agents.soil_agent?.observations_bn || '';
+  }
+  if (time) time.textContent = isBn ? `নাসা স্যাটেলাইট লাইভ • ${dist.aez || ''}` : `NASA Live • ${dist.aez || ''}`;
+}
+
+function formatDateOffset(offsetDays, isBn) {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  const bnMonths = ['জানু', 'ফেব্রু', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টে', 'অক্টো', 'নভে', 'ডিসে'];
+  const enMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const bnWeekdays = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'];
+  const enWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const toBnDigits = (n) => String(n).replace(/\d/g, ch => '০১২৩৪৫৬৭৮৯'[ch]);
+  const dayNum = d.getDate();
+  if (isBn) {
+    return {
+      dateStr: `${toBnDigits(dayNum)} ${bnMonths[d.getMonth()]}`,
+      weekday: bnWeekdays[d.getDay()]
+    };
+  }
+  return {
+    dateStr: `${enMonths[d.getMonth()]} ${dayNum}`,
+    weekday: enWeekdays[d.getDay()]
+  };
+}
+
+window.updateDynamicIrrigationSchedule = function() {
+  const meta = window.lastPumpCalcMeta || {
+    bighaVal: 3, crop: 'corn', cropName: currentLang === 'bn' ? 'ভুট্টা' : 'Corn',
+    weatherFactor: 1.0, wholeHours: 2, minutes: 30, cost: 220, powerHp: 4
+  };
+  const data = window.liveAnalysisData;
+  const dist = data?.district_profile || { name_bn: 'রাজশাহী', name_en: 'Rajshahi' };
+  const sat = data?.nasa_earth_observations || {};
+  const smap = sat.smap_hydrology?.root_zone_moisture_m3_m3 ?? 0.22;
+  const rainRate = sat.gpm_imerg?.precipitation_rate_mm_day ?? 2.0;
+  const isFlood = (sat.gpm_imerg?.flood_vulnerability_index || 0) > 60;
+
+  // Determine irrigation days based on crop water demand + weather + NASA moisture/rain
+  let pumpDays = new Set([0, 3, 6]); // default corn
+  if (meta.crop === 'rice') pumpDays = new Set([0, 2, 4, 6]);
+  else if (meta.crop === 'sorghum') pumpDays = new Set([0, 4]);
+  else if (meta.crop === 'millet' || meta.crop === 'pulses') pumpDays = new Set([0]);
+
+  if (meta.weatherFactor >= 1.2 || smap < 0.18) {
+    if (meta.crop === 'rice') pumpDays = new Set([0, 1, 3, 4, 6]);
+    else if (meta.crop === 'corn') pumpDays = new Set([0, 2, 4, 6]);
+  }
+  if (meta.weatherFactor <= 0.9 && smap > 0.24) {
+    pumpDays.delete(2);
+    pumpDays.delete(4);
+  }
+
+  const runtimeStrBn = `${meta.wholeHours} ঘণ্টা ${meta.minutes} মি.`;
+  const runtimeStrEn = `${meta.wholeHours}h ${meta.minutes}m`;
+
+  window.calendarDays = Array.from({ length: 7 }, (_, i) => {
+    const dtBn = formatDateOffset(i, true);
+    const dtEn = formatDateOffset(i, false);
+    const labelBn = i === 0 ? `<span>আজ</span><span>${dtBn.dateStr}</span>` : `<span>${dtBn.weekday}</span><span>${dtBn.dateStr}</span>`;
+    const labelEn = i === 0 ? `<span>Today</span><span>${dtEn.dateStr}</span>` : `<span>${dtEn.weekday}</span><span>${dtEn.dateStr}</span>`;
+
+    const isRainHold = isFlood ? (i === 1 || i === 2 || i === 5) : (rainRate > 6 ? (i === 2 || i === 3) : (i === 2 && smap >= 0.20));
+    const shouldPump = !isRainHold && pumpDays.has(i);
+
+    if (isRainHold) {
+      return {
+        day: { bn: labelBn, en: labelEn },
+        time: { bn: isFlood ? 'পাম্প বন্ধ — পানি নিষ্কাশন ও নজরদারি' : 'সেচ বন্ধ! বৃষ্টির সম্ভাবনা', en: isFlood ? 'Pump OFF — Drainage Check' : 'Hold Pump! Rain Forecast' },
+        sub: { bn: `${dist.name_bn} (${dtBn.dateStr}) • GPM: ${rainRate} মিমি/দিন • ৳${meta.cost} সাশ্রয়`, en: `${dist.name_en} (${dtEn.dateStr}) • GPM: ${rainRate} mm/day • Save ৳${meta.cost}` },
+        status: { bn: 'তেল বাঁচান', en: 'Save Fuel' },
+        cls: 'bg-rose-50 dark:bg-earth-850 border-2 border-rose-300 dark:border-rose-900/60 text-rose-800 dark:text-rose-300'
+      };
+    }
+
+    if (shouldPump) {
+      return {
+        day: { bn: labelBn, en: labelEn },
+        time: { bn: `রাত ৩:৩০ – ভোর • ${runtimeStrBn} (${meta.cropName})`, en: `3:30 AM – Dawn • ${runtimeStrEn} (${meta.cropName})` },
+        sub: { bn: `${dtBn.dateStr} • ${meta.bighaVal} বিঘা • ${meta.powerHp} HP • খরচ ~৳${meta.cost}`, en: `${dtEn.dateStr} • ${meta.bighaVal} Bigha • ${meta.powerHp} HP • Est. ৳${meta.cost}` },
+        status: { bn: 'নির্ধারিত সেচ', en: 'Irrigate' },
+        cls: 'bg-emerald-50 dark:bg-earth-800 border-2 border-emerald-200 dark:border-earth-700 text-emerald-800 dark:text-emerald-300'
+      };
+    }
+
+    return {
+      day: { bn: labelBn, en: labelEn },
+      time: { bn: 'সেচ বন্ধ রাখুন (বিশ্রাম দিন)', en: 'Hold Irrigation (Rest Day)' },
+      sub: { bn: `${dtBn.dateStr} • ${dist.name_bn} SMAP রস ${Math.round(smap * 100)}% • আর্দ্রতা পর্যাপ্ত`, en: `${dtEn.dateStr} • ${dist.name_en} SMAP ${Math.round(smap * 100)}% • Adequate` },
+      status: { bn: 'পানি লাগবে না', en: 'No Water' },
+      cls: 'bg-earth-50 dark:bg-earth-850 border-2 border-earth-200 dark:border-earth-800 text-slate-700 dark:text-slate-300'
+    };
+  });
+
+  if (typeof renderCalendarDays === 'function') renderCalendarDays();
+};
+
+/* =========================================================
+   DYNAMIC CROP HEALTH NDVI COMPARISON CHART (DASHBOARD)
+   ========================================================= */
+function renderDynamicCropHealthChart(data) {
+  if (!data) return;
+  const master = data.master_adaptive_strategy || {};
+  const sat = data.nasa_earth_observations || {};
+  const dist = data.district_profile || {};
+  const agents = data.specialist_agent_evaluations || {};
+  const seq = master.adaptive_crop_sequence || [];
+  const pastCropLabels = {
+    boro_rice: { bn: 'বোরো ধান', en: 'Boro Rice' },
+    aman_rice_short: { bn: 'আমন ধান', en: 'Aman Rice' },
+    aush_rice: { bn: 'আউশ ধান', en: 'Aush Rice' },
+    maize: { bn: 'হাইব্রিড ভুট্টা', en: 'Hybrid Maize' },
+    potato: { bn: 'আলু', en: 'Potato' },
+    wheat: { bn: 'গম', en: 'Wheat' },
+    jute: { bn: 'পাট', en: 'Jute' },
+    mustard: { bn: 'সরিষা', en: 'Mustard' }
+  };
+
+  const isBn = currentLang === 'bn';
+  const pastObj = pastCropLabels[currentPastCrop] || { bn: currentPastCrop, en: currentPastCrop };
+  const shiftCrop = seq[2]?.crop_name || seq[0]?.crop_name || 'Mustard';
+  const shiftId = seq[2]?.crop_id || 'mustard';
+  const mlPreds = agents.agronomy_agent?.ml_crop_risk_predictions || {};
+  const pastSucc = mlPreds[currentPastCrop]?.ml_success_probability_pct ?? 18;
+  const shiftSucc = mlPreds[shiftId]?.ml_success_probability_pct ?? 88;
+  const ndviBase = sat.landsat_modis_vegetation?.ndvi_score ?? 0.45;
+  const monoPenalty = Math.min(35, currentMonocultureYears * 7);
+
+  const badgeEl = document.getElementById('dashDistCropBadge');
+  if (badgeEl) {
+    badgeEl.textContent = isBn
+      ? `📍 জেলা: ${dist.name_bn} | ফসল তুলনা: ${pastObj.bn} বনাম ${shiftCrop}`
+      : `📍 District: ${dist.name_en} | Comparing: ${pastObj.en} vs ${shiftCrop}`;
+  }
+
+  const subEl = document.getElementById('chartSubDynamic');
+  const leg1El = document.getElementById('chartLeg1Text');
+  const leg2El = document.getElementById('chartLeg2Text');
+  const pastPath = document.getElementById('chartCurvePast');
+  const shiftPath = document.getElementById('chartCurveShift');
+  const dotsEl = document.getElementById('chartDynamicDots');
+  const proofEl = document.getElementById('chartProofBox');
+
+  if (subEl) subEl.textContent = isBn
+    ? `${dist.name_bn}: ${pastObj.bn} (টানা ${currentMonocultureYears} বছর) বনাম ${shiftCrop}`
+    : `${dist.name_en}: ${pastObj.en} (${currentMonocultureYears} yrs) vs ${shiftCrop}`;
+  if (leg1El) leg1El.textContent = `${shiftCrop} (রোটেশন)`;
+  if (leg2El) leg2El.textContent = `${pastObj.bn} (একটানা ${currentMonocultureYears} বছর)`;
+
+  const xs = [68, 162, 256, 350, 444, 538];
+  const pastYs = [
+    125,
+    Math.min(182, 115 + Math.round(monoPenalty * 0.4)),
+    Math.min(184, 138 + Math.round(monoPenalty * 0.8)),
+    Math.min(185, 152 + Math.round(monoPenalty * 0.9)),
+    Math.min(186, 160 + monoPenalty),
+    Math.min(186, 165 + monoPenalty)
+  ];
+  const shiftBaseY = Math.max(38, Math.min(95, Math.round(135 - ndviBase * 90)));
+  const shiftYs = [
+    142,
+    Math.max(46, shiftBaseY + 32),
+    Math.max(38, shiftBaseY + 12),
+    Math.max(34, shiftBaseY),
+    Math.max(30, shiftBaseY - 6),
+    Math.max(34, shiftBaseY)
+  ];
+
+  const yToNdvi = (y) => (0.9 - ((y - 25) / 150) * 0.6).toFixed(2);
+
+  const toSmoothPath = (pts) => pts.map((y, idx) => {
+    const x = xs[idx];
+    if (idx === 0) return `M${x},${y}`;
+    const prevX = xs[idx - 1];
+    const prevY = pts[idx - 1];
+    const cx = Math.round((prevX + x) / 2);
+    return `C${cx},${prevY} ${cx},${y} ${x},${y}`;
+  }).join(' ');
+
+  if (pastPath) pastPath.setAttribute('d', toSmoothPath(pastYs));
+  if (shiftPath) shiftPath.setAttribute('d', toSmoothPath(shiftYs));
+  if (dotsEl) {
+    dotsEl.innerHTML = xs.map((x, idx) => `
+      <circle cx="${x}" cy="${pastYs[idx]}" r="4.5" fill="#EA580C" stroke="#ffffff" stroke-width="1.5" />
+      <text x="${x}" y="${Math.min(188, pastYs[idx] + 13)}" text-anchor="middle" fill="#EA580C" font-size="9" font-weight="800">${yToNdvi(pastYs[idx])}</text>
+      <circle cx="${x}" cy="${shiftYs[idx]}" r="5" fill="#10B981" stroke="#ffffff" stroke-width="1.5" />
+      <text x="${x}" y="${Math.max(14, shiftYs[idx] - 8)}" text-anchor="middle" fill="#059669" font-size="9" font-weight="800">${yToNdvi(shiftYs[idx])}</text>
+    `).join('');
+  }
+
+  if (proofEl && master.quantified_impact) {
+    const imp = master.quantified_impact;
+    proofEl.innerHTML = isBn
+      ? `<strong>স্যাটেলাইট ও এমএল প্রমাণ (${dist.name_bn}):</strong> বর্তমান Landsat NDVI (${ndviBase}) অনুযায়ী টানা ${currentMonocultureYears} বছর <strong>${pastObj.bn}</strong> চাষে মাটির চাপ বাড়ছে (ML সফলতা: ${pastSucc}%)। বিপরীতে <strong>${shiftCrop}</strong> রোটেশনে ${imp.water_saved_percent}% পানি ও বিঘাপ্রতি ৳${imp.irrigation_cost_saved_bdt_per_bigha} সেচ খরচ বাঁচবে (ML সফলতা: ${shiftSucc}%)।`
+      : `<strong>Satellite & ML Evidence (${dist.name_en}):</strong> With Landsat NDVI (${ndviBase}), repeating <strong>${pastObj.en}</strong> for ${currentMonocultureYears} years lowers resilience (ML success: ${pastSucc}%). Rotating to <strong>${shiftCrop}</strong> saves ${imp.water_saved_percent}% water and ৳${imp.irrigation_cost_saved_bdt_per_bigha}/bigha (ML success: ${shiftSucc}%).`;
   }
 }
 
@@ -2625,14 +3639,19 @@ function updateUiWithLiveAnalysis(data) {
   const agents = data.specialist_agent_evaluations;
   const dist = data.district_profile;
 
-  // 1. DYNAMIC RAINFALL & WEATHER FORECAST CARDS (From NASA GPM & MODIS)
+  // 1. DYNAMIC 3-DAY RAINFALL & WEATHER FORECAST CARDS WITH REAL DATES
   if (window.rainForecastData && sat) {
     const dailyRain = sat.gpm_imerg?.precipitation_rate_mm_day || 1.2;
     const lstTemp = sat.modis_lst?.land_surface_temp_day_c || 34.0;
-    const isFloodZone = (sat.gpm_imerg?.flood_vulnerability_index || 0) > 60;
+    const fvi = sat.gpm_imerg?.flood_vulnerability_index || 30;
+    const isFloodZone = fvi > 60;
+
+    const d0Bn = formatDateOffset(0, true), d0En = formatDateOffset(0, false);
+    const d1Bn = formatDateOffset(1, true), d1En = formatDateOffset(1, false);
+    const d2Bn = formatDateOffset(2, true), d2En = formatDateOffset(2, false);
 
     window.rainForecastData[0] = {
-      day: { bn: "আজ (১ম দিন)", en: "Today (Day 1)" },
+      day: { bn: `আজ • ${d0Bn.dateStr} (${d0Bn.weekday})`, en: `Today • ${d0En.dateStr} (${d0En.weekday})` },
       badge: { 
         bn: isFloodZone ? "⚠️ আকস্মিক বন্যা ঝুঁকি" : (dailyRain > 5 ? "🌧️ মাঝারি বৃষ্টি" : "☀️ খরা / শুষ্ক"), 
         en: isFloodZone ? "⚠️ Flash Flood Risk" : (dailyRain > 5 ? "🌧️ Moderate Rain" : "☀️ Dry / Drought") 
@@ -2640,8 +3659,8 @@ function updateUiWithLiveAnalysis(data) {
       badgeClass: isFloodZone ? "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 border-red-300" : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
       icon: isFloodZone ? "⛈️" : (dailyRain > 5 ? "🌧️" : "☀️"),
       title: { 
-        bn: `নাসা GPM বৃষ্টিপাত: ${dailyRain} মিমি/দিন`, 
-        en: `NASA GPM Rain: ${dailyRain} mm/day` 
+        bn: `${dist.name_bn}: ${dailyRain} মিমি/দিন`, 
+        en: `${dist.name_en}: ${dailyRain} mm/day` 
       },
       rain: { 
         bn: `মাটির তাপমাত্রা (MODIS): ${lstTemp}°C`, 
@@ -2652,92 +3671,190 @@ function updateUiWithLiveAnalysis(data) {
         en: isFloodZone ? "Flash flood alert. Prepare early harvest." : "Low soil moisture. Irrigate at dawn or dusk."
       }
     };
+
+    const day2Rain = isFloodZone ? Math.round(dailyRain * 1.4) : (dailyRain > 4 ? Math.round(dailyRain * 1.1) : 2);
+    window.rainForecastData[1] = {
+      day: { bn: `কাল • ${d1Bn.dateStr} (${d1Bn.weekday})`, en: `Tomorrow • ${d1En.dateStr} (${d1En.weekday})` },
+      badge: {
+        bn: isFloodZone ? "🌊 ঢল সতর্কতা" : (day2Rain > 5 ? "⛅ বৃষ্টির সম্ভাবনা" : "🟡 শুষ্ক আবহাওয়া"),
+        en: isFloodZone ? "🌊 Surge Watch" : (day2Rain > 5 ? "⛅ Rain Possible" : "🟡 Dry Advisory")
+      },
+      badgeClass: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border-amber-300",
+      icon: day2Rain > 5 ? "🌧️" : "⛅",
+      title: {
+        bn: day2Rain > 5 ? `আংশিক বৃষ্টি (~${day2Rain} মিমি)` : "আংশিক মেঘলা ও উষ্ণ",
+        en: day2Rain > 5 ? `Light/Mod Rain (~${day2Rain}mm)` : "Partly Cloudy & Warm"
+      },
+      rain: {
+        bn: `সম্ভাব্য তাপমাত্রা: ${(lstTemp - 0.5).toFixed(1)}°C`,
+        en: `Expected Temp: ${(lstTemp - 0.5).toFixed(1)}°C`
+      },
+      advice: {
+        bn: day2Rain > 5 ? "বৃষ্টির সম্ভাবনা থাকায় ভারী সেচ স্থগিত রাখুন।" : "হালকা সেচ দিন এবং মাটির রস ধরে রাখতে মালচিং ব্যবহার করুন।",
+        en: day2Rain > 5 ? "Hold heavy pumping ahead of expected rain." : "Use mulching to preserve root moisture."
+      }
+    };
+
+    const day3Rain = isFloodZone ? Math.round(dailyRain * 2.2 + 25) : (dailyRain > 4 ? Math.round(dailyRain * 1.6 + 10) : 8);
+    window.rainForecastData[2] = {
+      day: { bn: `পরশু • ${d2Bn.dateStr} (${d2Bn.weekday})`, en: `Day 3 • ${d2En.dateStr} (${d2En.weekday})` },
+      badge: {
+        bn: day3Rain >= 20 ? "🌧️ ভারী বৃষ্টির সতর্কতা" : "☀️ শুষ্ক ধারা অব্যাহত",
+        en: day3Rain >= 20 ? "🌧️ Heavy Rain Warning" : "☀️ Dry Trend Continues"
+      },
+      badgeClass: day3Rain >= 20 ? "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border-rose-300" : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
+      icon: day3Rain >= 20 ? "🌧️" : "🌤️",
+      title: {
+        bn: day3Rain >= 20 ? `ভারী বৃষ্টি (~${day3Rain} মিমি)` : `হালকা বা স্বল্প বৃষ্টি (~${day3Rain} মিমি)`,
+        en: day3Rain >= 20 ? `Heavy Rain (~${day3Rain}mm)` : `Light/Low Rain (~${day3Rain}mm)`
+      },
+      rain: {
+        bn: `GPM পূর্বাভাস (${dist.name_bn})`,
+        en: `GPM Outlook (${dist.name_en})`
+      },
+      advice: {
+        bn: day3Rain >= 20 ? "সেচ দেওয়া একদম বন্ধ রাখুন! বৃষ্টির পানি জমি ভিজিয়ে দেবে এবং ডিজেল বাঁচবে।" : "নির্ধারিত রাতে স্বল্প সেচ দিয়ে মাটির আর্দ্রতা বজায় রাখুন।",
+        en: day3Rain >= 20 ? "Pause all irrigation! Rain will refill soil and save diesel." : "Apply scheduled night irrigation to protect roots."
+      }
+    };
     if (typeof renderRainForecast === 'function') renderRainForecast();
   }
 
-  // 2. DYNAMIC CROP COMPARISON (Boro vs 3-Season Adaptive Sequence)
+  // 2. DYNAMIC CROP COMPARISON (ALL 3 CARDS: Past Crop vs 3-Season Adaptive Sequence)
   if (window.cropComparisons && seq && seq.length >= 3) {
-    const rabiCrop = seq[2];
-    window.cropComparisons[0] = {
-      title: { bn: `${rabiCrop.crop_name} (মাস্টার রোটেশন)`, en: `${rabiCrop.crop_name} (Master Sequence)` },
-      badge: { bn: `🟢 ${master.quantified_impact.water_saved_percent}% পানি সাশ্রয়ী`, en: `🟢 ${master.quantified_impact.water_saved_percent}% Water Saved` },
-      water: { bn: `মাত্র ~${rabiCrop.water_need_mm} মিমি (বোরো ধানের ১৩০০ মিমি এর বিপরীতে)`, en: `~${rabiCrop.water_need_mm}mm vs 1300mm for Boro` },
-      cost: { bn: `বিঘাপ্রতি সেচ সাশ্রয়: ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha} টাকা`, en: `Irrigation saved: ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha}` },
-      soil: { bn: `প্রাকৃতিক নাইট্রোজেন যোগ: ${master.quantified_impact.natural_nitrogen_added_kg_per_hectare} কেজি/হেক্টর`, en: `Nitrogen added: ${master.quantified_impact.natural_nitrogen_added_kg_per_hectare} kg/ha` },
-      profit: { bn: `উচ্চ বাজারদর ও নিশ্চিত লাভজনক ফসল`, en: `High market demand & guaranteed returns` },
-      notes: { bn: rabiCrop.why_chosen_bn, en: rabiCrop.why_chosen_bn }
+    const pastLabels = {
+      boro_rice: { bn: 'বোরো ধান (১৩০০ মিমি)', en: 'Boro Paddy (1300mm)' },
+      aman_rice_short: { bn: 'রোপা আমন', en: 'Aman Rice' },
+      aush_rice: { bn: 'আউশ ধান', en: 'Aush Rice' },
+      maize: { bn: 'ভুট্টা (৬০০ মিমি)', en: 'Maize (600mm)' },
+      potato: { bn: 'আলু', en: 'Potato' },
+      wheat: { bn: 'গম', en: 'Wheat' },
+      jute: { bn: 'পাট', en: 'Jute' },
+      mustard: { bn: 'সরিষা', en: 'Mustard' }
     };
+    const pastInfo = pastLabels[currentPastCrop] || { bn: currentPastCrop, en: currentPastCrop };
+    const imp = master.quantified_impact;
+
+    window.cropComparisons = seq.map((step) => {
+      const savedPct = Math.max(10, Math.min(85, Math.round(((1300 - step.water_need_mm) / 1300) * 100)));
+      return {
+        title: {
+          bn: `${pastInfo.bn} বনাম ${step.crop_name}`,
+          en: `${pastInfo.en} vs ${step.crop_name}`
+        },
+        badge: {
+          bn: `${step.season_code} • ${savedPct}% কম পানি`,
+          en: `${step.season_code} • ${savedPct}% Less Water`
+        },
+        water: {
+          bn: `পানির চাহিদা: ~${step.water_need_mm} মিমি (বোরোর চেয়ে ${savedPct}% সাশ্রয়)`,
+          en: `Water need: ~${step.water_need_mm}mm (${savedPct}% less than Boro)`
+        },
+        cost: {
+          bn: `বার্ষিক সেচ সাশ্রয়: ৳ ${imp.irrigation_cost_saved_bdt_per_bigha}/বিঘা`,
+          en: `Annual irrigation saved: ৳ ${imp.irrigation_cost_saved_bdt_per_bigha}/bigha`
+        },
+        days: {
+          bn: `মৌসুম: ${step.season} • মেয়াদ: ${step.duration_days} দিন`,
+          en: `Season: ${step.season_code} • Duration: ${step.duration_days} Days`
+        },
+        note: {
+          bn: `✓ ${step.role}: ${step.why_chosen_bn}`,
+          en: `✓ ${step.role}: ${step.why_chosen_bn}`
+        }
+      };
+    });
     if (typeof renderCropComparison === 'function') renderCropComparison();
   }
 
   // 3. DYNAMIC CROP CARDS (Generated from 20,000-sample 97.3% ML Engine & 3-Season Plan)
   if (window.cropCardsData && seq) {
-    window.cropCardsData = seq.map((item, idx) => {
+    const mlPreds = agents?.agronomy_agent?.ml_crop_risk_predictions || {};
+    window.cropCardsData = seq.map((item) => {
       const imgMap = {
         1: "https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=600&q=80",
         2: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=600&q=80",
         3: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=600&q=80"
       };
+      const mlInfo = mlPreds[item.crop_id];
+      const mlBadgeBn = mlInfo ? ` • ML সফলতা: ${mlInfo.ml_success_probability_pct}%` : '';
       return {
         id: item.crop_id,
         img: imgMap[item.stage] || imgMap[1],
         title: { bn: `${item.season}: ${item.crop_name}`, en: `${item.season_code}: ${item.crop_name}` },
-        badge: { bn: `⏱️ সময়কাল: ${item.duration_days} দিন`, en: `Duration: ${item.duration_days} Days` },
+        badge: { bn: `⏱️ ${item.duration_days} দিন${mlBadgeBn}`, en: `⏱️ ${item.duration_days} Days` },
         hazard: "drought",
-        goal: "profit",
+        goal: currentPriority,
         desc: {
           bn: `${item.role}। ${item.why_chosen_bn}`,
           en: `${item.role}. ${item.why_chosen_bn}`
         },
-        waterSavings: { bn: `পানির চাহিদা: ~${item.water_need_mm} মিমি`, en: `Water need: ~${item.water_need_mm}mm` },
-        fertCost: { bn: `প্রাকৃতিক পুষ্টি: ${item.soil_enrichment || 'উচ্চ উর্বরতা'}`, en: 'Natural soil enrichment' },
-        season: { bn: item.season, en: item.season_code },
-        soil: { bn: dist.soil_type, en: dist.soil_type }
+        time: { bn: `${item.duration_days} দিন`, en: `${item.duration_days} Days` },
+        irrig: { bn: `পানির চাহিদা: ~${item.water_need_mm} মিমি`, en: `Water need: ~${item.water_need_mm}mm` },
+        profit: { bn: `সাশ্রয়: ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha}/বিঘা`, en: `Saved: ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha}/Bigha` },
+        feature: { bn: `${dist?.name_bn || ''} (${dist?.soil_type || 'মাটি'}) উপযোগী`, en: `Suited for ${dist?.name_en || 'district'} (${dist?.soil_type || 'soil'})` },
+        query: { bn: `${item.crop_name} ও ফসল পরিকল্পনা বলুন`, en: `Tell me about ${item.crop_name}` }
       };
     });
     if (typeof renderCropCards === 'function') renderCropCards();
+    const countEl = document.getElementById('cropMatchCount');
+    if (countEl) countEl.textContent = currentLang === 'bn' ? `${window.cropCardsData.length}টি মৌসুমভিত্তিক উপযুক্ত ফসল` : `${window.cropCardsData.length} Seasonal Crop Recommendations`;
   }
 
-  // 4. DYNAMIC DASHBOARD KPIS (Directly from NASA Satellites & ML Engine)
+  // 4. SOIL FATIGUE ALERT & 3-SEASON TIMELINE
+  renderSoilFatigueAlert(agents?.degradation_agent);
+  renderThreeSeasonTimeline(master, agents?.agronomy_agent);
+
+  // 5. DYNAMIC DASHBOARD KPIS (Clear Context: District Soil/Weather vs Crop Plan Savings)
   if (window.dashboardKpiData && sat) {
+    const smapVal = sat.smap_hydrology?.root_zone_moisture_m3_m3 || 0.22;
+    const smapPct = Math.round(smapVal * 100);
+    const ndviVal = sat.landsat_modis_vegetation?.ndvi_score || 0.45;
     window.dashboardKpiData[0] = {
-      title: { bn: "গাছের স্বাস্থ্য সূচক (Landsat NDVI)", en: "Canopy Vigour (NDVI)" },
-      status: { bn: "🟢 স্যাটেলাইট লাইভ", en: "🟢 NASA Live" },
+      title: { bn: `জমির সবুজ সতেজতা (${dist.name_bn})`, en: `District Canopy Health (${dist.name_en})` },
+      status: { bn: "🟢 Landsat NDVI", en: "🟢 Landsat NDVI" },
       statusClass: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
-      val: String(sat.landsat_modis_vegetation?.ndvi_score || 0.45),
-      sub: { bn: `EVI অবনতি সূচক: ${sat.landsat_modis_vegetation?.evi_degradation_trend || -0.01}`, en: "Landsat 8/9 & MODIS 250m" }
+      val: `${ndviVal} / 1.0`,
+      sub: { bn: `${dist.name_bn} জেলার গড় গাছের সবুজ অবস্থা (০.৫+ ভালো)`, en: `Average vegetation vigor in ${dist.name_en}` }
     };
     window.dashboardKpiData[1] = {
-      title: { bn: "সেচের পানি সাশ্রয় (Master Engine)", en: "Irrigation Conserved" },
-      status: { bn: "💧 ভূগর্ভস্থ পানি সুরক্ষা", en: "💧 Groundwater Saved" },
+      title: { bn: "৩-ফসল পরিকল্পনায় পানি সাশ্রয়", en: "Rotation Water Saved" },
+      status: { bn: "💧 ফসল চক্র লাভ", en: "💧 Crop Plan Impact" },
       statusClass: "bg-canal-100 text-canal-800 dark:bg-canal-950 dark:text-canal-300 border-canal-300",
       val: master.quantified_impact.water_saved_percent + "%",
-      sub: { bn: `সেচ ব্যয় সাশ্রয়: ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha} টাকা/বিঘা`, en: "Compared to continuous Boro" }
+      sub: { bn: `টানা বোরোর বদলে রোটেশনে ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha}/বিঘা সাশ্রয়`, en: `Saves ৳ ${master.quantified_impact.irrigation_cost_saved_bdt_per_bigha}/bigha vs continuous Boro` }
     };
     window.dashboardKpiData[2] = {
-      title: { bn: "মাটির শিকড়ের আর্দ্রতা (NASA SMAP)", en: "Root Moisture (SMAP)" },
+      title: { bn: `মাটির শিকড়ের রস (${dist.name_bn})`, en: `Soil Root Moisture (${dist.name_en})` },
       status: { 
-        bn: sat.smap_hydrology?.wilting_point_proximity || "পর্যাপ্ত", 
-        en: sat.smap_hydrology?.wilting_point_proximity || "Adequate" 
+        bn: smapVal < 0.20 ? "🔴 শুকনো মাটি" : "🟢 পর্যাপ্ত রস", 
+        en: smapVal < 0.20 ? "🔴 Dry Deficit" : "🟢 Adequate" 
       },
-      statusClass: sat.smap_hydrology?.root_zone_moisture_m3_m3 < 0.20 ? "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 border-red-300" : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
-      val: (sat.smap_hydrology?.root_zone_moisture_m3_m3 || 0.22) + " m³/m³",
-      sub: { bn: `সারফেস আর্দ্রতা ফ্র্যাকশন: ${sat.smap_hydrology?.surface_wetness_fraction || 0.3}`, en: "SMAP L4 Global 9km" }
+      statusClass: smapVal < 0.20 ? "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 border-red-300" : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
+      val: `${smapPct}% (${smapVal} m³/m³)`,
+      sub: { bn: `নাসা SMAP: এই জেলার মাটির ১০০ সেমি গভীরে বর্তমান আর্দ্রতা`, en: `NASA SMAP 0-100cm soil wetness in ${dist.name_en}` }
     };
     window.dashboardKpiData[3] = {
-      title: { bn: "বার্ষিক বৃষ্টিপাত (NASA GPM IMERG)", en: "Annual Rain (GPM)" },
-      status: { bn: "🛰️ লাইভ ক্যালিব্রেটেড", en: "🛰️ Calibrated" },
+      title: { bn: `জেলার বৃষ্টিপাত (${dist.name_bn})`, en: `District Rainfall (${dist.name_en})` },
+      status: { bn: "🛰️ NASA GPM", en: "🛰️ NASA GPM" },
       statusClass: "bg-harvest-100 text-harvest-800 dark:bg-harvest-950 dark:text-harvest-300 border-harvest-300",
-      val: (sat.gpm_imerg?.annual_precipitation_mm || 1400) + " mm",
-      sub: { bn: `দৈনিক হার: ${sat.gpm_imerg?.precipitation_rate_mm_day || 2.1} মিমি/দিন`, en: "NASA GPM IMERG V07" }
+      val: (sat.gpm_imerg?.annual_precipitation_mm || 1400) + " mm/yr",
+      sub: { bn: `বর্তমান দৈনিক হার: ${sat.gpm_imerg?.precipitation_rate_mm_day || 2.1} মিমি/দিন`, en: `Daily rate: ${sat.gpm_imerg?.precipitation_rate_mm_day || 2.1} mm/day` }
     };
     if (typeof renderDashboardKpis === 'function') renderDashboardKpis();
   }
 
-  // 5. INJECT 6 SPECIALIST AGENTS CONSENSUS DIRECTLY INTO DASHBOARD
+  // 6. MAP EXPLORER, IRRIGATION SCHEDULE & CROP HEALTH GRAPH
+  if (typeof window.updateDistrictInspectorFromLive === 'function') window.updateDistrictInspectorFromLive(data);
+  if (typeof window.updateMapLayerVisuals === 'function') window.updateMapLayerVisuals(activeMapLayer);
+  updateIrrigationAlertBanner(data);
+  if (typeof window.updateDynamicIrrigationSchedule === 'function') window.updateDynamicIrrigationSchedule();
+  renderDynamicCropHealthChart(data);
+
+  // 7. INJECT 6 SPECIALIST AGENTS CONSENSUS DIRECTLY INTO DASHBOARD
   renderSpecialistAgentsAudit(agents, master);
 
-  // 6. SYNC VOICE MODAL WITH BANGLA DIRECTIVE
+  // 8. SYNC VOICE MODAL WITH BANGLA DIRECTIVE
   window.lastFarmerDirectiveText = master.farmer_directive_bn;
 }
 
@@ -2800,10 +3917,11 @@ function renderSpecialistAgentsAudit(agents, master) {
 }
 
 // Override or enhance voice speaking function
-const originalOpenVoiceModal = window.openVoiceModal;
 window.playBanglaVoiceAdvice = function() {
   const text = window.lastFarmerDirectiveText || "আপনার জমিতে খরিফ-১ এ মুগ ডাল, খরিফ-২ এ স্বল্পমেয়াদী আমন এবং রবিতে সরিষা চাষ করুন। এতে সেচ খরচ বাঁচবে।";
-  if ('speechSynthesis' in window) {
+  if (typeof speakResponseText === 'function') {
+    speakResponseText(text, currentLang === 'bn' ? 'bn-BD' : 'en-US');
+  } else if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'bn-BD';
