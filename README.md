@@ -48,22 +48,64 @@ Raw JSON responses fetched directly from NASA's servers are stored in:
 
 ## 🚀 How to Run
 
-### 1. Requirements
-- Python 3.10+
-- Dependencies: `fastapi`, `uvicorn`, `pydantic` (already installed)
+### 1. Prerequisites
+- Python 3.10 or higher
+- Git
 
-### 2. (Optional) Re-fetch Live NASA Datasets
-To pull the freshest live telemetry directly from NASA servers:
+### 2. Set Up Virtual Environment
+
+It is recommended to use an isolated Python virtual environment:
+
+```bash
+# Navigate to project root directory
+cd Krishi-Bondhu-AI(models)
+
+# Create a virtual environment
+python3 -m venv .venv
+
+# Activate the virtual environment:
+# On Linux / macOS:
+source .venv/bin/activate
+# On Windows (PowerShell):
+# .venv\Scripts\Activate.ps1
+# On Windows (cmd.exe):
+# .venv\Scripts\activate.bat
+```
+
+> **Note for Debian/Ubuntu/Mint users:** If `python3 -m venv` reports missing `ensurepip`, install it via `sudo apt install python3-venv` or create with `python3 -m venv --without-pip .venv` followed by `curl -sS https://bootstrap.pypa.io/get-pip.py | python3`.
+
+### 3. Install Dependencies
+
+Install all required packages from `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+*(Packages include: `fastapi`, `uvicorn`, `pydantic`, `pandas`, `joblib`, `scikit-learn`)*
+
+### 4. (Optional) Re-fetch Live NASA Datasets
+To pull fresh live agro-climatic telemetry directly from NASA servers:
 ```bash
 python scripts/download_real_nasa_data.py
 ```
 
-### 3. Launch Web Application
+### 5. Launch Web Application
+
+Start the FastAPI and Uvicorn server:
 ```bash
 python -m uvicorn backend.main:app --reload --port 8000
 ```
-Open your browser and navigate to:
-👉 **`http://localhost:8000`**
+
+Once running, access the application in your browser:
+- 🌐 **Interactive Dashboard:** [http://localhost:8000](http://localhost:8000)
+- 📑 **API Documentation (Swagger UI):** [http://localhost:8000/docs](http://localhost:8000/docs)
+
+### 6. How to Stop the Application
+
+- **In the active terminal:** Press `Ctrl + C` to stop the Uvicorn server.
+- **Background / Detached process:** Run `pkill -f "uvicorn backend.main:app"`.
+- **Exit virtual environment:** Run `deactivate`.
 
 ---
 
